@@ -12,7 +12,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    //self.mapVC = [[MapViewController alloc] init];
+    //self.window.rootViewController = self.mapVC;
+    
+    //[self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 							

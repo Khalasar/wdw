@@ -1,0 +1,21 @@
+{
+    "routes": [
+        {
+            "title": "Tour 1",
+            "subtitle": "Standardrundgang",
+            "description": "Description",
+            "country": "Deutschland",
+            "region": "NRW",
+            "city": "Werne",
+            "type": "Rundgang",
+            "waypoints":[
+                "1",
+                "3",
+                "2",
+                "4",
+                "5",
+                "1"
+            ]
+        }
+    ]
+}

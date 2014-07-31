@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C30F747919767C3B00B7C8C1"
-               BuildableName = "AppleMaps.app"
-               BlueprintName = "AppleMaps"
-               ReferencedContainer = "container:AppleMaps.xcodeproj">
+               BuildableName = "WegDesWandels.app"
+               BlueprintName = "WegDesWandels"
+               ReferencedContainer = "container:WegDesWandels.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C30F749A19767C3B00B7C8C1"
-               BuildableName = "AppleMapsTests.xctest"
-               BlueprintName = "AppleMapsTests"
-               ReferencedContainer = "container:AppleMaps.xcodeproj">
+               BuildableName = "WegDesWandelsTests.xctest"
+               BlueprintName = "WegDesWandelsTests"
+               ReferencedContainer = "container:WegDesWandels.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C30F747919767C3B00B7C8C1"
-            BuildableName = "AppleMaps.app"
-            BlueprintName = "AppleMaps"
-            ReferencedContainer = "container:AppleMaps.xcodeproj">
+            BuildableName = "WegDesWandels.app"
+            BlueprintName = "WegDesWandels"
+            ReferencedContainer = "container:WegDesWandels.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C30F747919767C3B00B7C8C1"
-            BuildableName = "AppleMaps.app"
-            BlueprintName = "AppleMaps"
-            ReferencedContainer = "container:AppleMaps.xcodeproj">
+            BuildableName = "WegDesWandels.app"
+            BlueprintName = "WegDesWandels"
+            ReferencedContainer = "container:WegDesWandels.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +80,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C30F747919767C3B00B7C8C1"
-            BuildableName = "AppleMaps.app"
-            BlueprintName = "AppleMaps"
-            ReferencedContainer = "container:AppleMaps.xcodeproj">
+            BuildableName = "WegDesWandels.app"
+            BlueprintName = "WegDesWandels"
+            ReferencedContainer = "container:WegDesWandels.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

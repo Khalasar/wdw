@@ -1,0 +1,21 @@
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "8GR-hn-bRU"; */
+"8GR-hn-bRU.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Interesting Places"; ObjectID = "9E8-3V-EID"; */
+"9E8-3V-EID.normalTitle" = "Interesting Places";
+
+/* Class = "IBUILabel"; text = "Weg des Wandels"; ObjectID = "T9s-yJ-oG8"; */
+"T9s-yJ-oG8.text" = "Weg des Wandels";
+
+/* Class = "IBUITabBarItem"; title = "Favorites"; ObjectID = "VPI-gV-REj"; */
+"VPI-gV-REj.title" = "Favorites";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "XUq-pe-nTL"; */
+"XUq-pe-nTL.text" = "Label";
+
+/* Class = "IBUITabBarItem"; title = "Map"; ObjectID = "ZAk-Wo-hxV"; */
+"ZAk-Wo-hxV.title" = "Map";
+
+/* Class = "IBUITabBarItem"; title = "Home"; ObjectID = "ZfJ-JT-dYg"; */
+"ZfJ-JT-dYg.title" = "Home";

@@ -14,13 +14,31 @@
 		C30F748A19767C3B00B7C8C1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F748919767C3B00B7C8C1 /* main.m */; };
 		C30F748E19767C3B00B7C8C1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F748D19767C3B00B7C8C1 /* AppDelegate.m */; };
 		C30F749119767C3B00B7C8C1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C30F748F19767C3B00B7C8C1 /* Main.storyboard */; };
-		C30F749419767C3B00B7C8C1 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F749319767C3B00B7C8C1 /* ViewController.m */; };
 		C30F749619767C3B00B7C8C1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30F749519767C3B00B7C8C1 /* Images.xcassets */; };
 		C30F749D19767C3B00B7C8C1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F749C19767C3B00B7C8C1 /* XCTest.framework */; };
 		C30F749E19767C3B00B7C8C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F747D19767C3B00B7C8C1 /* Foundation.framework */; };
 		C30F749F19767C3B00B7C8C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F748119767C3B00B7C8C1 /* UIKit.framework */; };
 		C30F74A719767C3B00B7C8C1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C30F74A519767C3B00B7C8C1 /* InfoPlist.strings */; };
 		C30F74A919767C3B00B7C8C1 /* AppleMapsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F74A819767C3B00B7C8C1 /* AppleMapsTests.m */; };
+		C30F74B319767C8500B7C8C1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F74B219767C8500B7C8C1 /* MapKit.framework */; };
+		C30F74B519767C9000B7C8C1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F74B419767C9000B7C8C1 /* CoreLocation.framework */; };
+		C30F74BB19767DA100B7C8C1 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C30F74BA19767DA100B7C8C1 /* MapViewController.m */; };
+		C336C78E197A905500DE217F /* routes.json in Resources */ = {isa = PBXBuildFile; fileRef = C336C78D197A905500DE217F /* routes.json */; };
+		C336C7A6197C0B9B00DE217F /* RoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C336C7A5197C0B9A00DE217F /* RoutesViewController.m */; };
+		C336C7AA197C0D5D00DE217F /* ControllerHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C336C7A9197C0D5D00DE217F /* ControllerHelper.m */; };
+		C336C7AD197C0FA100DE217F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = C336C7AC197C0FA100DE217F /* Route.m */; };
+		C342129C19854C4A001D826C /* OldRoute.m in Sources */ = {isa = PBXBuildFile; fileRef = C342129B19854C4A001D826C /* OldRoute.m */; };
+		C34212A119854E20001D826C /* Route1.plist in Resources */ = {isa = PBXBuildFile; fileRef = C342129D19854E20001D826C /* Route1.plist */; };
+		C34212A219854E20001D826C /* Route2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C342129E19854E20001D826C /* Route2.plist */; };
+		C34212A319854E20001D826C /* Route3.plist in Resources */ = {isa = PBXBuildFile; fileRef = C342129F19854E20001D826C /* Route3.plist */; };
+		C34212A419854E20001D826C /* Route4.plist in Resources */ = {isa = PBXBuildFile; fileRef = C34212A019854E20001D826C /* Route4.plist */; };
+		C37553011979022000B9A1B6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37553001979022000B9A1B6 /* MainViewController.m */; };
+		C3755304197910FE00B9A1B6 /* PlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3755303197910FE00B9A1B6 /* PlacesTableViewController.m */; };
+		C3755307197919B600B9A1B6 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3755306197919B600B9A1B6 /* PlaceViewController.m */; };
+		C375530F19792CB100B9A1B6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = C375530E19792CB100B9A1B6 /* Place.m */; };
+		C392F9001976F142002C8D9C /* places.json in Resources */ = {isa = PBXBuildFile; fileRef = C392F8FF1976F142002C8D9C /* places.json */; };
+		C3E99A79198103B10040F176 /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E99A78198103B10040F176 /* RouteViewController.m */; };
+		C3F7C1B2198A6E9F00582044 /* test.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C3F7C1B1198A6E9F00582044 /* test.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,25 +52,52 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C30F747A19767C3B00B7C8C1 /* AppleMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppleMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30F747A19767C3B00B7C8C1 /* WegDesWandels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WegDesWandels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30F747D19767C3B00B7C8C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C30F747F19767C3B00B7C8C1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C30F748119767C3B00B7C8C1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		C30F748519767C3B00B7C8C1 /* AppleMaps-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppleMaps-Info.plist"; sourceTree = "<group>"; };
+		C30F748519767C3B00B7C8C1 /* WegDesWandels-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WegDesWandels-Info.plist"; sourceTree = "<group>"; };
 		C30F748719767C3B00B7C8C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C30F748919767C3B00B7C8C1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		C30F748B19767C3B00B7C8C1 /* AppleMaps-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppleMaps-Prefix.pch"; sourceTree = "<group>"; };
+		C30F748B19767C3B00B7C8C1 /* WegDesWandels-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WegDesWandels-Prefix.pch"; sourceTree = "<group>"; };
 		C30F748C19767C3B00B7C8C1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C30F748D19767C3B00B7C8C1 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C30F749019767C3B00B7C8C1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C30F749219767C3B00B7C8C1 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C30F749319767C3B00B7C8C1 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C30F749519767C3B00B7C8C1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		C30F749B19767C3B00B7C8C1 /* AppleMapsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppleMapsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C30F749B19767C3B00B7C8C1 /* WegDesWandelsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WegDesWandelsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30F749C19767C3B00B7C8C1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		C30F74A419767C3B00B7C8C1 /* AppleMapsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AppleMapsTests-Info.plist"; sourceTree = "<group>"; };
+		C30F74A419767C3B00B7C8C1 /* WegDesWandelsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WegDesWandelsTests-Info.plist"; sourceTree = "<group>"; };
 		C30F74A619767C3B00B7C8C1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C30F74A819767C3B00B7C8C1 /* AppleMapsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppleMapsTests.m; sourceTree = "<group>"; };
+		C30F74B219767C8500B7C8C1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C30F74B419767C9000B7C8C1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C30F74B919767DA100B7C8C1 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MapViewController.h; path = ../MapViewController.h; sourceTree = "<group>"; };
+		C30F74BA19767DA100B7C8C1 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MapViewController.m; path = ../MapViewController.m; sourceTree = "<group>"; };
+		C336C78D197A905500DE217F /* routes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = routes.json; sourceTree = "<group>"; };
+		C336C7A4197C0B9A00DE217F /* RoutesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutesViewController.h; sourceTree = "<group>"; };
+		C336C7A5197C0B9A00DE217F /* RoutesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutesViewController.m; sourceTree = "<group>"; };
+		C336C7A8197C0D5D00DE217F /* ControllerHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ControllerHelper.h; sourceTree = "<group>"; };
+		C336C7A9197C0D5D00DE217F /* ControllerHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ControllerHelper.m; sourceTree = "<group>"; };
+		C336C7AB197C0FA100DE217F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
+		C336C7AC197C0FA100DE217F /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		C342129A19854C4A001D826C /* OldRoute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldRoute.h; sourceTree = "<group>"; };
+		C342129B19854C4A001D826C /* OldRoute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldRoute.m; sourceTree = "<group>"; };
+		C342129D19854E20001D826C /* Route1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route1.plist; sourceTree = "<group>"; };
+		C342129E19854E20001D826C /* Route2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route2.plist; sourceTree = "<group>"; };
+		C342129F19854E20001D826C /* Route3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route3.plist; sourceTree = "<group>"; };
+		C34212A019854E20001D826C /* Route4.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route4.plist; sourceTree = "<group>"; };
+		C37552FF1979022000B9A1B6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		C37553001979022000B9A1B6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		C3755302197910FE00B9A1B6 /* PlacesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlacesTableViewController.h; sourceTree = "<group>"; };
+		C3755303197910FE00B9A1B6 /* PlacesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlacesTableViewController.m; sourceTree = "<group>"; };
+		C3755305197919B600B9A1B6 /* PlaceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceViewController.h; sourceTree = "<group>"; };
+		C3755306197919B600B9A1B6 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
+		C375530D19792CB100B9A1B6 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		C375530E19792CB100B9A1B6 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		C392F8FF1976F142002C8D9C /* places.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = places.json; sourceTree = "<group>"; };
+		C3E99A77198103B10040F176 /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
+		C3E99A78198103B10040F176 /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
+		C3F7C1B1198A6E9F00582044 /* test.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = test.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +105,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C30F74B519767C9000B7C8C1 /* CoreLocation.framework in Frameworks */,
+				C30F74B319767C8500B7C8C1 /* MapKit.framework in Frameworks */,
 				C30F748019767C3B00B7C8C1 /* CoreGraphics.framework in Frameworks */,
 				C30F748219767C3B00B7C8C1 /* UIKit.framework in Frameworks */,
 				C30F747E19767C3B00B7C8C1 /* Foundation.framework in Frameworks */,
@@ -82,7 +129,7 @@
 		C30F747119767C3B00B7C8C1 = {
 			isa = PBXGroup;
 			children = (
-				C30F748319767C3B00B7C8C1 /* AppleMaps */,
+				C30F748319767C3B00B7C8C1 /* WegdesWandels */,
 				C30F74A219767C3B00B7C8C1 /* AppleMapsTests */,
 				C30F747C19767C3B00B7C8C1 /* Frameworks */,
 				C30F747B19767C3B00B7C8C1 /* Products */,
@@ -92,8 +139,8 @@
 		C30F747B19767C3B00B7C8C1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C30F747A19767C3B00B7C8C1 /* AppleMaps.app */,
-				C30F749B19767C3B00B7C8C1 /* AppleMapsTests.xctest */,
+				C30F747A19767C3B00B7C8C1 /* WegDesWandels.app */,
+				C30F749B19767C3B00B7C8C1 /* WegDesWandelsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,6 +148,8 @@
 		C30F747C19767C3B00B7C8C1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C30F74B419767C9000B7C8C1 /* CoreLocation.framework */,
+				C30F74B219767C8500B7C8C1 /* MapKit.framework */,
 				C30F747D19767C3B00B7C8C1 /* Foundation.framework */,
 				C30F747F19767C3B00B7C8C1 /* CoreGraphics.framework */,
 				C30F748119767C3B00B7C8C1 /* UIKit.framework */,
@@ -109,27 +158,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		C30F748319767C3B00B7C8C1 /* AppleMaps */ = {
+		C30F748319767C3B00B7C8C1 /* WegdesWandels */ = {
 			isa = PBXGroup;
 			children = (
+				C336C7A7197C0D1800DE217F /* Helper */,
+				C375530C19792C4F00B9A1B6 /* Model */,
+				C375530B19792C2F00B9A1B6 /* TableViewController */,
+				C375530A19792C1200B9A1B6 /* ViewController */,
+				C3BDFE131981379F00D5A6AE /* JSON */,
 				C30F748C19767C3B00B7C8C1 /* AppDelegate.h */,
 				C30F748D19767C3B00B7C8C1 /* AppDelegate.m */,
 				C30F748F19767C3B00B7C8C1 /* Main.storyboard */,
-				C30F749219767C3B00B7C8C1 /* ViewController.h */,
-				C30F749319767C3B00B7C8C1 /* ViewController.m */,
 				C30F749519767C3B00B7C8C1 /* Images.xcassets */,
 				C30F748419767C3B00B7C8C1 /* Supporting Files */,
 			);
+			name = WegdesWandels;
 			path = AppleMaps;
 			sourceTree = "<group>";
 		};
 		C30F748419767C3B00B7C8C1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C30F748519767C3B00B7C8C1 /* AppleMaps-Info.plist */,
+				C3F7C1B1198A6E9F00582044 /* test.bundle */,
+				C30F748519767C3B00B7C8C1 /* WegDesWandels-Info.plist */,
 				C30F748619767C3B00B7C8C1 /* InfoPlist.strings */,
 				C30F748919767C3B00B7C8C1 /* main.m */,
-				C30F748B19767C3B00B7C8C1 /* AppleMaps-Prefix.pch */,
+				C30F748B19767C3B00B7C8C1 /* WegDesWandels-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -146,18 +200,79 @@
 		C30F74A319767C3B00B7C8C1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C30F74A419767C3B00B7C8C1 /* AppleMapsTests-Info.plist */,
+				C30F74A419767C3B00B7C8C1 /* WegDesWandelsTests-Info.plist */,
 				C30F74A519767C3B00B7C8C1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		C336C7A7197C0D1800DE217F /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C336C7A8197C0D5D00DE217F /* ControllerHelper.h */,
+				C336C7A9197C0D5D00DE217F /* ControllerHelper.m */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		C375530A19792C1200B9A1B6 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C30F74B919767DA100B7C8C1 /* MapViewController.h */,
+				C30F74BA19767DA100B7C8C1 /* MapViewController.m */,
+				C3755305197919B600B9A1B6 /* PlaceViewController.h */,
+				C3755306197919B600B9A1B6 /* PlaceViewController.m */,
+				C37552FF1979022000B9A1B6 /* MainViewController.h */,
+				C37553001979022000B9A1B6 /* MainViewController.m */,
+				C3E99A77198103B10040F176 /* RouteViewController.h */,
+				C3E99A78198103B10040F176 /* RouteViewController.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		C375530B19792C2F00B9A1B6 /* TableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				C3755302197910FE00B9A1B6 /* PlacesTableViewController.h */,
+				C3755303197910FE00B9A1B6 /* PlacesTableViewController.m */,
+				C336C7A4197C0B9A00DE217F /* RoutesViewController.h */,
+				C336C7A5197C0B9A00DE217F /* RoutesViewController.m */,
+			);
+			name = TableViewController;
+			sourceTree = "<group>";
+		};
+		C375530C19792C4F00B9A1B6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C375530D19792CB100B9A1B6 /* Place.h */,
+				C375530E19792CB100B9A1B6 /* Place.m */,
+				C336C7AB197C0FA100DE217F /* Route.h */,
+				C336C7AC197C0FA100DE217F /* Route.m */,
+				C342129A19854C4A001D826C /* OldRoute.h */,
+				C342129B19854C4A001D826C /* OldRoute.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C3BDFE131981379F00D5A6AE /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				C342129D19854E20001D826C /* Route1.plist */,
+				C342129E19854E20001D826C /* Route2.plist */,
+				C342129F19854E20001D826C /* Route3.plist */,
+				C34212A019854E20001D826C /* Route4.plist */,
+				C392F8FF1976F142002C8D9C /* places.json */,
+				C336C78D197A905500DE217F /* routes.json */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C30F747919767C3B00B7C8C1 /* AppleMaps */ = {
+		C30F747919767C3B00B7C8C1 /* WegDesWandels */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C30F74AC19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "AppleMaps" */;
+			buildConfigurationList = C30F74AC19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "WegDesWandels" */;
 			buildPhases = (
 				C30F747619767C3B00B7C8C1 /* Sources */,
 				C30F747719767C3B00B7C8C1 /* Frameworks */,
@@ -167,14 +282,14 @@
 			);
 			dependencies = (
 			);
-			name = AppleMaps;
+			name = WegDesWandels;
 			productName = AppleMaps;
-			productReference = C30F747A19767C3B00B7C8C1 /* AppleMaps.app */;
+			productReference = C30F747A19767C3B00B7C8C1 /* WegDesWandels.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C30F749A19767C3B00B7C8C1 /* AppleMapsTests */ = {
+		C30F749A19767C3B00B7C8C1 /* WegDesWandelsTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C30F74AF19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "AppleMapsTests" */;
+			buildConfigurationList = C30F74AF19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "WegDesWandelsTests" */;
 			buildPhases = (
 				C30F749719767C3B00B7C8C1 /* Sources */,
 				C30F749819767C3B00B7C8C1 /* Frameworks */,
@@ -185,9 +300,9 @@
 			dependencies = (
 				C30F74A119767C3B00B7C8C1 /* PBXTargetDependency */,
 			);
-			name = AppleMapsTests;
+			name = WegDesWandelsTests;
 			productName = AppleMapsTests;
-			productReference = C30F749B19767C3B00B7C8C1 /* AppleMapsTests.xctest */;
+			productReference = C30F749B19767C3B00B7C8C1 /* WegDesWandelsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -204,21 +319,54 @@
 					};
 				};
 			};
-			buildConfigurationList = C30F747519767C3B00B7C8C1 /* Build configuration list for PBXProject "AppleMaps" */;
+			buildConfigurationList = C30F747519767C3B00B7C8C1 /* Build configuration list for PBXProject "WegDesWandels" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ar,
+				ca,
+				cs,
+				da,
+				de,
+				el,
+				en_GB,
+				es,
+				fi,
+				fr,
+				he,
+				hr,
+				hu,
+				id,
+				it,
+				ja,
+				ko,
+				ms,
+				nl,
+				no,
+				pl,
+				pt,
+				pt_PT,
+				ro,
+				ru,
+				sk,
+				sv,
+				th,
+				tr,
+				uk,
+				vi,
+				zh_CN,
+				zh_TW,
 			);
 			mainGroup = C30F747119767C3B00B7C8C1;
 			productRefGroup = C30F747B19767C3B00B7C8C1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C30F747919767C3B00B7C8C1 /* AppleMaps */,
-				C30F749A19767C3B00B7C8C1 /* AppleMapsTests */,
+				C30F747919767C3B00B7C8C1 /* WegDesWandels */,
+				C30F749A19767C3B00B7C8C1 /* WegDesWandelsTests */,
 			);
 		};
 /* End PBXProject section */
@@ -228,9 +376,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C336C78E197A905500DE217F /* routes.json in Resources */,
 				C30F749619767C3B00B7C8C1 /* Images.xcassets in Resources */,
+				C392F9001976F142002C8D9C /* places.json in Resources */,
+				C3F7C1B2198A6E9F00582044 /* test.bundle in Resources */,
+				C34212A419854E20001D826C /* Route4.plist in Resources */,
+				C34212A219854E20001D826C /* Route2.plist in Resources */,
+				C34212A119854E20001D826C /* Route1.plist in Resources */,
 				C30F748819767C3B00B7C8C1 /* InfoPlist.strings in Resources */,
 				C30F749119767C3B00B7C8C1 /* Main.storyboard in Resources */,
+				C34212A319854E20001D826C /* Route3.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,9 +404,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C30F749419767C3B00B7C8C1 /* ViewController.m in Sources */,
 				C30F748E19767C3B00B7C8C1 /* AppDelegate.m in Sources */,
+				C336C7AA197C0D5D00DE217F /* ControllerHelper.m in Sources */,
+				C3E99A79198103B10040F176 /* RouteViewController.m in Sources */,
+				C336C7A6197C0B9B00DE217F /* RoutesViewController.m in Sources */,
+				C3755304197910FE00B9A1B6 /* PlacesTableViewController.m in Sources */,
+				C336C7AD197C0FA100DE217F /* Route.m in Sources */,
 				C30F748A19767C3B00B7C8C1 /* main.m in Sources */,
+				C342129C19854C4A001D826C /* OldRoute.m in Sources */,
+				C3755307197919B600B9A1B6 /* PlaceViewController.m in Sources */,
+				C37553011979022000B9A1B6 /* MainViewController.m in Sources */,
+				C30F74BB19767DA100B7C8C1 /* MapViewController.m in Sources */,
+				C375530F19792CB100B9A1B6 /* Place.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,7 +432,7 @@
 /* Begin PBXTargetDependency section */
 		C30F74A119767C3B00B7C8C1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C30F747919767C3B00B7C8C1 /* AppleMaps */;
+			target = C30F747919767C3B00B7C8C1 /* WegDesWandels */;
 			targetProxy = C30F74A019767C3B00B7C8C1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -378,10 +542,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Downloads/GoogleMaps-iOS-1.8-2.1",
+					"$(PROJECT_DIR)/Downloads/GoogleMaps-iOS-1.8-2.1/GoogleMapsSDKDemos",
+					"$(PROJECT_DIR)/Downloads/GoogleMaps-iOS-1.8.1/GoogleMapsSDKDemos",
+					"$(PROJECT_DIR)/Downloads/GoogleMapsChallenges",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AppleMaps/AppleMaps-Prefix.pch";
-				INFOPLIST_FILE = "AppleMaps/AppleMaps-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "AppleMaps/WegDesWandels-Prefix.pch";
+				INFOPLIST_FILE = "AppleMaps/WegDesWandels-Info.plist";
+				PRODUCT_NAME = WegDesWandels;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -391,10 +562,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Downloads/GoogleMaps-iOS-1.8-2.1",
+					"$(PROJECT_DIR)/Downloads/GoogleMaps-iOS-1.8-2.1/GoogleMapsSDKDemos",
+					"$(PROJECT_DIR)/Downloads/GoogleMaps-iOS-1.8.1/GoogleMapsSDKDemos",
+					"$(PROJECT_DIR)/Downloads/GoogleMapsChallenges",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AppleMaps/AppleMaps-Prefix.pch";
-				INFOPLIST_FILE = "AppleMaps/AppleMaps-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "AppleMaps/WegDesWandels-Prefix.pch";
+				INFOPLIST_FILE = "AppleMaps/WegDesWandels-Info.plist";
+				PRODUCT_NAME = WegDesWandels;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -414,8 +592,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "AppleMapsTests/AppleMapsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "AppleMapsTests/WegDesWandelsTests-Info.plist";
+				PRODUCT_NAME = WegDesWandelsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -432,8 +610,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "AppleMaps/AppleMaps-Prefix.pch";
-				INFOPLIST_FILE = "AppleMapsTests/AppleMapsTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "AppleMapsTests/WegDesWandelsTests-Info.plist";
+				PRODUCT_NAME = WegDesWandelsTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -442,7 +620,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C30F747519767C3B00B7C8C1 /* Build configuration list for PBXProject "AppleMaps" */ = {
+		C30F747519767C3B00B7C8C1 /* Build configuration list for PBXProject "WegDesWandels" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C30F74AA19767C3B00B7C8C1 /* Debug */,
@@ -451,21 +629,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C30F74AC19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "AppleMaps" */ = {
+		C30F74AC19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "WegDesWandels" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C30F74AD19767C3B00B7C8C1 /* Debug */,
 				C30F74AE19767C3B00B7C8C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		C30F74AF19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "AppleMapsTests" */ = {
+		C30F74AF19767C3B00B7C8C1 /* Build configuration list for PBXNativeTarget "WegDesWandelsTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C30F74B019767C3B00B7C8C1 /* Debug */,
 				C30F74B119767C3B00B7C8C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
