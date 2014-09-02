@@ -14,4 +14,6 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) MapViewController *mapVC;
 
+@property (copy, nonatomic) void (^backgroundSessionCompletionHandler)();
+
 @end

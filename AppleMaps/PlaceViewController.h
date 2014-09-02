@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Place.h"
 
-@interface PlaceViewController : UIViewController
+@interface PlaceViewController : UIViewController <UIScrollViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (strong, nonatomic) Place *place;
 @property (strong, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
 @end

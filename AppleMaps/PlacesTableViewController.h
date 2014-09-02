@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Place.h"
 
-@interface PlacesTableViewController : UITableViewController
+@interface PlacesTableViewController : UITableViewController <UISearchBarDelegate, UISearchDisplayDelegate>
 
-@property(strong, nonatomic)NSDictionary *places;
+@property(strong, nonatomic)NSArray *places;
 
 
 @end

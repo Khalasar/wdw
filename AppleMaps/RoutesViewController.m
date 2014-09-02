@@ -7,12 +7,15 @@
 //
 
 #import "RoutesViewController.h"
-#import "ControllerHelper.h"
+#import "Helper.h"
 #import "Route.h"
 #import "RouteViewController.h"
+#import "MCLocalization.h"
+#import "FXBlurView.h"
 
 @interface RoutesViewController ()
-
+@property (strong, nonatomic) UIImageView *backgroundImageView;
+@property (strong, nonatomic) FXBlurView *blurView;
 @end
 
 @implementation RoutesViewController
@@ -28,20 +31,47 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
+    [super viewDidLoad];    
+    self.routes = [Helper readJSONFile:@"routes"];
     
-    self.routes = [ControllerHelper readJSONFile:@"routes"];
-    NSLog(@"first: %@", self.routes);
+    [self addBackgroundImageView];
     
     self.routesTableView.delegate = self;
     self.routesTableView.dataSource = self;
     [self.routesTableView reloadData];
 }
 
-- (void)didReceiveMemoryWarning
+- (void) addBackgroundImageView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:
+                                [UIImage imageNamed:@"background3.jpg"]];
+    [self.backgroundImageView setFrame:self.view.bounds];
+    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview: self.backgroundImageView];
+    
+    self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view sendSubviewToBack:self.backgroundImageView];
+    [self.view sendSubviewToBack:self.blurView];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self orientationChanged:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+    
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    self.backgroundImageView.frame = self.view.bounds;
+    self.blurView.frame = self.backgroundImageView.bounds;
+    UIView *shadowView = [self.view viewWithTag:1];
+    shadowView.frame = self.backgroundImageView.bounds;
 }
 
 #pragma mark - Table view data source
@@ -55,8 +85,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    NSLog(@"testest: %@", self.routes);
-    return [[self.routes objectForKey:@"routes"] count];
+    return [self.routes count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,49 +99,11 @@
                                       reuseIdentifier:CellIdentifier];
     }
     
-    Route *route = [[Route alloc] initWithRouteDictionary:self.routes[@"routes"][indexPath.row]];
-    cell.textLabel.text = route.name;
+    Route *route = [[Route alloc] initWithRouteDictionary:self.routes[indexPath.row]];
+    cell.textLabel.text = [MCLocalization stringForKey:route.name];
     
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Navigation
 
@@ -123,7 +114,7 @@
         NSIndexPath *indexPath = [self.routesTableView indexPathForCell:sender];
         
         Route *route =
-            [[Route alloc] initWithRouteDictionary:self.routes[@"routes"][indexPath.row]];
+            [[Route alloc] initWithRouteDictionary:self.routes[indexPath.row]];
         
         if ([segue.destinationViewController isKindOfClass:[RouteViewController class]]) {
             RouteViewController *rvc = [segue destinationViewController];

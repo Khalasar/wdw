@@ -11,12 +11,15 @@
 
 @interface Place : NSObject <MKAnnotation>
 
-@property(strong, nonatomic) NSString* name;
 - (instancetype) initWithPlaceDictionary:(NSDictionary *) placeDictionary;
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *subtitle;
-@property (strong, nonatomic) NSString *routeID;
+@property (strong, nonatomic) NSString *placeID;
+@property (nonatomic) int imageCount;
+- (NSString *) loadBodyText;
+
+- (NSArray *) loadImages;
 
 @end

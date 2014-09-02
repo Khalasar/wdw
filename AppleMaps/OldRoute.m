@@ -67,7 +67,7 @@
     CLLocationCoordinate2D coordinatePlacesArray[6];
     int i = 0;
     
-    NSLog(@"zahle: %d", self.waypointPlacesArray.count);
+    NSLog(@"zahle: %lu", (unsigned long)self.waypointPlacesArray.count);
     for (NSString *waypointID in self.waypointsArray) {
         Place *place = [[Place alloc] initWithPlaceDictionary:placesDict[waypointID]];
         [self.mapView addAnnotation:place];

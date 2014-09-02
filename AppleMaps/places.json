@@ -1,47 +1,123 @@
-{
-    "1": {
-        "id": 1,
-        "title": "Musuem Werne",
+[
+    {
+        "id": "1",
+        "title": "PLACE_NRW_WERNE_TITLE_1",
         "lat": 51.663415,
         "lng": 7.634325,
-        "subtitle": "Short description of Musuem Werne."
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_1",
+        "images_count": 0
+ 
     },
-    "2": {
-        "id": 2,
-        "title": "Place 2",
-        "lat": 51.663495,
-        "lng": 7.63568,
-        "subtitle": "This is place 2."
+    {
+        "id": "2",
+        "title": "PLACE_NRW_WERNE_TITLE_2",
+        "lat": 51.66337066886824,
+        "lng": 7.634391635656357,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_2",
+        "images_count": 9
     },
-    "3": {
-        "id": 3,
-        "title": "Place 3",
-        "lat": 51.662461,
-        "lng": 7.63553,
-        "subtitle": "This is place 2."
+    {
+        "id": "3",
+        "title": "PLACE_NRW_WERNE_TITLE_3",
+        "lat": 51.663184331592404,
+        "lng": 7.6343125104904175,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_3",
+        "images_count": 7
     },
-    "4": {
-        "id": 4,
-        "title": "Place 4",
-        "lat": 51.66272,
-        "lng": 7.635605,
-        "subtitle": "This is place 2.",
-        "images": [
-            {
-                "id": "4_1",
-                "description": ""
-            },
-            {
-                "id": "4_2",
-                "description": ""
-            }
-        ]
+    {
+        "id": "4",
+        "title": "PLACE_NRW_WERNE_TITLE_4",
+        "lat": 51.66308866706826,
+        "lng": 7.634458690881729,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_4",
+        "images_count": 25
     },
-    "5": {
-        "id": 5,
-        "title": "Place 5",
-        "lat": 51.662198,
-        "lng": 7.634447,
-        "subtitle": "This is place 2."
+    {
+        "id": "5",
+        "title": "PLACE_NRW_WERNE_TITLE_5",
+        "lat": 51.662928532521455,
+        "lng": 7.63522781431675,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_5",
+        "images_count": 13
+    },
+    {
+        "id": "6",
+        "title": "PLACE_NRW_WERNE_TITLE_6",
+        "lat": 51.66274011374558,
+        "lng": 7.635494023561478,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_6",
+        "images_count": 12
+    },
+    {
+        "id": "7",
+        "title": "PLACE_NRW_WERNE_TITLE_7",
+        "lat": 51.662605350167,
+        "lng": 7.635473906993866,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_7",
+        "images_count": 0
+    },
+    {
+        "id": "8",
+        "title": "PLACE_NRW_WERNE_TITLE_8",
+        "lat": 51.662023033799805,
+        "lng": 7.633529305458069,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_8",
+        "images_count": 1
+    },
+    {
+        "id": "9",
+        "title": "PLACE_NRW_WERNE_TITLE_9",
+        "lat": 51.66183086775636,
+        "lng": 7.6330626010894775,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_9",
+        "images_count": 7
+    },
+    {
+        "id": "10",
+        "title": "PLACE_NRW_WERNE_TITLE_10",
+        "lat": 51.66147731338283,
+        "lng": 7.634160965681076,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_10",
+        "images_count": 6
+    },
+    {
+        "id": "11",
+        "title": "PLACE_NRW_WERNE_TITLE_11",
+        "lat": 51.66175433386711,
+        "lng": 7.636278569698334,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_11",
+        "images_count": 6
+    },
+    {
+        "id": "12",
+        "title": "PLACE_NRW_WERNE_TITLE_12",
+        "lat": 51.66350792574649,
+        "lng": 7.636566907167435,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_12",
+        "images_count": 11
+    },
+    {
+        "id": "13",
+        "title": "PLACE_NRW_WERNE_TITLE_13",
+        "lat": 51.66065081727942,
+        "lng": 7.632351815700531,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_13",
+        "images_count": 11
+    },
+    {
+        "id": "14",
+        "title": "PLACE_NRW_WERNE_TITLE_14",
+        "lat": 51.509717,
+        "lng": 6.833797,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_14",
+        "images_count": 0
+    },
+    {
+        "id": "15",
+        "title": "PLACE_NRW_WERNE_TITLE_15",
+        "lat": 51.507354,
+        "lng": 6.830342,
+        "subtitle": "PLACE_NRW_WERNE_SUBTITLE_15",
+        "images_count": 0
     }
-}
+]

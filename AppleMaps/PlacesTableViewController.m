@@ -8,13 +8,21 @@
 
 #import "PlacesTableViewController.h"
 #import "PlaceViewController.h"
-#import "ControllerHelper.h"
+#import "Helper.h"
+#import "MCLocalization.h"
+#import "FXBlurView.h"
 
 @interface PlacesTableViewController ()
-@property(strong,nonatomic) NSArray *placesArray;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (strong, nonatomic) NSMutableArray *filteredPlaces;
+@property (strong,nonatomic) NSArray *placesArray;
+@property (strong, nonatomic)FXBlurView *blurView;
+@property (strong, nonatomic)UIImageView *backgroundImageView;
 @end
 
 @implementation PlacesTableViewController
+
+#define PLACES_JSON @"places"
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -25,31 +33,64 @@
     return self;
 }
 
+// TODO Refactor this method
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"All Places"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
-
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self addBackgroundImageView];
     
-    self.places = [ControllerHelper readJSONFile:@"places"];
-    self.placesArray = [self.places allValues];
+    self.navigationItem.backBarButtonItem =
+        [[UIBarButtonItem alloc] initWithTitle:@"All Places"
+                                         style:UIBarButtonItemStylePlain
+                                        target:nil
+                                        action:nil];
+    
+    if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
+        self.places = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
+    }else{
+        //self.places = [Helper readJSONFile:@"places"];
+    }
     
     self.title = @"Places";
+    
+    self.placesArray = [Helper getPlacesArray:self.places];
+    self.filteredPlaces = [NSMutableArray arrayWithCapacity:self.placesArray.count];
+
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-- (void)didReceiveMemoryWarning
+- (void) addBackgroundImageView
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:
+                                [UIImage imageNamed:@"backgroundImage2.jpg"]];
+    [self.backgroundImageView setFrame:self.tableView.frame];
+    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.tableView.backgroundView = self.backgroundImageView;
+    
+    self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
+}
+
+- (void)orientationChanged:(NSNotification *)notification
+{
+    self.backgroundImageView.frame = self.tableView.frame;
+    self.blurView.frame = self.backgroundImageView.bounds;
+    UIView *shadowView = [self.view viewWithTag:1];
+    shadowView.frame = self.backgroundImageView.bounds;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view sendSubviewToBack:self.blurView];
+    [self orientationChanged:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(orientationChanged:)
+                                                 name:UIDeviceOrientationDidChangeNotification
+                                               object:nil];
+
 }
 
 #pragma mark - Table view data source
@@ -60,78 +101,62 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section
 {
-// Return the number of rows in the section.
-    return [self.places count];
+    // Check to see whether the normal table or search results table is being displayed and return the count from the appropriate array
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [self.filteredPlaces count];
+    } else {
+        return [self.placesArray count];
+    }
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"aPlaceCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier
-                                                            forIndexPath:indexPath];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
     }
     
-    Place *place = [[Place alloc] initWithPlaceDictionary: self.placesArray[indexPath.row]];
-    cell.textLabel.text = place.name;
+    Place *place;
+    // Check to see whether the normal table or search results table is being displayed and set the Candy object from the appropriate array
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        place = [self.filteredPlaces objectAtIndex:indexPath.row];
+    } else {
+        place = [self.placesArray objectAtIndex:indexPath.row];
+    }
+
+    //Place *place = [[Place alloc] initWithPlaceDictionary: self.places[indexPath.row]];
+    cell.textLabel.text = [MCLocalization stringForKey:place.title];
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)prepareForSegue:(UIStoryboardSegue *)segue
+                 sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"nameCellPressed"]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
+       // NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
         
-        Place *place = [[Place alloc] initWithPlaceDictionary:self.placesArray[indexPath.row]];
+        Place *place;// = [[Place alloc] initWithPlaceDictionary: self.places[indexPath.row]];
+        if (self.searchDisplayController.active) {
+             NSIndexPath *indexPath = [self.searchDisplayController.searchResultsTableView indexPathForSelectedRow];
+            place = [self.filteredPlaces objectAtIndex:indexPath.row];
+        } else {
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            place = [self.placesArray objectAtIndex:indexPath.row];
+        }
         
         if ([segue.destinationViewController isKindOfClass:[PlaceViewController class]]) {
             PlaceViewController *pvc = [segue destinationViewController];
@@ -140,5 +165,47 @@
     }
 }
 
+#pragma mark - Content filtering
+
+-(void)filterContentForSearchText:(NSString*)searchText
+                            scope:(NSString*)scope {
+    // Update the filtered array based on the search text and scope.
+    // Remove all objects from the filtered search array
+    [self.filteredPlaces removeAllObjects];
+    // Filter the array using NSPredicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.title contains[c] %@",searchText];
+    self.filteredPlaces = [NSMutableArray arrayWithArray:[self.placesArray filteredArrayUsingPredicate:predicate]];
+}
+
+
+#pragma mark - UISearchDisplayController Delegate Methods
+- (BOOL) searchDisplayController:(UISearchDisplayController *)controller
+shouldReloadTableForSearchString:(NSString *)searchString
+{
+    // Tells the table data source to reload when text changes
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+-(BOOL) searchDisplayController:(UISearchDisplayController *)controller
+shouldReloadTableForSearchScope:(NSInteger)searchOption
+{
+    // Tells the table data source to reload when scope bar selection changes
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+-(void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
 @end

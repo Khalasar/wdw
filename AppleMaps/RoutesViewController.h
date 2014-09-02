@@ -10,7 +10,7 @@
 
 @interface RoutesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property(strong, nonatomic)NSDictionary *routes;
+@property(strong, nonatomic)NSArray *routes;
 @property (weak, nonatomic) IBOutlet UITableView *routesTableView;
 
 @end

@@ -7,20 +7,36 @@
 //
 
 #import "AppDelegate.h"
+#import "Downloader.h"
+#import "MCLocalization.h"
+#import "Helper.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.tintColor = [UIColor whiteColor];
     
-    //self.mapVC = [[MapViewController alloc] init];
-    //self.window.rootViewController = self.mapVC;
-    
-    //[self.window makeKeyAndVisible];
-    
+    // for localization
+    NSString * path = [Helper getDocumentsPathForFile:@"translations.json" inDirectory:@[@"translations"]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSLog(@"file exists");
+    }else{
+        path = [Helper getPathForJSONFile:@"translations"];
+    }
+    [MCLocalization loadFromJSONFile:path defaultLanguage:@"en"];
+    [MCLocalization sharedInstance].language =  [NSLocale preferredLanguages][0];
     
     return YES;
+}
+
+- (void)application:(UIApplication *)application
+handleEventsForBackgroundURLSession:(NSString *)identifier
+  completionHandler:(void (^)())completionHandler
+{
+    self.backgroundSessionCompletionHandler = completionHandler;
+    
+    [Downloader shared];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application

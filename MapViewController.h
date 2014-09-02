@@ -11,7 +11,9 @@
 #import "Place.h"
 #import "Route.h"
 
-@interface MapViewController : UIViewController <MKMapViewDelegate>
+@import AVFoundation;
+
+@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate, AVSpeechSynthesizerDelegate>
 
 @property(strong, nonatomic)Place *place;
 @property(strong, nonatomic)Route *route;

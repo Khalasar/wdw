@@ -8,6 +8,7 @@
 
 #import "RouteViewController.h"
 #import "MapViewController.h"
+#import "MCLocalization.h"
 
 @interface RouteViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *headline;
@@ -19,7 +20,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.headline.text = self.route.name;
+    // check if locale changed
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(localize)
+                                                 name:MCLocalizationLanguageDidChangeNotification
+                                               object:nil];
+    [self localize];
     // Do any additional setup after loading the view.
 }
 
@@ -42,5 +48,11 @@
     }
 }
 
+#pragma mark - localize functions
+
+- (void)localize
+{
+    self.headline.text = [MCLocalization stringForKey:self.route.name];
+}
 
 @end
