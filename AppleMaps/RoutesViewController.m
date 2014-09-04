@@ -41,6 +41,32 @@
     [self.routesTableView reloadData];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.view sendSubviewToBack:self.backgroundImageView];
+    [self.view sendSubviewToBack:self.blurView];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    [self updateLayout];
+}
+
+- (void)updateLayout
+{
+    self.backgroundImageView.frame = self.view.bounds;
+    self.blurView.frame = self.backgroundImageView.bounds;
+    UIView *shadowView = [self.view viewWithTag:1];
+    shadowView.frame = self.backgroundImageView.bounds;
+}
+
+
 - (void) addBackgroundImageView
 {
     self.backgroundImageView = [[UIImageView alloc] initWithImage:
@@ -50,28 +76,6 @@
     [self.view addSubview: self.backgroundImageView];
     
     self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view sendSubviewToBack:self.backgroundImageView];
-    [self.view sendSubviewToBack:self.blurView];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self orientationChanged:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-    
-}
-
-- (void)orientationChanged:(NSNotification *)notification
-{
-    self.backgroundImageView.frame = self.view.bounds;
-    self.blurView.frame = self.backgroundImageView.bounds;
-    UIView *shadowView = [self.view viewWithTag:1];
-    shadowView.frame = self.backgroundImageView.bounds;
 }
 
 #pragma mark - Table view data source

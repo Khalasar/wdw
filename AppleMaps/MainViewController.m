@@ -15,9 +15,10 @@
 @interface MainViewController ()
 @property (strong, nonatomic)NSDictionary *readedJson;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
-@property (weak, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) FXBlurView *blurView;
 @property (nonatomic)BOOL downloadStarted;
+@property (weak, nonatomic) IBOutlet UIButton *placesBtn;
 @end
 
 @implementation MainViewController
@@ -38,27 +39,51 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.blurView = [Helper createAndShowBlurView:self.backgroundImage];
+    [self addBackgroundImageView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    // send mapView to back to show buttons on map
-    [self.view sendSubviewToBack:self.backgroundImage];
+    
+    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    [self.view sendSubviewToBack:self.backgroundImageView];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
+    
+    
+    for (UIView *view in self.view.subviews)
+    {
+        if ([view isMemberOfClass:[UIButton class]])
+        {
+            UIButton *btn = (UIButton *)view;
+            btn.layer.borderWidth = 1.0f;
+            btn.layer.borderColor = [[UIColor whiteColor] CGColor];
+            btn.layer.cornerRadius = 5.0f;
+            btn.layer.backgroundColor = [[UIColor colorWithWhite:1 alpha:0.5] CGColor];
+        }
+    }
 }
 
-- (void)orientationChanged:(NSNotification *)notification
+-(void) viewWillDisappear:(BOOL)animated
 {
-    self.backgroundImage.frame = self.view.bounds;
-    self.blurView.frame = self.backgroundImage.bounds;
+    [super viewWillDisappear:animated];
+    
+    [self.view.subviews setValue:@YES forKey:@"hidden"];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    [self updateLayout];
+}
+
+- (void)updateLayout
+{
+    self.backgroundImageView.frame = self.view.bounds;
+    self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
-    shadowView.frame = self.backgroundImage.bounds;
+    shadowView.frame = self.backgroundImageView.bounds;
 }
 
 - (IBAction)goToPlacesView:(id)sender {
@@ -68,18 +93,15 @@
     appDelegate.window.rootViewController = svc;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void) addBackgroundImageView
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
--(IBAction)showInterestingPlaces:(id)sender {
+    self.backgroundImageView = [[UIImageView alloc] initWithImage:
+                                [UIImage imageNamed:@"backgroundImage1.jpg"]];
+    [self.backgroundImageView setFrame:self.view.bounds];
+    self.backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.view addSubview: self.backgroundImageView];
+    
+    self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
 }
 
 #pragma mark - Downloading Methods
@@ -144,6 +166,9 @@
         }
         self.downloadStarted = true;
     }
+}
+
+-(IBAction)showInterestingPlaces:(id)sender {
 }
 
 @end

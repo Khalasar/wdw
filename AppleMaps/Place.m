@@ -44,7 +44,8 @@
     NSError *error = nil;
     NSString *fileFolder = [[NSString alloc]initWithFormat:@"%@", self.placeID];
     NSString *imagePath = [[NSString alloc] initWithString:[Helper getDocumentsDirectorsPathFor:@[@"places", fileFolder, @"images"]]];
-    NSArray *fileList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:imagePath error:&error];
+    NSArray *fileList = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:imagePath
+                                                                            error:&error];
     
     for (NSString *file in fileList) {
         NSString *filePath = [imagePath stringByAppendingPathComponent:file];
@@ -61,7 +62,8 @@
     NSString *fileFolder = [[NSString alloc]initWithFormat:@"%@", self.placeID];
     NSString *filename = [[NSString alloc]initWithFormat:@"%@_text",[Helper currentLanguage]];
     
-    NSString *file = [Helper getDocumentsPathForFile:filename inDirectory:@[@"places", fileFolder, @"text"]];
+    NSString *file = [Helper getDocumentsPathForFile:filename
+                                         inDirectory:@[@"places", fileFolder, @"text"]];
     
     NSString* content = [NSString stringWithContentsOfFile:file
                                                   encoding:NSUTF8StringEncoding

@@ -106,7 +106,7 @@
     blurView.tintColor = [UIColor clearColor];
     //blurView.updateInterval = 1;
     blurView.blurRadius = 15.f;
-    blurView.dynamic = NO;
+    blurView.dynamic = YES;
     //_blurView.alpha = 0.f;
     [underlyingView addSubview:blurView];
     [self createOpaqueViewFor:blurView];

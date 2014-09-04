@@ -62,6 +62,22 @@
     // self.clearsSelectionOnViewWillAppear = NO;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.view sendSubviewToBack:self.blurView];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+    
+    [self updateLayout];
+}
+
+#pragma mark - helper methods
+
 - (void) addBackgroundImageView
 {
     self.backgroundImageView = [[UIImageView alloc] initWithImage:
@@ -73,24 +89,12 @@
     self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
 }
 
-- (void)orientationChanged:(NSNotification *)notification
+- (void)updateLayout
 {
     self.backgroundImageView.frame = self.tableView.frame;
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.view sendSubviewToBack:self.blurView];
-    [self orientationChanged:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(orientationChanged:)
-                                                 name:UIDeviceOrientationDidChangeNotification
-                                               object:nil];
-
 }
 
 #pragma mark - Table view data source
