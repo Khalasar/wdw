@@ -8,7 +8,7 @@
 
 #import "PlaceViewController.h"
 #import "MapViewController.h"
-#import "PhotoGalleryViewController.h"
+#import "GalleryViewController.h"
 #import "ImageCell.h"
 #import "MCLocalization.h"
 #import "FXBlurView.h"
@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *headline;
 @property (weak, nonatomic) IBOutlet UIButton *showOnMapButton;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollection;
-@property (strong, nonatomic)PhotoGalleryViewController *photoVC;
+@property (strong, nonatomic)GalleryViewController *photoVC;
 // for images
 @property (nonatomic, strong) NSArray *pageImages;
 @property (strong, nonatomic)UIImageView *backgroundImageView;
@@ -55,6 +55,12 @@
     [self.view sendSubviewToBack:self.blurView];
     
     [self.view.subviews setValue:@NO forKey:@"hidden"];
+    
+    self.collectionView.layer.borderWidth = 2.0f;
+    self.collectionView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    self.body.layer.borderWidth = 2.0f;
+    self.body.layer.borderColor = [[UIColor whiteColor] CGColor];
+    
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferredFontsChanged:)
@@ -158,10 +164,12 @@
 {
     ImageCell *tappedCell = (ImageCell *)[(UITapGestureRecognizer *) sender view];
     
-    self.photoVC = [[PhotoGalleryViewController alloc] init];
-    self.photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"photoVC"];
+    NSIndexPath *indexPath = [self.collectionView indexPathForCell: tappedCell];
+    
+    self.photoVC = [[GalleryViewController alloc] init];
+    self.photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"galleryVC"];
     self.photoVC.pageImages = self.pageImages;
-    self.photoVC.tappedImage = tappedCell.imageView.image;
+    self.photoVC.tappedImage = indexPath;
     
     [[self navigationController] pushViewController:self.photoVC animated:YES];
     

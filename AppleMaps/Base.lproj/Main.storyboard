@@ -381,18 +381,20 @@
                                     <constraint firstAttribute="height" constant="48" id="Odu-EJ-gk0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOC-Ek-Cxv">
-                                <rect key="frame" x="392" y="173" width="352" height="689"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" indicatorStyle="white" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOC-Ek-Cxv">
+                                <rect key="frame" x="392" y="173" width="352" height="707"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLh-LM-CAz">
-                                <rect key="frame" x="323" y="870" width="123" height="51"/>
+                                <rect key="frame" x="318" y="903" width="123" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="51" id="Vf7-nY-Y3s"/>
@@ -406,9 +408,9 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="HfJ-Qy-1ic">
-                                <rect key="frame" x="15" y="173" width="352" height="689"/>
+                                <rect key="frame" x="15" y="173" width="352" height="707"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="352" id="A3A-gT-15i"/>
                                 </constraints>
@@ -440,12 +442,12 @@
                         <constraints>
                             <constraint firstItem="8GR-hn-bRU" firstAttribute="top" secondItem="4rb-Dx-AV4" secondAttribute="bottom" constant="32" id="0cA-Pb-H4N"/>
                             <constraint firstItem="8GR-hn-bRU" firstAttribute="leading" secondItem="nOF-kq-t8g" secondAttribute="leading" constant="15" id="2Tt-OY-4iB"/>
-                            <constraint firstItem="zLh-LM-CAz" firstAttribute="top" secondItem="HfJ-Qy-1ic" secondAttribute="bottom" constant="8" symbolic="YES" id="4vl-Ri-hkX"/>
+                            <constraint firstItem="zLh-LM-CAz" firstAttribute="top" secondItem="HfJ-Qy-1ic" secondAttribute="bottom" constant="23" id="4vl-Ri-hkX"/>
                             <constraint firstItem="zOC-Ek-Cxv" firstAttribute="trailing" secondItem="8GR-hn-bRU" secondAttribute="trailing" id="77r-F0-Cu1"/>
                             <constraint firstItem="zOC-Ek-Cxv" firstAttribute="leading" secondItem="HfJ-Qy-1ic" secondAttribute="trailing" constant="25" id="Ggb-pS-hcm"/>
-                            <constraint firstItem="zLh-LM-CAz" firstAttribute="centerX" secondItem="nOF-kq-t8g" secondAttribute="centerX" id="H9J-Sb-g58"/>
-                            <constraint firstItem="HT2-hV-2hz" firstAttribute="top" secondItem="zLh-LM-CAz" secondAttribute="bottom" constant="54" id="ZiJ-KK-zne"/>
-                            <constraint firstItem="zLh-LM-CAz" firstAttribute="top" secondItem="zOC-Ek-Cxv" secondAttribute="bottom" constant="8" symbolic="YES" id="aVY-Kf-2fg"/>
+                            <constraint firstItem="zLh-LM-CAz" firstAttribute="centerX" secondItem="nOF-kq-t8g" secondAttribute="centerX" constant="-4.5" id="H9J-Sb-g58"/>
+                            <constraint firstItem="HT2-hV-2hz" firstAttribute="top" secondItem="zLh-LM-CAz" secondAttribute="bottom" constant="21" id="ZiJ-KK-zne"/>
+                            <constraint firstItem="zLh-LM-CAz" firstAttribute="top" secondItem="zOC-Ek-Cxv" secondAttribute="bottom" constant="23" id="aVY-Kf-2fg"/>
                             <constraint firstItem="HfJ-Qy-1ic" firstAttribute="top" secondItem="zOC-Ek-Cxv" secondAttribute="top" id="apr-G5-Qk2"/>
                             <constraint firstAttribute="trailing" secondItem="8GR-hn-bRU" secondAttribute="trailing" constant="24" id="iQ3-9R-VYK"/>
                             <constraint firstItem="HfJ-Qy-1ic" firstAttribute="leading" secondItem="8GR-hn-bRU" secondAttribute="leading" id="qBQ-Fv-ESz"/>
@@ -512,6 +514,34 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HtO-Ee-soV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4293" y="-943"/>
+        </scene>
+        <!--Gallery View Controller-->
+        <scene sceneID="Se4-gM-sn8">
+            <objects>
+                <collectionViewController storyboardIdentifier="galleryVC" autoresizesArchivedViewToFullSize="NO" id="C2X-8i-7iG" customClass="GalleryViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="P5T-9X-KZj">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="6Sh-ft-BfN">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="C2X-8i-7iG" id="WCS-Tm-s6O"/>
+                            <outlet property="delegate" destination="C2X-8i-7iG" id="nwa-Zm-HLC"/>
+                        </connections>
+                    </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="collectionView" destination="P5T-9X-KZj" id="xnb-CZ-aGm"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="066-ml-2d9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5139" y="-943"/>
         </scene>
         <!--Map View Controller - Item-->
         <scene sceneID="BRC-PL-Z0K">

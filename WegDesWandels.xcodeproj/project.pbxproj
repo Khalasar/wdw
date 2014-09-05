@@ -34,6 +34,9 @@
 		C34C5D0A19929C390054712C /* ImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34C5D0919929C390054712C /* ImageCell.m */; };
 		C34D95E1199DF8A000E455C5 /* Downloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C34D95E0199DF8A000E455C5 /* Downloader.m */; };
 		C34EECF019A0C37C00605B1C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34EECEF19A0C37C00605B1C /* Accelerate.framework */; };
+		C34F118F19B9A53500D6E8B0 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34F118E19B9A53500D6E8B0 /* GalleryViewController.m */; };
+		C34F119219B9A82200D6E8B0 /* GalleryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34F119119B9A82200D6E8B0 /* GalleryCell.m */; };
+		C34F119719B9B01A00D6E8B0 /* GalleryCelliPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */; };
 		C34FBAFA198BF2D0006A7FEA /* RoutesTranslations.strings in Resources */ = {isa = PBXBuildFile; fileRef = C34FBAFC198BF2D0006A7FEA /* RoutesTranslations.strings */; };
 		C34FBB07198CF662006A7FEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34FBB06198CF662006A7FEA /* QuartzCore.framework */; };
 		C34FBB0A198CF729006A7FEA /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34FBB09198CF729006A7FEA /* PhotoGalleryViewController.m */; };
@@ -109,6 +112,11 @@
 		C34D95DF199DF8A000E455C5 /* Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Downloader.h; sourceTree = "<group>"; };
 		C34D95E0199DF8A000E455C5 /* Downloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Downloader.m; sourceTree = "<group>"; };
 		C34EECEF19A0C37C00605B1C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		C34F118D19B9A53500D6E8B0 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
+		C34F118E19B9A53500D6E8B0 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
+		C34F119019B9A82200D6E8B0 /* GalleryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryCell.h; sourceTree = "<group>"; };
+		C34F119119B9A82200D6E8B0 /* GalleryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryCell.m; sourceTree = "<group>"; };
+		C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GalleryCelliPad.xib; path = ../GalleryCelliPad.xib; sourceTree = "<group>"; };
 		C34FBAFB198BF2D0006A7FEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/RoutesTranslations.strings; sourceTree = "<group>"; };
 		C34FBB06198CF662006A7FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C34FBB08198CF729006A7FEA /* PhotoGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryViewController.h; sourceTree = "<group>"; };
@@ -220,6 +228,7 @@
 		C30F748319767C3B00B7C8C1 /* WegdesWandels */ = {
 			isa = PBXGroup;
 			children = (
+				C34F119319B9AE9F00D6E8B0 /* CollectionView */,
 				C336C7A7197C0D1800DE217F /* Helper */,
 				C375530C19792C4F00B9A1B6 /* Model */,
 				C375530B19792C2F00B9A1B6 /* TableViewController */,
@@ -277,6 +286,16 @@
 			name = Helper;
 			sourceTree = "<group>";
 		};
+		C34F119319B9AE9F00D6E8B0 /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				C34F119019B9A82200D6E8B0 /* GalleryCell.h */,
+				C34F119119B9A82200D6E8B0 /* GalleryCell.m */,
+				C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */,
+			);
+			name = CollectionView;
+			sourceTree = "<group>";
+		};
 		C350ACBD19A612320071AD7C /* MCLocalization */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +334,8 @@
 		C375530A19792C1200B9A1B6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C34F118D19B9A53500D6E8B0 /* GalleryViewController.h */,
+				C34F118E19B9A53500D6E8B0 /* GalleryViewController.m */,
 				C30F74B919767DA100B7C8C1 /* MapViewController.h */,
 				C30F74BA19767DA100B7C8C1 /* MapViewController.m */,
 				C3755305197919B600B9A1B6 /* PlaceViewController.h */,
@@ -524,6 +545,7 @@
 				C350ACBF19A61CE50071AD7C /* translations.json in Resources */,
 				C30F749619767C3B00B7C8C1 /* Images.xcassets in Resources */,
 				C392F9001976F142002C8D9C /* places.json in Resources */,
+				C34F119719B9B01A00D6E8B0 /* GalleryCelliPad.xib in Resources */,
 				C34212A419854E20001D826C /* Route4.plist in Resources */,
 				C3A6FA0619B6155C004530AB /* backgroundImage1.jpg in Resources */,
 				C34212A219854E20001D826C /* Route2.plist in Resources */,
@@ -567,6 +589,8 @@
 				C30F748A19767C3B00B7C8C1 /* main.m in Sources */,
 				C350ACBC19A6121F0071AD7C /* MCLocalization.m in Sources */,
 				C34FBB0A198CF729006A7FEA /* PhotoGalleryViewController.m in Sources */,
+				C34F118F19B9A53500D6E8B0 /* GalleryViewController.m in Sources */,
+				C34F119219B9A82200D6E8B0 /* GalleryCell.m in Sources */,
 				C350AD1319A73DD80071AD7C /* ioapi.c in Sources */,
 				C3755307197919B600B9A1B6 /* PlaceViewController.m in Sources */,
 				C37553011979022000B9A1B6 /* MainViewController.m in Sources */,
