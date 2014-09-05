@@ -9,8 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface MainViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
-- (IBAction)showInterestingPlaces:(id)sender;
-
 @end

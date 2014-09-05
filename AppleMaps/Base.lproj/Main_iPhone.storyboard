@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="19" minValue="12" maxValue="26" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-IB-sSK">
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.5" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-IB-sSK">
                                 <rect key="frame" x="41" y="63" width="233" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
@@ -68,6 +68,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="settings-icon" id="VPI-gV-REj"/>
                     <connections>
+                        <outlet property="fontSizeSlider" destination="dmd-IB-sSK" id="pYm-yN-oet"/>
                         <outlet property="languagePicker" destination="zIu-jQ-1wL" id="pGP-VG-9bY"/>
                     </connections>
                 </viewController>

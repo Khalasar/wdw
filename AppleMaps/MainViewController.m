@@ -11,6 +11,7 @@
 #import "Downloader.h"
 #import "Helper.h"
 #import "FXBlurView.h"
+#import "UIFont+ScaledFont.h"
 
 @interface MainViewController ()
 @property (strong, nonatomic)NSDictionary *readedJson;
@@ -19,6 +20,10 @@
 @property (strong, nonatomic) FXBlurView *blurView;
 @property (nonatomic)BOOL downloadStarted;
 @property (weak, nonatomic) IBOutlet UIButton *placesBtn;
+@property (weak, nonatomic) IBOutlet UILabel *headerLabel;
+@property (strong, nonatomic) NSUserDefaults *userDefaults;
+@property (nonatomic)CGFloat scaleLevel;
+- (IBAction)showInterestingPlaces:(id)sender;
 @end
 
 @implementation MainViewController
@@ -40,6 +45,8 @@
 {
     [super viewDidLoad];
     [self addBackgroundImageView];
+    
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -49,19 +56,7 @@
     [self.view.subviews setValue:@NO forKey:@"hidden"];
     [self.view sendSubviewToBack:self.backgroundImageView];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
-    
-    for (UIView *view in self.view.subviews)
-    {
-        if ([view isMemberOfClass:[UIButton class]])
-        {
-            UIButton *btn = (UIButton *)view;
-            btn.layer.borderWidth = 1.0f;
-            btn.layer.borderColor = [[UIColor whiteColor] CGColor];
-            btn.layer.cornerRadius = 5.0f;
-            btn.layer.backgroundColor = [[UIColor colorWithWhite:1 alpha:0.5] CGColor];
-        }
-    }
+    [self updateBtnLayout];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -76,6 +71,25 @@
     [super viewWillLayoutSubviews];
     
     [self updateLayout];
+}
+
+-(void)updateBtnLayout
+{
+    self.scaleLevel = [self.userDefaults objectForKey:@"scaleLevel"]?
+        [[self.userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
+    
+    for (UIView *view in self.view.subviews)
+    {
+        if ([view isMemberOfClass:[UIButton class]])
+        {
+            UIButton *btn = (UIButton *)view;
+            btn.layer.borderWidth = 1.0f;
+            btn.layer.borderColor = [[UIColor whiteColor] CGColor];
+            btn.layer.cornerRadius = 5.0f;
+            btn.layer.backgroundColor = [[UIColor colorWithWhite:1 alpha:0.5] CGColor];
+            btn.titleLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale: self.scaleLevel];
+        }
+    }
 }
 
 - (void)updateLayout

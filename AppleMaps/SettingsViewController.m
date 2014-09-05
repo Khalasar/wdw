@@ -11,6 +11,7 @@
 
 @interface SettingsViewController ()
 @property (weak, nonatomic) IBOutlet UIPickerView *languagePicker;
+@property (weak, nonatomic) IBOutlet UISlider *fontSizeSlider;
 @property (strong, nonatomic) NSArray *languages;
 @property (strong, nonatomic) NSArray *languagesCode;
 @property (strong, nonatomic) NSArray *langCodeText;
@@ -39,6 +40,7 @@
     languagesCode = @[@"de-DE", @"en-GB"];
     langCodeText = @[@"de", @"en"];
     self.userDefaults = [NSUserDefaults standardUserDefaults];
+    self.fontSizeSlider.value = [self.userDefaults objectForKey:@"scaleLevel"]? [[self.userDefaults valueForKey:@"scaleLevel"]floatValue] : 1;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -49,16 +51,11 @@
 - (IBAction)fontSizeChanged:(UISlider *)sender {
     NSLog(@"fontsize: %f", sender.value);
     [UIFont systemFontOfSize:[sender value]];
+    [self.userDefaults setFloat:[sender value] forKey:@"scaleLevel"];
 }
 
 - (IBAction)changeAudioGuide:(UISwitch *)sender {
     [self.userDefaults setBool:YES forKey:@"audioGuide"];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - PickerView DataSource

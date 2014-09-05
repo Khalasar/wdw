@@ -11,6 +11,7 @@
 #import "Helper.h"
 #import "MCLocalization.h"
 #import "FXBlurView.h"
+#import "UIFont+ScaledFont.h"
 
 @interface PlacesTableViewController ()
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -18,6 +19,8 @@
 @property (strong,nonatomic) NSArray *placesArray;
 @property (strong, nonatomic)FXBlurView *blurView;
 @property (strong, nonatomic)UIImageView *backgroundImageView;
+@property (nonatomic)CGFloat scaleLevel;
+@property (strong, nonatomic) NSUserDefaults *userDefaults;
 @end
 
 @implementation PlacesTableViewController
@@ -41,11 +44,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self addBackgroundImageView];
     
-    self.navigationItem.backBarButtonItem =
-        [[UIBarButtonItem alloc] initWithTitle:@"All Places"
-                                         style:UIBarButtonItemStylePlain
-                                        target:nil
-                                        action:nil];
+    [self addNotifications];
     
     if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
         self.places = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
@@ -57,6 +56,8 @@
     
     self.placesArray = [Helper getPlacesArray:self.places];
     self.filteredPlaces = [NSMutableArray arrayWithCapacity:self.placesArray.count];
+    
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -67,6 +68,9 @@
     [super viewWillAppear:animated];
     
     [self.view sendSubviewToBack:self.blurView];
+    
+    self.scaleLevel = [self.userDefaults objectForKey:@"scaleLevel"]? [[self.userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
+    [self.tableView reloadData];
 }
 
 -(void)viewWillLayoutSubviews
@@ -74,6 +78,29 @@
     [super viewWillLayoutSubviews];
     
     [self updateLayout];
+}
+
+- (void)addNotifications
+{
+    // notification for localization
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(localize)
+                                                 name:MCLocalizationLanguageDidChangeNotification
+                                               object:nil];
+    [self localize];
+    
+    // notification to change font size
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferredFontsChanged:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
+}
+
+#pragma mark - fonts methods
+
+-(void)preferredFontsChanged:(NSNotification *)notification
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - helper methods
@@ -91,10 +118,18 @@
 
 - (void)updateLayout
 {
+    // adjust background layout to device orientation
     self.backgroundImageView.frame = self.tableView.frame;
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
+}
+
+#pragma mark - localize method
+
+- (void)localize
+{
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -138,6 +173,8 @@
 
     //Place *place = [[Place alloc] initWithPlaceDictionary: self.places[indexPath.row]];
     cell.textLabel.text = [MCLocalization stringForKey:place.title];
+    cell.textLabel.font =  [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale: self.scaleLevel];
+    
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     

@@ -61,6 +61,7 @@
 		C3A6FA0619B6155C004530AB /* backgroundImage1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3A6FA0419B6155C004530AB /* backgroundImage1.jpg */; };
 		C3A6FA0719B6155C004530AB /* backgroundImage2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3A6FA0519B6155C004530AB /* backgroundImage2.jpg */; };
 		C3D302F61997B1DF006E7E39 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3D302F51997B1DF006E7E39 /* AVFoundation.framework */; };
+		C3E1D03419B9E5EE004349A2 /* UIFont+ScaledFont.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E1D03319B9E5EE004349A2 /* UIFont+ScaledFont.m */; };
 		C3E99A79198103B10040F176 /* RouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E99A78198103B10040F176 /* RouteViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +155,8 @@
 		C3A6FA0419B6155C004530AB /* backgroundImage1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroundImage1.jpg; sourceTree = "<group>"; };
 		C3A6FA0519B6155C004530AB /* backgroundImage2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backgroundImage2.jpg; sourceTree = "<group>"; };
 		C3D302F51997B1DF006E7E39 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C3E1D03219B9E5EE004349A2 /* UIFont+ScaledFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+ScaledFont.h"; sourceTree = "<group>"; };
+		C3E1D03319B9E5EE004349A2 /* UIFont+ScaledFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ScaledFont.m"; sourceTree = "<group>"; };
 		C3E99A77198103B10040F176 /* RouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteViewController.h; sourceTree = "<group>"; };
 		C3E99A78198103B10040F176 /* RouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -372,6 +375,8 @@
 				C336C7AC197C0FA100DE217F /* Route.m */,
 				C34D95DF199DF8A000E455C5 /* Downloader.h */,
 				C34D95E0199DF8A000E455C5 /* Downloader.m */,
+				C3E1D03219B9E5EE004349A2 /* UIFont+ScaledFont.h */,
+				C3E1D03319B9E5EE004349A2 /* UIFont+ScaledFont.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -590,6 +595,7 @@
 				C34F118F19B9A53500D6E8B0 /* GalleryViewController.m in Sources */,
 				C34F119219B9A82200D6E8B0 /* GalleryCell.m in Sources */,
 				C350AD1319A73DD80071AD7C /* ioapi.c in Sources */,
+				C3E1D03419B9E5EE004349A2 /* UIFont+ScaledFont.m in Sources */,
 				C3755307197919B600B9A1B6 /* PlaceViewController.m in Sources */,
 				C37553011979022000B9A1B6 /* MainViewController.m in Sources */,
 				C350AD1719A73DD80071AD7C /* SSZipArchive.m in Sources */,

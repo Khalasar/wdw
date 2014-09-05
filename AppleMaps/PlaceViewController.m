@@ -13,6 +13,7 @@
 #import "MCLocalization.h"
 #import "FXBlurView.h"
 #import "Helper.h"
+#import "UIFont+ScaledFont.h"
 
 @interface PlaceViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *body;
@@ -24,6 +25,9 @@
 @property (nonatomic, strong) NSArray *pageImages;
 @property (strong, nonatomic)UIImageView *backgroundImageView;
 @property (strong, nonatomic)FXBlurView *blurView;
+
+@property (nonatomic)CGFloat scaleLevel;
+@property (strong, nonatomic)NSUserDefaults *userDefaults;
 @end
 
 @implementation PlaceViewController
@@ -33,17 +37,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // localize
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(localize)
-                                                 name:MCLocalizationLanguageDidChangeNotification
-                                               object:nil];
-    [self localize];
+
+    [self addNotifications];
     
-    // for scrolling images
+    // init standard user defaults
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
+                         
+    // loadg images for collection view
     self.pageImages = [self.place loadImages];
-    
     [self addBackgroundImageView];
+    
     [self.view.subviews setValue:@YES forKey:@"hidden"];
     [self.collectionView registerClass:[ImageCell class] forCellWithReuseIdentifier:@"placeCollectionCell"];
 }
@@ -55,13 +58,6 @@
     [self.view sendSubviewToBack:self.blurView];
 
     [self.view.subviews setValue:@NO forKey:@"hidden"];
-    
-    [self layoutViews];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(preferredFontsChanged:)
-                                                 name:UIContentSizeCategoryDidChangeNotification
-                                               object:nil];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -89,15 +85,23 @@
     }
 }
 
-#pragma mark - design/layout changed
-
-- (void)layoutViews
+- (void)addNotifications
 {
-    //self.collectionView.layer.borderWidth = 2.0f;
-    //self.collectionView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    //self.body.layer.borderWidth = 2.0f;
-    //self.body.layer.borderColor = [[UIColor whiteColor] CGColor];
+    // notification for localization
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(localize)
+                                                 name:MCLocalizationLanguageDidChangeNotification
+                                               object:nil];
+    [self localize];
+    
+    // notification to change font size
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferredFontsChanged:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
 }
+
+#pragma mark - design/layout changed
 
 - (void)updateLayout
 {
@@ -105,6 +109,9 @@
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
+    
+    self.scaleLevel = [self.userDefaults objectForKey:@"scaleLevel"]? [[self.userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
+    [self usePreferredFonts];
 }
 
 - (void) addBackgroundImageView
@@ -126,8 +133,8 @@
 
 -(void)usePreferredFonts
 {
-    self.body.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.headline.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+    self.body.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:self.scaleLevel];
+    self.headline.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel];
 }
 
 #pragma mark -
