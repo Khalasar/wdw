@@ -53,15 +53,11 @@
     
     [self.view sendSubviewToBack:self.backgroundImageView];
     [self.view sendSubviewToBack:self.blurView];
-    
+
     [self.view.subviews setValue:@NO forKey:@"hidden"];
     
-    self.collectionView.layer.borderWidth = 2.0f;
-    self.collectionView.layer.borderColor = [[UIColor whiteColor] CGColor];
-    self.body.layer.borderWidth = 2.0f;
-    self.body.layer.borderColor = [[UIColor whiteColor] CGColor];
+    [self layoutViews];
     
-
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(preferredFontsChanged:)
                                                  name:UIContentSizeCategoryDidChangeNotification
@@ -72,6 +68,7 @@
 {
     [super viewWillDisappear:animated];
     
+    // hide all subviews for a better disappear look
     [self.view.subviews setValue:@YES forKey:@"hidden"];
 }
 
@@ -80,6 +77,26 @@
     [super viewWillLayoutSubviews];
     
     [self updateLayout];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"mapButtonPressed"]) {
+        if ([segue.destinationViewController isKindOfClass:[MapViewController class]]) {
+            MapViewController *mvc = [segue destinationViewController];
+            mvc.place = self.place;
+        }
+    }
+}
+
+#pragma mark - design/layout changed
+
+- (void)layoutViews
+{
+    //self.collectionView.layer.borderWidth = 2.0f;
+    //self.collectionView.layer.borderColor = [[UIColor whiteColor] CGColor];
+    //self.body.layer.borderWidth = 2.0f;
+    //self.body.layer.borderColor = [[UIColor whiteColor] CGColor];
 }
 
 - (void)updateLayout
@@ -100,6 +117,8 @@
     self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
 }
 
+#pragma mark - fonts methods
+
 -(void)preferredFontsChanged:(NSNotification *)notification
 {
     [self usePreferredFonts];
@@ -109,18 +128,6 @@
 {
     self.body.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.headline.font = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
-}
-
-
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"mapButtonPressed"]) {
-        if ([segue.destinationViewController isKindOfClass:[MapViewController class]]) {
-            MapViewController *mvc = [segue destinationViewController];
-            mvc.place = self.place;
-        }
-    }
 }
 
 #pragma mark -

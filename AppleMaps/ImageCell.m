@@ -28,8 +28,8 @@
         }else{
             self.imageView.frame = CGRectMake(0, 0, 150, 150);
         }
-       // [self.imageView.layer setBorderColor:[[UIColor blackColor] CGColor]];
-       // [self.imageView.layer setBorderWidth:2.0];
+        //[self.imageView.layer setBorderColor:[[UIColor colorWithWhite:1 alpha:0.5f] CGColor]];
+        //[self.imageView.layer setBorderWidth:2.0];
         
         //set specs and special wants for the imageView here.
         [self addSubview: self.imageView]; //the only place we want to do this addSubview: is here!

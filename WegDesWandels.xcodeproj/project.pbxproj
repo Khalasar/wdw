@@ -37,9 +37,9 @@
 		C34F118F19B9A53500D6E8B0 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34F118E19B9A53500D6E8B0 /* GalleryViewController.m */; };
 		C34F119219B9A82200D6E8B0 /* GalleryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C34F119119B9A82200D6E8B0 /* GalleryCell.m */; };
 		C34F119719B9B01A00D6E8B0 /* GalleryCelliPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */; };
+		C34F119919B9C7AE00D6E8B0 /* GalleryCelliPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = C34F119819B9C7AE00D6E8B0 /* GalleryCelliPhone.xib */; };
 		C34FBAFA198BF2D0006A7FEA /* RoutesTranslations.strings in Resources */ = {isa = PBXBuildFile; fileRef = C34FBAFC198BF2D0006A7FEA /* RoutesTranslations.strings */; };
 		C34FBB07198CF662006A7FEA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C34FBB06198CF662006A7FEA /* QuartzCore.framework */; };
-		C34FBB0A198CF729006A7FEA /* PhotoGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C34FBB09198CF729006A7FEA /* PhotoGalleryViewController.m */; };
 		C350ACBC19A6121F0071AD7C /* MCLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = C350ACBB19A6121F0071AD7C /* MCLocalization.m */; };
 		C350ACBF19A61CE50071AD7C /* translations.json in Resources */ = {isa = PBXBuildFile; fileRef = C350ACBE19A61CE50071AD7C /* translations.json */; };
 		C350AD1319A73DD80071AD7C /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = C350AD0919A73DD80071AD7C /* ioapi.c */; };
@@ -117,10 +117,9 @@
 		C34F119019B9A82200D6E8B0 /* GalleryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryCell.h; sourceTree = "<group>"; };
 		C34F119119B9A82200D6E8B0 /* GalleryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryCell.m; sourceTree = "<group>"; };
 		C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GalleryCelliPad.xib; path = ../GalleryCelliPad.xib; sourceTree = "<group>"; };
+		C34F119819B9C7AE00D6E8B0 /* GalleryCelliPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCelliPhone.xib; sourceTree = "<group>"; };
 		C34FBAFB198BF2D0006A7FEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/RoutesTranslations.strings; sourceTree = "<group>"; };
 		C34FBB06198CF662006A7FEA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		C34FBB08198CF729006A7FEA /* PhotoGalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoGalleryViewController.h; sourceTree = "<group>"; };
-		C34FBB09198CF729006A7FEA /* PhotoGalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoGalleryViewController.m; sourceTree = "<group>"; };
 		C350ACBA19A6121F0071AD7C /* MCLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCLocalization.h; sourceTree = "<group>"; };
 		C350ACBB19A6121F0071AD7C /* MCLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCLocalization.m; sourceTree = "<group>"; };
 		C350ACBE19A61CE50071AD7C /* translations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = translations.json; sourceTree = "<group>"; };
@@ -292,6 +291,7 @@
 				C34F119019B9A82200D6E8B0 /* GalleryCell.h */,
 				C34F119119B9A82200D6E8B0 /* GalleryCell.m */,
 				C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */,
+				C34F119819B9C7AE00D6E8B0 /* GalleryCelliPhone.xib */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -344,8 +344,6 @@
 				C37553001979022000B9A1B6 /* MainViewController.m */,
 				C3E99A77198103B10040F176 /* RouteViewController.h */,
 				C3E99A78198103B10040F176 /* RouteViewController.m */,
-				C34FBB08198CF729006A7FEA /* PhotoGalleryViewController.h */,
-				C34FBB09198CF729006A7FEA /* PhotoGalleryViewController.m */,
 				C3511A9E19AF4DF700795E6E /* SettingsViewController.h */,
 				C3511A9F19AF4DF700795E6E /* SettingsViewController.m */,
 			);
@@ -550,6 +548,7 @@
 				C3A6FA0619B6155C004530AB /* backgroundImage1.jpg in Resources */,
 				C34212A219854E20001D826C /* Route2.plist in Resources */,
 				C34212A119854E20001D826C /* Route1.plist in Resources */,
+				C34F119919B9C7AE00D6E8B0 /* GalleryCelliPhone.xib in Resources */,
 				C36B1D99198B95A30001A851 /* PlacesTranslations.strings in Resources */,
 				C3A6FA0719B6155C004530AB /* backgroundImage2.jpg in Resources */,
 				C3A6FA0019B606F8004530AB /* background3.jpg in Resources */,
@@ -588,7 +587,6 @@
 				C350AD1419A73DD80071AD7C /* mztools.c in Sources */,
 				C30F748A19767C3B00B7C8C1 /* main.m in Sources */,
 				C350ACBC19A6121F0071AD7C /* MCLocalization.m in Sources */,
-				C34FBB0A198CF729006A7FEA /* PhotoGalleryViewController.m in Sources */,
 				C34F118F19B9A53500D6E8B0 /* GalleryViewController.m in Sources */,
 				C34F119219B9A82200D6E8B0 /* GalleryCell.m in Sources */,
 				C350AD1319A73DD80071AD7C /* ioapi.c in Sources */,

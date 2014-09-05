@@ -439,38 +439,33 @@
             </objects>
             <point key="canvasLocation" x="1397" y="-1097"/>
         </scene>
-        <!--Photo Gallery View Controller-->
-        <scene sceneID="ZTl-lp-hY3">
+        <!--Gallery View Controller-->
+        <scene sceneID="BII-BD-aOP">
             <objects>
-                <viewController storyboardIdentifier="photoVC" id="eeK-lI-MTg" customClass="PhotoGalleryViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RR7-P6-FAs"/>
-                        <viewControllerLayoutGuide type="bottom" id="0qF-19-gSd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VnC-CA-JTV">
+                <collectionViewController storyboardIdentifier="galleryVC" autoresizesArchivedViewToFullSize="NO" id="AZS-wZ-bF7" customClass="GalleryViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="FTg-2j-HgB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Euy-6y-WgY">
-                                <rect key="frame" x="20" y="478" width="280" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFb-uN-SQD">
-                                <rect key="frame" x="0.0" y="40" width="320" height="430"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="ZrU-Va-ZkF"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2I0-YR-xNh">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="AZS-wZ-bF7" id="qfO-I8-EyE"/>
+                            <outlet property="delegate" destination="AZS-wZ-bF7" id="84u-fo-h8e"/>
+                        </connections>
+                    </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="pageControl" destination="Euy-6y-WgY" id="vQL-oJ-xL4"/>
-                        <outlet property="scrollView" destination="qFb-uN-SQD" id="u23-f5-kYE"/>
+                        <outlet property="collectionView" destination="FTg-2j-HgB" id="Qip-sz-LGH"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HtO-Ee-soV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ofx-6w-Oz2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2065" y="-1078"/>
+            <point key="canvasLocation" x="1942" y="-1097"/>
         </scene>
         <!--Map View Controller - Item-->
         <scene sceneID="BRC-PL-Z0K">

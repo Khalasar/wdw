@@ -14,28 +14,6 @@
 
 @implementation GalleryCell
 
-/*- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        //we create the UIImageView in this overwritten init so that we always have it at hand.
-        self.imageView = [[UIImageView alloc] init];
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        self.imageView.frame = CGRectMake(0, 0, screenRect.size.width, screenRect.size.height);
-        [self.imageView.layer setBorderColor:[[UIColor whiteColor] CGColor]];
-        [self.imageView.layer setBorderWidth:2.0];
-        
-        //set specs and special wants for the imageView here.
-        [self addSubview: self.imageView]; //the only place we want to do this addSubview: is here!
-        
-        //You wanted the imageView to react to touches and gestures. We can do that here too.
-        
-    }
-    return self;
-}*/
-
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {

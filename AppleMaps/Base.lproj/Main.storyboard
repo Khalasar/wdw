@@ -473,48 +473,6 @@
             </objects>
             <point key="canvasLocation" x="3233" y="-943"/>
         </scene>
-        <!--Photo Gallery View Controller-->
-        <scene sceneID="ZTl-lp-hY3">
-            <objects>
-                <viewController storyboardIdentifier="photoVC" id="eeK-lI-MTg" customClass="PhotoGalleryViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="RR7-P6-FAs"/>
-                        <viewControllerLayoutGuide type="bottom" id="0qF-19-gSd"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="VnC-CA-JTV">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Euy-6y-WgY">
-                                <rect key="frame" x="20" y="900" width="728" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </pageControl>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFb-uN-SQD">
-                                <rect key="frame" x="0.0" y="45" width="768" height="830"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="qFb-uN-SQD" firstAttribute="leading" secondItem="VnC-CA-JTV" secondAttribute="leading" id="JXC-3y-PnO"/>
-                            <constraint firstAttribute="bottom" secondItem="qFb-uN-SQD" secondAttribute="bottom" constant="149" id="Se5-zV-sXc"/>
-                            <constraint firstItem="qFb-uN-SQD" firstAttribute="top" secondItem="VnC-CA-JTV" secondAttribute="top" constant="45" id="VkD-nS-zNC"/>
-                            <constraint firstItem="Euy-6y-WgY" firstAttribute="top" secondItem="qFb-uN-SQD" secondAttribute="bottom" constant="25" id="bSj-g0-gHr"/>
-                            <constraint firstItem="Euy-6y-WgY" firstAttribute="centerX" secondItem="qFb-uN-SQD" secondAttribute="centerX" id="j4I-5g-JS9"/>
-                            <constraint firstAttribute="trailing" secondItem="qFb-uN-SQD" secondAttribute="trailing" id="uWH-Tq-bYb"/>
-                            <constraint firstItem="Euy-6y-WgY" firstAttribute="leading" secondItem="VnC-CA-JTV" secondAttribute="leading" constant="20" symbolic="YES" id="zuq-ss-EH7"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="ZrU-Va-ZkF"/>
-                    <connections>
-                        <outlet property="pageControl" destination="Euy-6y-WgY" id="vQL-oJ-xL4"/>
-                        <outlet property="scrollView" destination="qFb-uN-SQD" id="u23-f5-kYE"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HtO-Ee-soV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4293" y="-943"/>
-        </scene>
         <!--Gallery View Controller-->
         <scene sceneID="Se4-gM-sn8">
             <objects>
@@ -541,7 +499,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="066-ml-2d9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5139" y="-943"/>
+            <point key="canvasLocation" x="4279" y="-943"/>
         </scene>
         <!--Map View Controller - Item-->
         <scene sceneID="BRC-PL-Z0K">
@@ -559,28 +517,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="770" height="1025"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </mapView>
-                            <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXw-IB-kmQ">
+                            <view hidden="YES" alpha="0.94999999999999996" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXw-IB-kmQ">
                                 <rect key="frame" x="0.0" y="64" width="770" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance to next Place" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9I-yr-VsD">
-                                        <rect key="frame" x="20" y="20" width="329" height="70"/>
+                                        <rect key="frame" x="20" y="20" width="322" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Next Place" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvZ-9r-B0I">
-                                        <rect key="frame" x="420" y="20" width="330" height="70"/>
+                                        <rect key="frame" x="428" y="20" width="322" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-white-outline-up" translatesAutoresizingMaskIntoConstraints="NO" id="oSa-Eq-O4a">
-                                        <rect key="frame" x="357" y="20" width="55" height="70"/>
+                                        <rect key="frame" x="350" y="20" width="70" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="55" id="d3B-io-DvH"/>
+                                            <constraint firstAttribute="width" constant="70" id="d3B-io-DvH"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -610,7 +568,7 @@
                                     <action selector="startRoute:" destination="ffb-A4-sMm" eventType="touchUpInside" id="WWT-hn-QFV"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1D-IH-f0a">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1D-IH-f0a">
                                 <rect key="frame" x="409" y="930" width="33" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Stop">
@@ -620,7 +578,7 @@
                                     <action selector="stopRoute:" destination="ffb-A4-sMm" eventType="touchUpInside" id="Vi5-0e-fW6"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-uH-YNn">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QNU-uH-YNn">
                                 <rect key="frame" x="317" y="930" width="43" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Pause">
@@ -635,7 +593,7 @@
                         <constraints>
                             <constraint firstItem="Cae-A1-7lV" firstAttribute="top" secondItem="H1D-IH-f0a" secondAttribute="bottom" constant="15" id="351-hc-xHh"/>
                             <constraint firstAttribute="centerX" secondItem="39Q-md-eyg" secondAttribute="centerX" id="CUx-4G-IVh"/>
-                            <constraint firstItem="Cae-A1-7lV" firstAttribute="top" secondItem="39Q-md-eyg" secondAttribute="bottom" constant="15" id="Ekm-Fm-UY6"/>
+                            <constraint firstItem="Cae-A1-7lV" firstAttribute="top" secondItem="39Q-md-eyg" secondAttribute="bottom" constant="64" id="Ekm-Fm-UY6"/>
                             <constraint firstItem="QXw-IB-kmQ" firstAttribute="top" secondItem="ldK-mv-wgy" secondAttribute="bottom" id="NNm-Jd-96k"/>
                             <constraint firstItem="yxq-Ko-Ogd" firstAttribute="leading" secondItem="QXw-IB-kmQ" secondAttribute="leading" id="Nlb-ic-ltO"/>
                             <constraint firstItem="yxq-Ko-Ogd" firstAttribute="centerY" secondItem="wdh-sy-pcm" secondAttribute="centerY" id="NyH-Rw-8lU"/>
@@ -716,7 +674,7 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="GHj-c2-feR"/>
+        <segue reference="S4W-ia-KBk"/>
         <segue reference="PXR-8m-nbX"/>
     </inferredMetricsTieBreakers>
 </document>
