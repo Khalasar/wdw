@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *body;
 @property (weak, nonatomic) IBOutlet UILabel *headline;
 @property (weak, nonatomic) IBOutlet UIButton *showOnMapButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *showOnMapBtn;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollection;
 @property (strong, nonatomic)GalleryViewController *photoVC;
 // for images

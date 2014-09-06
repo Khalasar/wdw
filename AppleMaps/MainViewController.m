@@ -54,6 +54,7 @@
     [super viewWillAppear:animated];
     
     [self.view.subviews setValue:@NO forKey:@"hidden"];
+    self.progressView.hidden = YES;
     [self.view sendSubviewToBack:self.backgroundImageView];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self updateBtnLayout];

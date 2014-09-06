@@ -21,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *directionImage;
 
 // Route handling
-@property (weak, nonatomic) IBOutlet UIButton *startRouteBtn;
+@property (strong, nonatomic) UIBarButtonItem *startRouteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *pauseRouteBtn;
 @property (weak, nonatomic) IBOutlet UIButton *stopRouteBtn;
 @property (strong, nonatomic)NSDate *startRouteDate;
@@ -34,11 +34,13 @@
 
 @property (strong, nonatomic) NSString *timeForRoute;
 @property (nonatomic)NSTimeInterval pauseTimeInterval;
-@property (strong, nonatomic)NSUserDefaults *defaults;
+@property (strong, nonatomic)NSUserDefaults *userDefaults;
 @property (strong, nonatomic)UIAlertView *alertView;
 @property (strong, nonatomic)NSMutableArray *userLocationsArray;
 @property (nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
 @property (strong, nonatomic) NSString *directionsText;
+@property (nonatomic)BOOL onMapTab;
+@property (strong, nonatomic)NSMutableArray *placesArray;
 @end
 
 @implementation MapViewController
@@ -65,18 +67,12 @@
     
     self.speechSynthesizer.delegate = self;
     
-    // "Go to current user position"-button
-    //MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
-    //self.navigationItem.rightBarButtonItem = buttonItem;
-    
     // init user defaults to store data
-    self.defaults = [NSUserDefaults standardUserDefaults];
+    self.userDefaults = [NSUserDefaults standardUserDefaults];
     
     [self initMapView];
     
-    [self.view addSubview:self.mapView];
-    
-    
+    // add tap gesture recognizer to show and hide navbar and tabBar
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showHideNavbarAndTabBar:)];
     [self.view addGestureRecognizer:tapGesture];
 }
@@ -84,19 +80,50 @@
 - (void) initMapView
 {
     // 1) call a specific place and show on map
-    // 2) call a route and show on map
-    // 3) call map link in tabbar
     if (self.place) {
         [self addPlaceToMapAndCenterOnThatPlace:self.place];
-    }else if (self.route) {
+        // "Go to current user position"-button
+        MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+        self.navigationItem.rightBarButtonItem = buttonItem;
+    }
+    // 2) call a route and show on map
+    else if (self.route) {
         [self initRouteMapPage];
-    }else {
-        NSArray *interestingPlaces = [[NSArray alloc]initWithArray:[Helper readJSONFile:@"places"]];
-        for (NSDictionary *placeDict in interestingPlaces) {
-            Place *place = [[Place alloc] initWithPlaceDictionary:placeDict];
-            [self.mapView addAnnotation:place];
-            [self centerRegionWithCoordinate:self.mapView.userLocation.location.coordinate andWidth:200 andHeight:200];
+    }
+    // 3) call map link in tabbar
+    else {
+        NSLog(@"on tabbar");
+        // "Go to current user position"-button
+        MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+        self.navigationItem.rightBarButtonItem = buttonItem;
+        
+        self.onMapTab = YES;
+        
+        if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
+            [self loadPlaces];
+            [self showAllPlacesOnMap];
+        }else{
+            NSLog(@"show alert view to download!");
         }
+    }
+    //[self.view addSubview:self.mapView];
+}
+
+-(void) loadPlaces
+{
+    NSArray *interestingPlaces = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
+    self.placesArray = [[NSMutableArray alloc] init];
+    Place *place;
+    for (NSDictionary *placeDict in interestingPlaces) {
+        place = [[Place alloc] initWithPlaceDictionary:placeDict];
+        [self.placesArray addObject:place];
+    }
+}
+
+-(void) showAllPlacesOnMap
+{
+    for (Place *p in self.placesArray) {
+        [self.mapView addAnnotation:p];
     }
 }
 
@@ -105,6 +132,14 @@
     [super viewWillAppear:animated];
     // send mapView to back to show buttons on map
     [self.view sendSubviewToBack:self.mapView];
+}
+
+-(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    if (self.onMapTab) {
+        [self centerRegionWithCoordinate:mapView.userLocation.coordinate andWidth:1000 andHeight:1000];
+        self.onMapTab = NO;
+     }
 }
 
 - (IBAction)changeMapType:(UISegmentedControl *)sender {
@@ -243,7 +278,21 @@
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
                                                                action:@selector(goBack:)];
+    
+    // create start barb button
+    self.startRouteBtn = [[UIBarButtonItem alloc]initWithTitle:@"Start"
+                                                                style:UIBarButtonItemStyleBordered
+                                                               target:self
+                                                               action:@selector(startRoute:)];
+    
+    // create start barb button
+    self.pauseRouteBtn = [[UIBarButtonItem alloc]initWithTitle:@"Start"
+                                                         style:UIBarButtonItemStyleBordered
+                                                        target:self
+                                                        action:@selector(startRoute:)];
+    
     self.navigationItem.leftBarButtonItem = backBtn;
+    self.navigationItem.rightBarButtonItem = self.startRouteBtn;
     
     self.routeInformationOverlayView.hidden = NO;
     
@@ -258,7 +307,6 @@
     self.route.mapView = self.mapView;
     [self.route createRouteAndAddAnnotationForPlaces];
     [self.route centerRoute];
-    [self showStartRouteBtn];
     [self hideStopRouteBtn];
     [self hidePauseRouteBtn];
     self.pauseTimeInterval = 0.0;
@@ -320,7 +368,6 @@
                                                  repeats:YES];
     
     // show stop and pause button
-    [self hideStartRouteBtn];
     [self.pauseRouteBtn setTitle:@"Pause" forState: UIControlStateNormal];
     [self showPauseRouteBtn];
     [self showStopRouteBtn];
@@ -371,11 +418,10 @@
     self.mapView.rotateEnabled = YES;
     
     // save route details
-    [self.defaults setObject:self.route.visitedPlaces forKey:VISITED_PLACES];
-    [self.defaults synchronize];
+    [self.userDefaults setObject:self.route.visitedPlaces forKey:VISITED_PLACES];
+    [self.userDefaults synchronize];
     
     [self hidePauseRouteBtn];
-    [self showStartRouteBtn];
     [self hideStopRouteBtn];
 }
 
@@ -559,7 +605,7 @@
 }
 
 - (IBAction)tapOnOverlay:(UITapGestureRecognizer *)sender {
-    NSString *currentLang = [[NSString alloc] initWithString:[self.defaults stringForKey:@"currentLang"]];
+    NSString *currentLang = [[NSString alloc] initWithString:[self.userDefaults stringForKey:@"currentLang"]];
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString: self.directionsText];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:currentLang];
     NSLog(@"av lang %@", utterance.voice);
@@ -573,12 +619,6 @@
 
 # pragma mark - Show / Hide start,pause, stop buttons
 
--(void) hideStartRouteBtn
-{
-    self.startRouteBtn.hidden = YES;
-    self.startRouteBtn.enabled = NO;
-}
-
 -(void) hidePauseRouteBtn
 {
     self.pauseRouteBtn.hidden = YES;
@@ -589,12 +629,6 @@
 {
     self.stopRouteBtn.hidden = YES;
     self.stopRouteBtn.enabled = NO;
-}
-
--(void) showStartRouteBtn
-{
-    self.startRouteBtn.hidden = NO;
-    self.startRouteBtn.enabled = YES;
 }
 
 -(void) showPauseRouteBtn

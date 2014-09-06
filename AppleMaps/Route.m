@@ -41,7 +41,8 @@
     if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
         places = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
     }else{
-        places = [Helper readJSONFile:@"places"];
+        NSLog(@"show alert view to download!");
+        //places = [Helper readJSONFile:@"places"];
     }
     
     NSMutableArray *placesArray = [[NSMutableArray alloc] init];
