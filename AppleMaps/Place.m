@@ -20,21 +20,22 @@
 - (instancetype)initWithPlaceDictionary:(NSDictionary *) placeDictionary
 {
     self = [super init];
-    self.place = placeDictionary;
-
-    // init Coordinate
-    CLLocationDegrees latitude  = [[self.place valueForKey:@"lat"] doubleValue];
-    CLLocationDegrees longitude = [[self.place valueForKey:@"lng"] doubleValue];
-    self.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-    //init Name
-    self.title = [self.place valueForKey:@"title"];
-    //init Subtitle
-    self.subtitle = [self.place valueForKey:@"subtitle"];
-    // init routeID
-    self.placeID = [self.place valueForKey:@"id"];
-    // init image count
-    self.imageCount = [[self.place valueForKey:@"images_count"] intValue];
+    
+    if (self) {
         
+        self.place = placeDictionary;
+
+        // init Coordinate
+        CLLocationDegrees latitude  = [[self.place valueForKey:@"lat"] doubleValue];
+        CLLocationDegrees longitude = [[self.place valueForKey:@"lng"] doubleValue];
+        self.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+
+        // init routeID
+        self.placeID = [self.place valueForKey:@"id"];
+        // init image count
+        self.imageCount = [[self.place valueForKey:@"images_count"] intValue];
+    }
+    
     return self;
 }
 
@@ -70,6 +71,28 @@
                                                      error:NULL];
 
     return content;
+}
+
+- (NSArray *) loadCaptions
+{
+    NSMutableArray *captions = [[NSMutableArray alloc]init];
+    for (id photo in [self.place valueForKey:@"photos"]) {
+        [captions addObject:photo[@"caption"]];
+    }
+    
+    return [[NSArray alloc]initWithArray:captions];
+}
+
+#pragma mark - getter
+
+- (NSString *)title
+{
+    return [MCLocalization stringForKey:[self.place valueForKey:@"title"]];
+}
+
+- (NSString *)subtitle
+{
+    return [MCLocalization stringForKey:[self.place valueForKey:@"subtitle"]];
 }
 
 @end

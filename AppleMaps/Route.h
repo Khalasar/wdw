@@ -13,6 +13,12 @@
 @interface Route : NSObject
 
 @property(strong, nonatomic)NSString *name;
+@property(strong, nonatomic)NSString *subtitle;
+@property(strong, nonatomic)NSString *description;
+@property(strong, nonatomic)NSString *country;
+@property(strong, nonatomic)NSString *region;
+@property(strong, nonatomic)NSString *city;
+@property(strong, nonatomic)NSString *type;
 @property(strong, nonatomic)MKMapView *mapView;
 @property(strong, nonatomic)NSMutableArray *visitedPlaces;
 - (instancetype) initWithRouteDictionary:(NSDictionary *) routeDictionary;

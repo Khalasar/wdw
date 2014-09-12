@@ -12,12 +12,18 @@
 @interface Helper : NSObject
 
 + (NSArray *) readJSONFile:(NSString *) file;
-+ (NSArray *) readJSONFileFromDocumentDirectory:(NSString *) directory file:(NSString *)filename;
-+ (NSString *) getDocumentsPathForFile:(NSString *)filename inDirectory:(NSArray *)directoryArray;
++ (NSArray *) readJSONFileFromDocumentDirectory:(NSString *)directory
+                                           file:(NSString *)filename;
++ (NSString *) getDocumentsPathForFile:(NSString *)filename
+                           inDirectory:(NSArray *)directoryArray;
 + (NSString *) getPathForJSONFile:(NSString *)filename;
 + (NSString *) getDocumentsDirectorsPathFor:(NSArray *)directoryArray;
-+(NSString *)currentLanguage;
-+ (BOOL)existFile:(NSString *)filename inDocumentsDirectory:(NSArray *)directoryArray;
++ (NSString *) currentLanguage;
++ (NSString *) currentLanguageLong;
++ (BOOL)   existFile:(NSString *)filename
+inDocumentsDirectory:(NSArray *)directoryArray;
 + (NSArray *) getPlacesArray:(NSArray *)array;
-+ (FXBlurView *)createAndShowBlurView:(UIView *)underlyingView;
++ (FXBlurView *) createAndShowBlurView:(UIView *)underlyingView;
++ (void) loadTranslationFile;
++ (CGFloat) getScaleLevel;
 @end

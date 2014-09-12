@@ -12,10 +12,12 @@
 #import "RouteViewController.h"
 #import "MCLocalization.h"
 #import "FXBlurView.h"
+#import "RouteTableViewCell.h"
 
 @interface RoutesViewController ()
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) FXBlurView *blurView;
+@property (weak, nonatomic) IBOutlet UITableView *routesTableView;
 @end
 
 @implementation RoutesViewController
@@ -39,6 +41,8 @@
     self.routesTableView.delegate = self;
     self.routesTableView.dataSource = self;
     [self.routesTableView reloadData];
+    
+    [self localize];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -48,7 +52,20 @@
     [self.view sendSubviewToBack:self.backgroundImageView];
     [self.view sendSubviewToBack:self.blurView];
     
+    //self.routesTableView.layer.borderWidth = 2.0f;
+    //self.routesTableView.layer.borderColor = [[UIColor whiteColor]CGColor];
+    [self.routesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // hide all subviews for a better disappear look
+    [self.view.subviews setValue:@YES forKey:@"hidden"];
 }
 
 -(void)viewWillLayoutSubviews
@@ -95,18 +112,32 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"aRouteCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier
+    RouteTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: CellIdentifier
                                                             forIndexPath:indexPath];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[RouteTableViewCell alloc] initWithStyle: UITableViewCellStyleDefault
                                       reuseIdentifier:CellIdentifier];
     }
     
     Route *route = [[Route alloc] initWithRouteDictionary:self.routes[indexPath.row]];
-    cell.textLabel.text = [MCLocalization stringForKey:route.name];
+    
+    cell.title.text = route.name;
+    cell.title.tintColor = [UIColor whiteColor];
+    //cell.subtitle.text = route.name;
+    cell.layer.borderWidth = 1.0f;
+    cell.layer.borderColor = [[UIColor whiteColor]CGColor];
+    cell.layer.cornerRadius = 5.0f;
+    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f];
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat heightForRow = 100.0;
+    
+    return heightForRow;
 }
 
 #pragma mark - Navigation
@@ -125,6 +156,14 @@
             rvc.route = route;
         }
     }
+}
+
+#pragma mark - localization
+
+- (void) localize
+{
+    self.title = [MCLocalization stringForKey:@"routesTableHeadline"];
+    self.navigationItem.backBarButtonItem.title = [MCLocalization stringForKey:@"backBtn"];
 }
 
 

@@ -88,6 +88,14 @@
     return [[MCLocalization sharedInstance] language];
 }
 
++ (NSString *)currentLanguageLong
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *currentLang = [userDefaults stringForKey:@"currentLangLong"]? [userDefaults stringForKey:@"currentLangLong"] : @"Choose language";
+    return currentLang;
+}
+
 + (NSArray *) getPlacesArray:(NSArray *)array
 {
     NSMutableArray *placesArray = [[NSMutableArray alloc] init];
@@ -120,6 +128,26 @@
     shadowView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     shadowView.tag = 1;
     [view addSubview:shadowView];
+}
+
++ (void) loadTranslationFile
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    // for localization
+    NSString *path = [Helper getDocumentsPathForFile:@"translations.json" inDirectory:@[@"translations"]];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        NSLog(@"file exists");
+    }else{
+        path = [Helper getPathForJSONFile:@"translations"];
+    }
+    [MCLocalization loadFromJSONFile:path defaultLanguage:@"en"];
+    [MCLocalization sharedInstance].language = [userDefaults stringForKey:@"currentLangCode"];
+}
+
++ (CGFloat) getScaleLevel
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"scaleLevel"]? [[userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
 }
 
 @end

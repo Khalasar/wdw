@@ -38,8 +38,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    [self addNotifications];
     
     // init standard user defaults
     self.userDefaults = [NSUserDefaults standardUserDefaults];
@@ -50,15 +48,13 @@
     
     [self.view.subviews setValue:@YES forKey:@"hidden"];
     [self.collectionView registerClass:[ImageCell class] forCellWithReuseIdentifier:@"placeCollectionCell"];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
     
-    [self.view sendSubviewToBack:self.backgroundImageView];
-    [self.view sendSubviewToBack:self.blurView];
-
-    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(localize)
+                                                 name:MCLocalizationLanguageDidChangeNotification
+                                               object:nil];
+    [self localize];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -73,6 +69,11 @@
 {
     [super viewWillLayoutSubviews];
     
+    [self.view sendSubviewToBack:self.backgroundImageView];
+    [self.view sendSubviewToBack:self.blurView];
+    
+    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    
     [self updateLayout];
 }
 
@@ -86,22 +87,6 @@
     }
 }
 
-- (void)addNotifications
-{
-    // notification for localization
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(localize)
-                                                 name:MCLocalizationLanguageDidChangeNotification
-                                               object:nil];
-    [self localize];
-    
-    // notification to change font size
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(preferredFontsChanged:)
-                                                 name:UIContentSizeCategoryDidChangeNotification
-                                               object:nil];
-}
-
 #pragma mark - design/layout changed
 
 - (void)updateLayout
@@ -111,7 +96,7 @@
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
     
-    self.scaleLevel = [self.userDefaults objectForKey:@"scaleLevel"]? [[self.userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
+    self.scaleLevel = [Helper getScaleLevel];
     [self usePreferredFonts];
 }
 
@@ -135,7 +120,10 @@
 -(void)usePreferredFonts
 {
     self.body.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:self.scaleLevel];
-    self.headline.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel],
+      NSFontAttributeName, nil]];
 }
 
 #pragma mark -
@@ -185,20 +173,18 @@
     self.photoVC = [self.storyboard instantiateViewControllerWithIdentifier:@"galleryVC"];
     self.photoVC.pageImages = self.pageImages;
     self.photoVC.tappedImage = indexPath;
+    self.photoVC.imageCaptions = [self.place loadCaptions];
     
-    [[self navigationController] pushViewController:self.photoVC animated:YES];
-    
-    //the response to the gesture.
-    //mind that this is done in the cell. If you don't want things to happen from this cell.
-    //then you can still activate this the way you did in your question.
-    
+    // present
+    [self presentViewController:self.photoVC animated:YES completion:nil];
 }
 
 #pragma mark - localize method
-
+//TODO LOCALIZE BUTTON
 - (void)localize
 {
-    _nameLabel.text = [MCLocalization stringForKey:self.place.title];
     _body.text = [self.place loadBodyText];
+    self.title = self.place.title;
+    //self.showOnMapBtn.title = [MCLocalization stringForKey:@"onMapBtn"];
 }
 @end

@@ -4,6 +4,10 @@
         "ROUTE_NRW_WERNE_2": "ROUTE_NRW_WERNE_2 EN",
         "ROUTE_NRW_WERNE_3": "ROUTE_NRW_WERNE_3 EN",
         "ROUTE_NRW_WERNE_4": "ROUTE_NRW_WERNE_4 EN",
+        "ROUTE_NRW_WERNE_1_DESC": "Rundgang durch den historischen Ortskern von Werne. Mit dem Besuch einer Seilscheibe der ehemaligen Zeche Werne wird darüber hinaus die Geschichte des Bergbaus in Werne veranschaulicht. Die Dauer des Rundgangs beträgt ca. 90 - 120 Minuten.",
+        "ROUTE_NRW_WERNE_2_DESC": "descript",
+        "ROUTE_NRW_WERNE_3_DESC": "descript",
+        "ROUTE_NRW_WERNE_4_DESC": "descript",
         "PLACE_NRW_WERNE_TITLE_1": "Museum EN",
         "Kirche": "Kirche EN",
         "PLACE_NRW_WERNE_TITLE_2": "Old Amtshaus EN",
@@ -25,13 +29,21 @@
         "GO_RIGHT": "Turn right next opportunity",
         "SHARP_RIGHT": "Take a sharp right turn",
         "GO_FORWARD": "Continue straight ahead.",
-        "GO_BACK": "Turn around"
+        "GO_BACK": "Turn around",
+        "GERMANY": "Germany",
+        "WERNE": "Werne",
+        "NRW": "NRW",
+        "ROUNDTRIP": "Roundtrip"
     },
     "de": {
         "ROUTE_NRW_WERNE_1": "ROUTE_NRW_WERNE_1 DE",
         "ROUTE_NRW_WERNE_2": "ROUTE_NRW_WERNE_2 DE",
         "ROUTE_NRW_WERNE_3": "ROUTE_NRW_WERNE_3 DE",
         "ROUTE_NRW_WERNE_4": "ROUTE_NRW_WERNE_4 DE",
+        "ROUTE_NRW_WERNE_1_DESC": "Rundgang durch den historischen Ortskern von Werne. Mit dem Besuch einer Seilscheibe der ehemaligen Zeche Werne wird darüber hinaus die Geschichte des Bergbaus in Werne veranschaulicht. Die Dauer des Rundgangs beträgt ca. 90 - 120 Minuten.",
+        "ROUTE_NRW_WERNE_2_DESC": "Beschreibung",
+        "ROUTE_NRW_WERNE_3_DESC": "Beschreibung",
+        "ROUTE_NRW_WERNE_4_DESC": "Beschreibung",
         "PLACE_NRW_WERNE_TITLE_1": "Museum",
         "Kirche": "Kirche",
         "PLACE_NRW_WERNE_TITLE_2": "Altes Amtshaus",
@@ -53,6 +65,10 @@
         "GO_RIGHT": "Bei der nächsten Möglichkeit rechts gehen",
         "SHARP_RIGHT": "Scharf nach rechts abbiegen",
         "GO_FORWARD": "Wenn möglich, weiter gerade aus gehen.",
-        "GO_BACK": "Umdrehen"
+        "GO_BACK": "Umdrehen",
+        "GERMANY": "Deutschland",
+        "WERNE": "Werne",
+        "NRW": "NRW",
+        "ROUNDTRIP": "Rundgang"
     }
 }

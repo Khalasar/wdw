@@ -36,7 +36,6 @@
     return self;
 }
 
-// TODO Refactor this method
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -44,23 +43,13 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self addBackgroundImageView];
     
-    [self addNotifications];
-    
-    if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
-        self.places = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
-    }else{
-        //self.places = [Helper readJSONFile:@"places"];
-    }
-    
-    self.title = @"Places";
+    [self loadPlaces];
     
     self.placesArray = [Helper getPlacesArray:self.places];
     self.filteredPlaces = [NSMutableArray arrayWithCapacity:self.placesArray.count];
     
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    [self localize];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -69,7 +58,7 @@
     
     [self.view sendSubviewToBack:self.blurView];
     
-    self.scaleLevel = [self.userDefaults objectForKey:@"scaleLevel"]? [[self.userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
+    self.scaleLevel = [Helper getScaleLevel];
     [self.tableView reloadData];
 }
 
@@ -80,27 +69,38 @@
     [self updateLayout];
 }
 
-- (void)addNotifications
+#pragma mark - helper
+
+-(void) loadPlaces
 {
-    // notification for localization
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(localize)
-                                                 name:MCLocalizationLanguageDidChangeNotification
-                                               object:nil];
-    [self localize];
-    
-    // notification to change font size
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(preferredFontsChanged:)
-                                                 name:UIContentSizeCategoryDidChangeNotification
-                                               object:nil];
+    if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
+        self.places = [Helper readJSONFileFromDocumentDirectory:@"places"
+                                                           file:@"places.json"];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"warning"]
+                                                        message:[MCLocalization stringForKey:@"noPlacesMSG"]
+                                                       delegate:self
+                                              cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"]
+                                              otherButtonTitles:nil, nil
+                              ];
+        [alert show];
+    }
 }
 
 #pragma mark - fonts methods
 
 -(void)preferredFontsChanged:(NSNotification *)notification
 {
+    [self usePreferredFonts];
     [self.tableView reloadData];
+}
+
+-(void)usePreferredFonts
+{
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel],
+      NSFontAttributeName, nil]];
 }
 
 #pragma mark - helper methods
@@ -123,13 +123,16 @@
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
+    [self usePreferredFonts];
 }
 
 #pragma mark - localize method
 
 - (void)localize
 {
+    self.title = [MCLocalization stringForKey:@"placesTableHeadline"];
     [self.tableView reloadData];
+    self.navigationItem.backBarButtonItem.title = [MCLocalization stringForKey:@"backBtn"];
 }
 
 #pragma mark - Table view data source
@@ -172,7 +175,7 @@
     }
 
     //Place *place = [[Place alloc] initWithPlaceDictionary: self.places[indexPath.row]];
-    cell.textLabel.text = [MCLocalization stringForKey:place.title];
+    cell.textLabel.text = place.title;
     cell.textLabel.font =  [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale: self.scaleLevel];
     
     cell.textLabel.textColor = [UIColor whiteColor];

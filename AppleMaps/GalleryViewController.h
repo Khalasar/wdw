@@ -11,6 +11,7 @@
 @interface GalleryViewController : UICollectionViewController
 
 @property(strong, nonatomic) NSArray *pageImages;
+@property(strong, nonatomic) NSArray *imageCaptions;
 @property(strong, nonatomic) NSIndexPath *tappedImage;
 
 @end

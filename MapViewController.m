@@ -11,6 +11,7 @@
 #import "Helper.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MCLocalization.h"
+#import "UIFont+ScaledFont.h"
 
 @interface MapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -22,8 +23,7 @@
 
 // Route handling
 @property (strong, nonatomic) UIBarButtonItem *startRouteBtn;
-@property (weak, nonatomic) IBOutlet UIButton *pauseRouteBtn;
-@property (weak, nonatomic) IBOutlet UIButton *stopRouteBtn;
+@property (strong, nonatomic) UIBarButtonItem *pauseRouteBtn;
 @property (strong, nonatomic)NSDate *startRouteDate;
 @property (strong, nonatomic) NSTimer *timer;
 @property (nonatomic)BOOL routePaused;
@@ -39,8 +39,10 @@
 @property (strong, nonatomic)NSMutableArray *userLocationsArray;
 @property (nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
 @property (strong, nonatomic) NSString *directionsText;
-@property (nonatomic)BOOL onMapTab;
+@property (nonatomic)BOOL updateCurrentLocation;
 @property (strong, nonatomic)NSMutableArray *placesArray;
+@property (nonatomic)CGFloat scaleLevel;
+@property (strong, nonatomic)UITapGestureRecognizer *tapGesture;
 @end
 
 @implementation MapViewController
@@ -64,17 +66,30 @@
     // init mapView
     self.mapView.delegate = self;
     self.mapView.showsUserLocation = YES;
+    self.updateCurrentLocation = NO;
     
     self.speechSynthesizer.delegate = self;
     
     // init user defaults to store data
-    self.userDefaults = [NSUserDefaults standardUserDefaults];
-    
+    self.userDefaults = [NSUserDefaults standardUserDefaults];    
     [self initMapView];
+    self.title = [MCLocalization stringForKey:@"mapLabel"];
+    [self addNotifications];
+}
+
+- (void)addNotifications
+{
+    // notification for localization
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(localize)
+                                                 name:MCLocalizationLanguageDidChangeNotification
+                                               object:nil];
     
-    // add tap gesture recognizer to show and hide navbar and tabBar
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showHideNavbarAndTabBar:)];
-    [self.view addGestureRecognizer:tapGesture];
+    // notification to change font size
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferredFontsChanged:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
 }
 
 - (void) initMapView
@@ -92,12 +107,11 @@
     }
     // 3) call map link in tabbar
     else {
-        NSLog(@"on tabbar");
         // "Go to current user position"-button
         MKUserTrackingBarButtonItem *buttonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
         self.navigationItem.rightBarButtonItem = buttonItem;
         
-        self.onMapTab = YES;
+        self.updateCurrentLocation = YES;
         
         if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
             [self loadPlaces];
@@ -106,7 +120,6 @@
             NSLog(@"show alert view to download!");
         }
     }
-    //[self.view addSubview:self.mapView];
 }
 
 -(void) loadPlaces
@@ -132,13 +145,14 @@
     [super viewWillAppear:animated];
     // send mapView to back to show buttons on map
     [self.view sendSubviewToBack:self.mapView];
+    self.scaleLevel = [Helper getScaleLevel];
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    if (self.onMapTab) {
+    if (self.updateCurrentLocation) {
         [self centerRegionWithCoordinate:mapView.userLocation.coordinate andWidth:1000 andHeight:1000];
-        self.onMapTab = NO;
+        self.updateCurrentLocation = NO;
      }
 }
 
@@ -161,11 +175,12 @@
 
 - (void) addPlaceToMapAndCenterOnThatPlace:(Place *)place
 {
+    [self.mapView removeAnnotation:place];
     [self.mapView addAnnotation:place];
     // if showing map this annotation is standardly open
     [self.mapView selectAnnotation:place animated:YES];
     
-    [self centerRegionWithCoordinate:place.coordinate andWidth:200 andHeight:200];
+    [self centerRegionWithCoordinate:place.coordinate andWidth:100 andHeight:100];
 }
 
 - (void) centerRegionWithCoordinate:(CLLocationCoordinate2D)coord andWidth:(CLLocationDistance)width andHeight:(CLLocationDistance)height
@@ -175,6 +190,37 @@
     MKCoordinateRegion startRegion = MKCoordinateRegionMakeWithDistance(coord, regionWidth, regionHeight);
     [self.mapView setRegion:startRegion
                    animated:YES];
+}
+
+#pragma mark - fonts methods
+
+-(void)preferredFontsChanged:(NSNotification *)notification
+{
+    [self usePreferredFonts];
+}
+
+-(void)usePreferredFonts
+{
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel],
+      NSFontAttributeName, nil]];
+}
+
+#pragma mark - localize method
+- (void)localize
+{
+    self.title = [MCLocalization stringForKey:@"mapLabel"];
+    [self.startRouteBtn setTitle:[MCLocalization stringForKey:@"startBtn"]];
+    [self.pauseRouteBtn setTitle:[MCLocalization stringForKey:@"pauseBtn"]];
+    // 1) call a specific place and show on map
+    if (self.place) {
+        [self addPlaceToMapAndCenterOnThatPlace:self.place];
+    }
+    // 2) call a route and show on map
+    else if (self.route) {
+        self.nextPlaceField.text = [self.route getNextVisitPlace].title;
+    }
 }
 
 # pragma mark - alert view methods
@@ -196,13 +242,12 @@
 {
     if (alertView.tag == 0 && buttonIndex == 1)
     {
+        // save route details
+        [self.userDefaults setObject:self.route.visitedPlaces forKey:VISITED_PLACES];
+        [self.userDefaults synchronize];
+        
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else if (alertView.tag == 1 && buttonIndex == 1)
-    {
-        [self stopRoute];
-    }
-    
 }
 
 # pragma mark - map View delegate methods
@@ -228,10 +273,10 @@
         view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation
                                                reuseIdentifier: reuseID];
     }
-    
+    Place *placeAnno = (Place *)annotation;
     view.canShowCallout = YES;
     view.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-    Place *placeAnno = (Place *)annotation;
+    
     view.image = [UIImage imageNamed:@"Map-Marker-Azure"];
     
     for (Place *place in self.route.visitedPlaces) {
@@ -241,7 +286,7 @@
             view.image = [UIImage imageNamed:@"Map-Marker-Azure"];
         }
     }
-    view.annotation = annotation;
+    view.annotation = placeAnno;
     
     return view;
 }
@@ -268,28 +313,32 @@
 
 - (void) initRouteMapPage
 {
+    // add tap gesture recognizer to show and hide navbar and tabBar
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showHideNavbarAndTabBar:)];
+    self.tapGesture.delegate = self;
+    
     //self.locationManager.activityType = CLActivityTypeFitness;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     //self.locationManager.distanceFilter = 10;
     self.locationManager.delegate = self;
     
     // create back button and add method to check for back action
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"Back"
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"backBtn"]
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
                                                                action:@selector(goBack:)];
     
-    // create start barb button
-    self.startRouteBtn = [[UIBarButtonItem alloc]initWithTitle:@"Start"
+    // create start bar button
+    self.startRouteBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"startBtn"]
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
                                                                action:@selector(startRoute:)];
     
-    // create start barb button
-    self.pauseRouteBtn = [[UIBarButtonItem alloc]initWithTitle:@"Start"
+    // create pause bar button
+    self.pauseRouteBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"pauseBtn"]
                                                          style:UIBarButtonItemStyleBordered
                                                         target:self
-                                                        action:@selector(startRoute:)];
+                                                        action:@selector(pauseRoute:)];
     
     self.navigationItem.leftBarButtonItem = backBtn;
     self.navigationItem.rightBarButtonItem = self.startRouteBtn;
@@ -297,18 +346,17 @@
     self.routeInformationOverlayView.hidden = NO;
     
     // init alert view to check if user is sure to stop route or go back
-    self.alertView = [[UIAlertView alloc] initWithTitle:@"Warning"
-                                                message:@"Are you sure route cancelled?"
+    self.alertView = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"warning"]
+                                                message:[MCLocalization stringForKey:@"cancelMSG"]
                                                delegate:self
-                                      cancelButtonTitle:@"NO"
+                                      cancelButtonTitle:[MCLocalization stringForKey:@"no"]
                                       otherButtonTitles:nil];
-    [self.alertView addButtonWithTitle:@"YES"];
+    [self.alertView addButtonWithTitle:[MCLocalization stringForKey:@"yes"]];
     
     self.route.mapView = self.mapView;
     [self.route createRouteAndAddAnnotationForPlaces];
     [self.route centerRoute];
-    [self hideStopRouteBtn];
-    [self hidePauseRouteBtn];
+
     self.pauseTimeInterval = 0.0;
 }
 
@@ -322,18 +370,30 @@
     {
         case kCLErrorNetwork: // general, network-related error
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"please check your network connection or that you are not in airplane mode" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"error"]
+                                                            message:[MCLocalization stringForKey:@"networkError"]
+                                                           delegate:self
+                                                  cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"]
+                                                  otherButtonTitles:nil, nil];
             [alert show];
         }
         break;
         case kCLErrorDenied:{
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"user has denied to use current Location " delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"error"]
+                                                            message:[MCLocalization stringForKey:@"deniedLocationError"]
+                                                           delegate:self
+                                                  cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"]
+                                                  otherButtonTitles:nil, nil];
             [alert show];
         }
         break;
         default:
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"unknown network error" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"error"]
+                                                            message:[MCLocalization stringForKey:@"unknownNetworkError"]
+                                                           delegate:self
+                                                  cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"]
+                                                  otherButtonTitles:nil, nil];
             [alert show];
         }
         break;
@@ -342,8 +402,9 @@
 
 # pragma mark - action methods to control routes
 
-- (IBAction)startRoute:(UIButton *)sender {
+- (IBAction)startRoute:(UIBarButtonItem *)sender {
     NSLog(@"Start Route");
+    [self.mapView addGestureRecognizer:self.tapGesture];
     [self.locationManager startUpdatingLocation];
     [self startUpdateHeading];
     
@@ -356,7 +417,6 @@
     // compass mode on
     [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading];
     
-    
     self.startRouteDate = [NSDate date];
     self.startRouteDate = [self.startRouteDate dateByAddingTimeInterval:((-1)*(self.pauseTimeInterval))];
 
@@ -367,62 +427,25 @@
                                                 userInfo:nil
                                                  repeats:YES];
     
-    // show stop and pause button
-    [self.pauseRouteBtn setTitle:@"Pause" forState: UIControlStateNormal];
-    [self showPauseRouteBtn];
-    [self showStopRouteBtn];
+    self.navigationItem.rightBarButtonItem = self.pauseRouteBtn;
+    
     [self showHideNavbarAndTabBar:nil];
 }
 
-- (IBAction)pauseRoute:(UIButton *)sender {
-    if (!routePaused) {
-        NSLog(@"Pause Route");
-        [self.locationManager stopUpdatingLocation];
-        [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
-        [self.locationManager stopUpdatingHeading];
-        self.mapView.scrollEnabled = YES;
-        self.mapView.zoomEnabled = YES;
-        self.mapView.rotateEnabled = YES;
-        
-        [self.timer invalidate];
-        
-        [sender setTitle:@"Resume" forState: UIControlStateNormal];
-        routePaused = true;
-    }else{
-        [self startRoute:sender];
-        [sender setTitle:@"Pause" forState: UIControlStateNormal];
-        routePaused = false;
-    }
-}
+- (IBAction)pauseRoute:(UIBarButtonItem *)sender {
 
-- (IBAction)stopRoute:(UIButton *)sender {
-    // show alert message
-    self.alertView.tag = 1;
-    [self.alertView show];
-}
-
-- (void) stopRoute
-{
-    NSLog(@"Stop Route");
+    NSLog(@"Pause Route");
     [self.locationManager stopUpdatingLocation];
-    // Stop Timer
-    [self.timer invalidate];
-    self.timer = nil;
-    [self timerRuns];
-    self.pauseTimeInterval = 0;
-    self.routeRuns = NO;
     [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
     [self.locationManager stopUpdatingHeading];
     self.mapView.scrollEnabled = YES;
     self.mapView.zoomEnabled = YES;
     self.mapView.rotateEnabled = YES;
     
-    // save route details
-    [self.userDefaults setObject:self.route.visitedPlaces forKey:VISITED_PLACES];
-    [self.userDefaults synchronize];
+    [self.timer invalidate];
     
-    [self hidePauseRouteBtn];
-    [self hideStopRouteBtn];
+    [self.startRouteBtn setTitle:@"Resume"];
+    self.navigationItem.rightBarButtonItem = self.startRouteBtn;
 }
 
 -(void)timerRuns
@@ -450,8 +473,7 @@
         [self.locationManager startUpdatingHeading];
     }
     else {
-        NSLog(@"No Heading Available: ");
-        UIAlertView *noCompassAlert = [[UIAlertView alloc] initWithTitle:@"No Compass!" message:@"This device does not have the ability to measure magnetic fields." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        UIAlertView *noCompassAlert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"noCompassTitle"] message:[MCLocalization stringForKey:@"noCompassError"] delegate:nil cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"] otherButtonTitles:nil];
         [noCompassAlert show];
     }
     
@@ -617,32 +639,6 @@
     [self.speechSynthesizer speakUtterance:utterance];
 }
 
-# pragma mark - Show / Hide start,pause, stop buttons
-
--(void) hidePauseRouteBtn
-{
-    self.pauseRouteBtn.hidden = YES;
-    self.pauseRouteBtn.enabled = NO;
-}
-
--(void) hideStopRouteBtn
-{
-    self.stopRouteBtn.hidden = YES;
-    self.stopRouteBtn.enabled = NO;
-}
-
--(void) showPauseRouteBtn
-{
-    self.pauseRouteBtn.hidden = NO;
-    self.pauseRouteBtn.enabled = YES;
-}
-
--(void) showStopRouteBtn
-{
-    self.stopRouteBtn.hidden = NO;
-    self.stopRouteBtn.enabled = YES;
-}
-
 -(NSTimer *)timer
 {
     if (!_timer) {
@@ -762,6 +758,15 @@
 
 - (BOOL)prefersStatusBarHidden {
     return self.navigationController.navigationBar.hidden;
+}
+
+#pragma mark - UIGestureRecognizer Delgate
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    //NSLog(@"1:%@; 2%@", gestureRecognizer,otherGestureRecognizer);
+    return YES;
 }
 
 @end

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C302D21E19C21C94000F9432 /* UIPopoverController+Iphone.m in Sources */ = {isa = PBXBuildFile; fileRef = C302D21D19C21C94000F9432 /* UIPopoverController+Iphone.m */; };
 		C30F747E19767C3B00B7C8C1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F747D19767C3B00B7C8C1 /* Foundation.framework */; };
 		C30F748019767C3B00B7C8C1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F747F19767C3B00B7C8C1 /* CoreGraphics.framework */; };
 		C30F748219767C3B00B7C8C1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C30F748119767C3B00B7C8C1 /* UIKit.framework */; };
@@ -27,6 +28,7 @@
 		C336C7A6197C0B9B00DE217F /* RoutesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C336C7A5197C0B9A00DE217F /* RoutesViewController.m */; };
 		C336C7AA197C0D5D00DE217F /* Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C336C7A9197C0D5D00DE217F /* Helper.m */; };
 		C336C7AD197C0FA100DE217F /* Route.m in Sources */ = {isa = PBXBuildFile; fileRef = C336C7AC197C0FA100DE217F /* Route.m */; };
+		C33A7DC819C049A7001E62DC /* LanguageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C33A7DC719C049A7001E62DC /* LanguageTableViewController.m */; };
 		C34212A119854E20001D826C /* Route1.plist in Resources */ = {isa = PBXBuildFile; fileRef = C342129D19854E20001D826C /* Route1.plist */; };
 		C34212A219854E20001D826C /* Route2.plist in Resources */ = {isa = PBXBuildFile; fileRef = C342129E19854E20001D826C /* Route2.plist */; };
 		C34212A319854E20001D826C /* Route3.plist in Resources */ = {isa = PBXBuildFile; fileRef = C342129F19854E20001D826C /* Route3.plist */; };
@@ -49,11 +51,14 @@
 		C350AD1919A742820071AD7C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C350AD1819A742820071AD7C /* libz.dylib */; };
 		C3511AA019AF4DF700795E6E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3511A9F19AF4DF700795E6E /* SettingsViewController.m */; };
 		C357C0A319AB55EF004F2EA2 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C357C0A119AB55EF004F2EA2 /* Main_iPhone.storyboard */; };
+		C362690F19BC789D00DDFAFA /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C362690E19BC789D00DDFAFA /* GalleryCell.xib */; };
+		C362691219BC986800DDFAFA /* RouteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C362691119BC986800DDFAFA /* RouteTableViewCell.m */; };
 		C36B1D99198B95A30001A851 /* PlacesTranslations.strings in Resources */ = {isa = PBXBuildFile; fileRef = C36B1D9B198B95A30001A851 /* PlacesTranslations.strings */; };
 		C37553011979022000B9A1B6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37553001979022000B9A1B6 /* MainViewController.m */; };
 		C3755304197910FE00B9A1B6 /* PlacesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3755303197910FE00B9A1B6 /* PlacesTableViewController.m */; };
 		C3755307197919B600B9A1B6 /* PlaceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3755306197919B600B9A1B6 /* PlaceViewController.m */; };
 		C375530F19792CB100B9A1B6 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = C375530E19792CB100B9A1B6 /* Place.m */; };
+		C38ED5B819C19F1900FBBF1E /* MyLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = C38ED5B719C19F1900FBBF1E /* MyLabel.m */; };
 		C392F9001976F142002C8D9C /* places.json in Resources */ = {isa = PBXBuildFile; fileRef = C392F8FF1976F142002C8D9C /* places.json */; };
 		C3A6F9F419B4D847004530AB /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A6F9F319B4D847004530AB /* FXBlurView.m */; };
 		C3A6FA0019B606F8004530AB /* background3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3A6F9FF19B606F8004530AB /* background3.jpg */; };
@@ -75,6 +80,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C302D21C19C21C94000F9432 /* UIPopoverController+Iphone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPopoverController+Iphone.h"; sourceTree = "<group>"; };
+		C302D21D19C21C94000F9432 /* UIPopoverController+Iphone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPopoverController+Iphone.m"; sourceTree = "<group>"; };
 		C30F747A19767C3B00B7C8C1 /* WegDesWandels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WegDesWandels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30F747D19767C3B00B7C8C1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		C30F747F19767C3B00B7C8C1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +110,8 @@
 		C336C7A9197C0D5D00DE217F /* Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helper.m; sourceTree = "<group>"; };
 		C336C7AB197C0FA100DE217F /* Route.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Route.h; sourceTree = "<group>"; };
 		C336C7AC197C0FA100DE217F /* Route.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Route.m; sourceTree = "<group>"; };
+		C33A7DC619C049A7001E62DC /* LanguageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTableViewController.h; sourceTree = "<group>"; };
+		C33A7DC719C049A7001E62DC /* LanguageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageTableViewController.m; sourceTree = "<group>"; };
 		C342129D19854E20001D826C /* Route1.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route1.plist; sourceTree = "<group>"; };
 		C342129E19854E20001D826C /* Route2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route2.plist; sourceTree = "<group>"; };
 		C342129F19854E20001D826C /* Route3.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Route3.plist; sourceTree = "<group>"; };
@@ -137,6 +146,9 @@
 		C3511A9E19AF4DF700795E6E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		C3511A9F19AF4DF700795E6E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C357C0A219AB55EF004F2EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		C362690E19BC789D00DDFAFA /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
+		C362691019BC986800DDFAFA /* RouteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteTableViewCell.h; sourceTree = "<group>"; };
+		C362691119BC986800DDFAFA /* RouteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteTableViewCell.m; sourceTree = "<group>"; };
 		C36B1D9A198B95A30001A851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/PlacesTranslations.strings; sourceTree = "<group>"; };
 		C37552FF1979022000B9A1B6 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		C37553001979022000B9A1B6 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
@@ -146,6 +158,8 @@
 		C3755306197919B600B9A1B6 /* PlaceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceViewController.m; sourceTree = "<group>"; };
 		C375530D19792CB100B9A1B6 /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
 		C375530E19792CB100B9A1B6 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		C38ED5B619C19F1900FBBF1E /* MyLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyLabel.h; sourceTree = "<group>"; };
+		C38ED5B719C19F1900FBBF1E /* MyLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLabel.m; sourceTree = "<group>"; };
 		C392F8FF1976F142002C8D9C /* places.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = places.json; sourceTree = "<group>"; };
 		C3A6F9F319B4D847004530AB /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		C3A6F9F519B4D84E004530AB /* FXBlurView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
@@ -247,6 +261,7 @@
 		C30F748419767C3B00B7C8C1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C362691319BCAC7600DDFAFA /* Routes */,
 				C3A6FA0319B61088004530AB /* Externe Hilfsklassen */,
 				C3A6FA0119B61058004530AB /* backgroundImages */,
 				C36B1D9C198BA0870001A851 /* Translations */,
@@ -282,6 +297,8 @@
 			children = (
 				C336C7A8197C0D5D00DE217F /* Helper.h */,
 				C336C7A9197C0D5D00DE217F /* Helper.m */,
+				C302D21C19C21C94000F9432 /* UIPopoverController+Iphone.h */,
+				C302D21D19C21C94000F9432 /* UIPopoverController+Iphone.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -292,6 +309,7 @@
 				C34F119019B9A82200D6E8B0 /* GalleryCell.h */,
 				C34F119119B9A82200D6E8B0 /* GalleryCell.m */,
 				C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */,
+				C362690E19BC789D00DDFAFA /* GalleryCell.xib */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -319,6 +337,17 @@
 				C350AD1019A73DD80071AD7C /* zip.h */,
 			);
 			path = minizip;
+			sourceTree = "<group>";
+		};
+		C362691319BCAC7600DDFAFA /* Routes */ = {
+			isa = PBXGroup;
+			children = (
+				C342129D19854E20001D826C /* Route1.plist */,
+				C342129E19854E20001D826C /* Route2.plist */,
+				C342129F19854E20001D826C /* Route3.plist */,
+				C34212A019854E20001D826C /* Route4.plist */,
+			);
+			name = Routes;
 			sourceTree = "<group>";
 		};
 		C36B1D9C198BA0870001A851 /* Translations */ = {
@@ -357,6 +386,10 @@
 				C3755303197910FE00B9A1B6 /* PlacesTableViewController.m */,
 				C336C7A4197C0B9A00DE217F /* RoutesViewController.h */,
 				C336C7A5197C0B9A00DE217F /* RoutesViewController.m */,
+				C362691019BC986800DDFAFA /* RouteTableViewCell.h */,
+				C362691119BC986800DDFAFA /* RouteTableViewCell.m */,
+				C33A7DC619C049A7001E62DC /* LanguageTableViewController.h */,
+				C33A7DC719C049A7001E62DC /* LanguageTableViewController.m */,
 			);
 			name = TableViewController;
 			sourceTree = "<group>";
@@ -374,6 +407,8 @@
 				C34D95E0199DF8A000E455C5 /* Downloader.m */,
 				C3E1D03219B9E5EE004349A2 /* UIFont+ScaledFont.h */,
 				C3E1D03319B9E5EE004349A2 /* UIFont+ScaledFont.m */,
+				C38ED5B619C19F1900FBBF1E /* MyLabel.h */,
+				C38ED5B719C19F1900FBBF1E /* MyLabel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -420,10 +455,6 @@
 		C3BDFE131981379F00D5A6AE /* JSON */ = {
 			isa = PBXGroup;
 			children = (
-				C342129D19854E20001D826C /* Route1.plist */,
-				C342129E19854E20001D826C /* Route2.plist */,
-				C342129F19854E20001D826C /* Route3.plist */,
-				C34212A019854E20001D826C /* Route4.plist */,
 				C392F8FF1976F142002C8D9C /* places.json */,
 				C336C78D197A905500DE217F /* routes.json */,
 			);
@@ -548,6 +579,7 @@
 				C34F119719B9B01A00D6E8B0 /* GalleryCelliPad.xib in Resources */,
 				C34212A419854E20001D826C /* Route4.plist in Resources */,
 				C3A6FA0619B6155C004530AB /* backgroundImage1.jpg in Resources */,
+				C362690F19BC789D00DDFAFA /* GalleryCell.xib in Resources */,
 				C34212A219854E20001D826C /* Route2.plist in Resources */,
 				C34212A119854E20001D826C /* Route1.plist in Resources */,
 				C36B1D99198B95A30001A851 /* PlacesTranslations.strings in Resources */,
@@ -577,6 +609,7 @@
 				C350AD1519A73DD80071AD7C /* unzip.c in Sources */,
 				C30F748E19767C3B00B7C8C1 /* AppDelegate.m in Sources */,
 				C336C7AA197C0D5D00DE217F /* Helper.m in Sources */,
+				C362691219BC986800DDFAFA /* RouteTableViewCell.m in Sources */,
 				C3E99A79198103B10040F176 /* RouteViewController.m in Sources */,
 				C34C5D0A19929C390054712C /* ImageCell.m in Sources */,
 				C3A6F9F419B4D847004530AB /* FXBlurView.m in Sources */,
@@ -587,9 +620,12 @@
 				C336C7AD197C0FA100DE217F /* Route.m in Sources */,
 				C350AD1419A73DD80071AD7C /* mztools.c in Sources */,
 				C30F748A19767C3B00B7C8C1 /* main.m in Sources */,
+				C302D21E19C21C94000F9432 /* UIPopoverController+Iphone.m in Sources */,
 				C350ACBC19A6121F0071AD7C /* MCLocalization.m in Sources */,
 				C34F118F19B9A53500D6E8B0 /* GalleryViewController.m in Sources */,
 				C34F119219B9A82200D6E8B0 /* GalleryCell.m in Sources */,
+				C33A7DC819C049A7001E62DC /* LanguageTableViewController.m in Sources */,
+				C38ED5B819C19F1900FBBF1E /* MyLabel.m in Sources */,
 				C350AD1319A73DD80071AD7C /* ioapi.c in Sources */,
 				C3E1D03419B9E5EE004349A2 /* UIFont+ScaledFont.m in Sources */,
 				C3755307197919B600B9A1B6 /* PlaceViewController.m in Sources */,

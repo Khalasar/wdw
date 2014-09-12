@@ -7,9 +7,16 @@
 //
 
 #import "GalleryCell.h"
+#import "MyLabel.h"
+#import "MCLocalization.h"
+#import "Helper.h"
+#import "UIFont+ScaledFont.h"
 
 @interface GalleryCell()
+@property (weak, nonatomic) IBOutlet MyLabel *captionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIView *captionBackground;
+@property (nonatomic) CGFloat scaleLevel;
 @end
 
 @implementation GalleryCell
@@ -29,15 +36,20 @@
         }
         
         self = [arrayOfViews objectAtIndex:0];
+        
+        self.captionBackground.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5f];
     }
     
     return self;
 }
 
--(void)updateCell:(UIImage *)image
+-(void)updateCellWithImage:(UIImage *)image andCaption:(NSString *)caption
 {
+    self.scaleLevel = [Helper getScaleLevel];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageView setImage:image];
+    self.captionLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:self.scaleLevel];
+    self.captionLabel.text = caption;// [MCLocalization stringForKey:caption];
 }
 
 

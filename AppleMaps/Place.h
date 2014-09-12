@@ -22,4 +22,6 @@
 
 - (NSArray *) loadImages;
 
+- (NSArray *) loadCaptions;
+
 @end

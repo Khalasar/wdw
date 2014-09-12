@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LanguageTableViewController.h"
 
-@interface SettingsViewController : UIViewController <UIPickerViewDataSource, UIPickerViewDelegate>
+@interface SettingsViewController : UIViewController < UITableViewDataSource, UITableViewDelegate, UIPopoverControllerDelegate, DismissPopoverDelegate >
 
 @end

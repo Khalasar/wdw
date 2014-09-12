@@ -9,6 +9,7 @@
 #import "Route.h"
 #import "Helper.h"
 #import "Place.h"
+#import "MCLocalization.h"
 
 @interface Route ()
 @property(strong, nonatomic)NSDictionary *route;
@@ -24,13 +25,20 @@
 
 -(instancetype)initWithRouteDictionary:(NSDictionary *)route{
     self = [super init];
-    self.route = route;
-    //init name
-    self.name = self.route[@"title"];
-    self.waypointsArray = (NSArray *) self.route[@"waypoints"];
-    self.routeID = self.route[@"id"];
-    [self initPlacesArray];
-    
+    if (self) {
+        self.route = route;
+        //init route properties
+        self.subtitle = self.route[@"subtitle"];
+        self.waypointsArray = (NSArray *) self.route[@"waypoints"];
+        self.routeID = self.route[@"id"];
+        self.description = self.route[@"description"];
+        self.country = self.route[@"country"];
+        self.region = self.route[@"region"];
+        self.city = self.route[@"city"];
+        self.type = self.route[@"type"];
+        //self.name = self.route[@"title"];
+        [self initPlacesArray];
+    }
     return self;
 }
 
@@ -42,7 +50,7 @@
         places = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
     }else{
         NSLog(@"show alert view to download!");
-        //places = [Helper readJSONFile:@"places"];
+        places = [Helper readJSONFile:@"places"];
     }
     
     NSMutableArray *placesArray = [[NSMutableArray alloc] init];
@@ -197,5 +205,11 @@
     return _visitedPlaces;
 }
 
+#pragma mark - getter
+
+- (NSString *)name
+{
+    return [MCLocalization stringForKey: self.route[@"title"]];
+}
 
 @end

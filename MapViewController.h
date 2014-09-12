@@ -13,7 +13,7 @@
 
 @import AVFoundation;
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate, AVSpeechSynthesizerDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIAlertViewDelegate, AVSpeechSynthesizerDelegate, UIGestureRecognizerDelegate>
 
 @property(strong, nonatomic)Place *place;
 @property(strong, nonatomic)Route *route;

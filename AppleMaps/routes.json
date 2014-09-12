@@ -3,22 +3,22 @@
         "id": "1",
         "title": "ROUTE_NRW_WERNE_1",
         "subtitle": "Standardrundgang",
-        "description": "Description",
-        "country": "Deutschland",
+        "description": "ROUTE_NRW_WERNE_1_DESC",
+        "country": "GERMANY",
         "region": "NRW",
-        "city": "Werne",
-        "type": "Rundgang",
+        "city": "WERNE",
+        "type": "ROUNDTRIP",
         "waypoints":["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"]
     },
     {
         "id": "2",
         "title": "ROUTE_NRW_WERNE_2",
         "subtitle": "Standardrundgang",
-        "description": "Description",
-        "country": "Deutschland",
+        "description": "ROUTE_NRW_WERNE_2_DESC",
+        "country": "GERMANY",
         "region": "NRW",
-        "city": "Werne",
-        "type": "Rundgang",
+        "city": "WERNE",
+        "type": "ROUNDTRIP",
         "waypoints":["14", "15"]
     }
 ]

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="CFB-n6-ywg" customClass="GalleryCell">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zdw-u1-n7P">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uGM-Q2-Z39">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="uGM-Q2-Z39" firstAttribute="leading" secondItem="Zdw-u1-n7P" secondAttribute="leading" id="BgF-DM-LD4"/>
+                            <constraint firstItem="uGM-Q2-Z39" firstAttribute="centerX" secondItem="Zdw-u1-n7P" secondAttribute="centerX" id="Q7V-E0-tuG"/>
+                            <constraint firstAttribute="bottom" secondItem="uGM-Q2-Z39" secondAttribute="bottom" id="RPf-nT-kGw"/>
+                            <constraint firstItem="uGM-Q2-Z39" firstAttribute="top" secondItem="Zdw-u1-n7P" secondAttribute="top" id="h53-bC-ma0"/>
+                            <constraint firstAttribute="trailing" secondItem="uGM-Q2-Z39" secondAttribute="trailing" id="qlb-lt-Wmd"/>
+                            <constraint firstItem="uGM-Q2-Z39" firstAttribute="centerY" secondItem="Zdw-u1-n7P" secondAttribute="centerY" id="vlQ-8c-AqK"/>
+                        </constraints>
+                    </scrollView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Zdw-u1-n7P" secondAttribute="bottom" id="29x-AE-ROq"/>
+                <constraint firstItem="Zdw-u1-n7P" firstAttribute="top" secondItem="CFB-n6-ywg" secondAttribute="top" id="Gle-t6-ewQ"/>
+                <constraint firstItem="Zdw-u1-n7P" firstAttribute="leading" secondItem="CFB-n6-ywg" secondAttribute="leading" id="jQu-Lg-t1w"/>
+                <constraint firstAttribute="trailing" secondItem="Zdw-u1-n7P" secondAttribute="trailing" id="rrG-PQ-1mO"/>
+            </constraints>
+            <size key="customSize" width="417" height="631"/>
+            <connections>
+                <outlet property="imageView" destination="uGM-Q2-Z39" id="REk-zV-bEO"/>
+                <outlet property="scrollView" destination="Zdw-u1-n7P" id="Gop-Ij-aTu"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

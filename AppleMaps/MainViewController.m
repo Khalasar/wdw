@@ -12,6 +12,7 @@
 #import "Helper.h"
 #import "FXBlurView.h"
 #import "UIFont+ScaledFont.h"
+#import "MCLocalization.h"
 
 @interface MainViewController ()
 @property (strong, nonatomic)NSDictionary *readedJson;
@@ -24,6 +25,8 @@
 @property (strong, nonatomic) NSUserDefaults *userDefaults;
 @property (nonatomic)CGFloat scaleLevel;
 - (IBAction)showInterestingPlaces:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *routesBtn;
+@property (weak, nonatomic) IBOutlet UIButton *downloadBtn;
 @end
 
 @implementation MainViewController
@@ -44,20 +47,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self addBackgroundImageView];
-    
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    [self.view.subviews setValue:@NO forKey:@"hidden"];
-    self.progressView.hidden = YES;
-    [self.view sendSubviewToBack:self.backgroundImageView];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self updateBtnLayout];
+    [self addNotifications];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -71,13 +64,41 @@
 {
     [super viewWillLayoutSubviews];
     
+    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    self.progressView.hidden = YES;
+    [self.view sendSubviewToBack:self.backgroundImageView];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self updateLayout];
+}
+
+#pragma mark - fonts methods
+
+-(void)preferredFontsChanged:(NSNotification *)notification
+{
+    [self updateBtnLayout];
+}
+
+#pragma mark - helper(notification, layout)
+
+- (void)addNotifications
+{
+    // notification for localization
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(localize)
+                                                 name:MCLocalizationLanguageDidChangeNotification
+                                               object:nil];
+    [self localize];
+    
+    // notification to change font size
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(preferredFontsChanged:)
+                                                 name:UIContentSizeCategoryDidChangeNotification
+                                               object:nil];
 }
 
 -(void)updateBtnLayout
 {
-    self.scaleLevel = [self.userDefaults objectForKey:@"scaleLevel"]?
-        [[self.userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
+    self.scaleLevel = [Helper getScaleLevel];
     
     for (UIView *view in self.view.subviews)
     {
@@ -99,13 +120,7 @@
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
-}
-
-- (IBAction)goToPlacesView:(id)sender {
-    UISplitViewController *svc = (UISplitViewController *)[self.storyboard instantiateViewControllerWithIdentifier:@"placeSplitView"];
-
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    appDelegate.window.rootViewController = svc;
+    [self updateBtnLayout];
 }
 
 - (void) addBackgroundImageView
@@ -126,9 +141,9 @@
     
     NSURL *downloadURL = [NSURL URLWithString:PLACES_URL];
     [self downloadFromURL:downloadURL];
-    // downloadURL = [NSURL URLWithString:TRANSLATIONS_URL];
-    // [self downloadFromURL:downloadURL];
-
+    
+    downloadURL = [NSURL URLWithString:TRANSLATIONS_URL];
+    [self downloadFromURL:downloadURL];
 }
 
 - (void)downloadFromURL:(NSURL *)url
@@ -165,9 +180,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self startNextDownload];
-
+    [Helper loadTranslationFile];
 }
 
+// TODO Download only images if updated at newer
 - (void)startNextDownload
 {
     // start next Download
@@ -183,7 +199,20 @@
     }
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
+
 -(IBAction)showInterestingPlaces:(id)sender {
+}
+
+#pragma mark - localization
+
+- (void) localize
+{
+    self.placesBtn.titleLabel.text = [MCLocalization stringForKey:@"placesBtn"];
+    self.routesBtn.titleLabel.text = [MCLocalization stringForKey:@"routesBtn"];
+    self.downloadBtn.titleLabel.text = [MCLocalization stringForKey:@"downloadBtn"];
 }
 
 @end

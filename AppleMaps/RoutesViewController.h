@@ -9,8 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RoutesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
-
 @property(strong, nonatomic)NSArray *routes;
-@property (weak, nonatomic) IBOutlet UITableView *routesTableView;
-
 @end

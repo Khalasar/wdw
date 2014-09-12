@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GalleryCell : UICollectionViewCell
+@interface GalleryCell : UICollectionViewCell <UIScrollViewDelegate>
 
 @property (nonatomic, strong) NSString *imageName;
--(void)updateCell:(UIImage *)image;
+-(void)updateCellWithImage:(UIImage *)image andCaption:(NSString *)caption;
 
 @end

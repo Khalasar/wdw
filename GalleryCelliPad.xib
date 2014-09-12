@@ -17,6 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5d5-dp-m4Q">
+                        <rect key="frame" x="0.0" y="974" width="768" height="50"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Test Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffR-2E-UDR" customClass="MyLabel">
+                                <rect key="frame" x="20" y="0.0" width="728" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -28,6 +42,8 @@
             </constraints>
             <size key="customSize" width="621" height="799"/>
             <connections>
+                <outlet property="captionBackground" destination="5d5-dp-m4Q" id="gry-jd-qdD"/>
+                <outlet property="captionLabel" destination="ffR-2E-UDR" id="b6H-Za-Dhm"/>
                 <outlet property="imageView" destination="tEy-e3-fwb" id="LLs-gM-Uca"/>
             </connections>
         </collectionViewCell>

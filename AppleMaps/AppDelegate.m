@@ -10,22 +10,19 @@
 #import "Downloader.h"
 #import "MCLocalization.h"
 #import "Helper.h"
+#import "GalleryViewController.h"
 
 @implementation AppDelegate
 
+#define IPAD     UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+
+
+// TODO: Use translations from backend!
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window.tintColor = [UIColor whiteColor];
     
-    // for localization
-    NSString * path = [Helper getDocumentsPathForFile:@"translations.json" inDirectory:@[@"translations"]];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
-        NSLog(@"file exists");
-    }else{
-        path = [Helper getPathForJSONFile:@"translations"];
-    }
-    [MCLocalization loadFromJSONFile:path defaultLanguage:@"en"];
-    [MCLocalization sharedInstance].language =  [NSLocale preferredLanguages][0];
+    [Helper loadTranslationFile];
     
     return YES;
 }
@@ -64,6 +61,39 @@ handleEventsForBackgroundURLSession:(NSString *)identifier
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (NSUInteger)application:(UIApplication *)application
+supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (IPAD) {
+        return UIInterfaceOrientationMaskAll;
+    }else{
+        if ([[self.window.rootViewController presentedViewController]
+             isKindOfClass:[GalleryViewController class]]) {
+            return UIInterfaceOrientationMaskAllButUpsideDown;
+        } else {
+            
+            if ([[self.window.rootViewController presentedViewController]
+                 isKindOfClass:[UINavigationController class]]) {
+                
+                // look for it inside UINavigationController
+                UINavigationController *nc = (UINavigationController *)[self.window.rootViewController presentedViewController];
+                
+                // is at the top?
+                if ([nc.topViewController isKindOfClass:[GalleryViewController class]]) {
+                    return UIInterfaceOrientationMaskAllButUpsideDown;
+                    
+                    // or it's presented from the top?
+                } else if ([[nc.topViewController presentedViewController]
+                            isKindOfClass:[GalleryViewController class]]) {
+                    return UIInterfaceOrientationMaskAllButUpsideDown;
+                }
+            }
+        }
+        return UIInterfaceOrientationMaskPortrait;
+    }
+    
 }
 
 @end
