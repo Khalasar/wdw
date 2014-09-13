@@ -13,6 +13,8 @@
 @interface Place ()
 @property(strong, nonatomic) NSDictionary *place;
 @property(strong, nonatomic) NSMutableArray *imagesArray;
+@property(strong, nonatomic) NSString *innerTitle;
+@property(strong, nonatomic) NSString *innerSubtitle;
 @end
 
 @implementation Place
@@ -34,8 +36,32 @@
         self.placeID = [self.place valueForKey:@"id"];
         // init image count
         self.imageCount = [[self.place valueForKey:@"images_count"] intValue];
+        self.innerTitle = [self.place valueForKey:@"title"];
+        self.innerSubtitle = [self.place valueForKey:@"subtitle"];
     }
     
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc
+    [encoder encodeDouble:self.coordinate.latitude forKey:@"lat"];
+    [encoder encodeDouble:self.coordinate.longitude forKey:@"lng"];
+    [encoder encodeObject:self.placeID forKey:@"placeID"];
+    [encoder encodeObject:self.title forKey:@"title"];
+    [encoder encodeObject:self.subtitle forKey:@"subtitle"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        CLLocationDegrees latitude  = [decoder decodeDoubleForKey:@"lat"];
+        CLLocationDegrees longitude = [decoder decodeDoubleForKey:@"lng"];
+        self.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        self.placeID = [decoder decodeObjectForKey:@"placeID"];
+        self.innerTitle = [decoder decodeObjectForKey:@"title"];
+        self.innerSubtitle = [decoder decodeObjectForKey:@"subtitle"];
+    }
     return self;
 }
 
@@ -87,12 +113,12 @@
 
 - (NSString *)title
 {
-    return [MCLocalization stringForKey:[self.place valueForKey:@"title"]];
+    return [MCLocalization stringForKey:self.innerTitle];
 }
 
 - (NSString *)subtitle
 {
-    return [MCLocalization stringForKey:[self.place valueForKey:@"subtitle"]];
+    return [MCLocalization stringForKey:self.innerSubtitle];
 }
 
 @end

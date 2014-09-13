@@ -60,6 +60,7 @@
     
     self.scaleLevel = [Helper getScaleLevel];
     [self.tableView reloadData];
+    [self usePreferredFonts];
 }
 
 -(void)viewWillLayoutSubviews
@@ -77,13 +78,7 @@
         self.places = [Helper readJSONFileFromDocumentDirectory:@"places"
                                                            file:@"places.json"];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"warning"]
-                                                        message:[MCLocalization stringForKey:@"noPlacesMSG"]
-                                                       delegate:self
-                                              cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"]
-                                              otherButtonTitles:nil, nil
-                              ];
-        [alert show];
+        [Helper showAlertIfPlacesNotLoaded];
     }
 }
 
@@ -101,6 +96,11 @@
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel],
       NSFontAttributeName, nil]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]]
+       }
+     forState:UIControlStateNormal];
 }
 
 #pragma mark - helper methods
@@ -123,7 +123,6 @@
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
-    [self usePreferredFonts];
 }
 
 #pragma mark - localize method

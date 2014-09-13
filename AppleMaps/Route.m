@@ -49,8 +49,7 @@
     if ([Helper existFile:@"places.json" inDocumentsDirectory:@[@"places"]]) {
         places = [Helper readJSONFileFromDocumentDirectory:@"places" file:@"places.json"];
     }else{
-        NSLog(@"show alert view to download!");
-        places = [Helper readJSONFile:@"places"];
+        return;
     }
     
     NSMutableArray *placesArray = [[NSMutableArray alloc] init];
@@ -90,10 +89,10 @@
                                                          longitude:nextPlace.coordinate.longitude];
     
     CLLocationDistance distance = [userLocation distanceFromLocation: nextPlaceLoc];
-    int nearest = lroundf((float)distance);
+    long nearest = lroundf((float)distance);
 
     
-    return [NSString stringWithFormat:@"%d m", nearest];
+    return [NSString stringWithFormat:@"%ld m", nearest];
 }
 
 // TODO Refactor this method! (Too long)
@@ -119,11 +118,19 @@
         CLLocationCoordinate2DMake((biggestLat + smallestLat) / 2,
                                    (biggestLng + smallestLng) / 2);
         
-        MKCoordinateSpan annotationsSpan = MKCoordinateSpanMake((biggestLat - smallestLat) + 0.001,
-                                                                (biggestLng - smallestLng) + 0.001); // 0.001 to show the route complete
+        MKCoordinateSpan annotationsSpan = MKCoordinateSpanMake((biggestLat - smallestLat) + 0.005,
+                                                                (biggestLng - smallestLng) + 0.005); // 0.001 to show the route complete
         
         MKCoordinateRegion region = MKCoordinateRegionMake(annotationsCenter, annotationsSpan);
         [self.mapView setRegion:region];
+    }
+}
+
+-(void) readdAnnotations
+{
+    for (Place *place in self.placesArray) {
+        [self.mapView removeAnnotation:place];
+        [self.mapView addAnnotation:place];
     }
 }
 
@@ -209,7 +216,7 @@
 
 - (NSString *)name
 {
-    return [MCLocalization stringForKey: self.route[@"title"]];
+    return self.route[@"title"];// [MCLocalization stringForKey: self.route[@"title"]];
 }
 
 @end

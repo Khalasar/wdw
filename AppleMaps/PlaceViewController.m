@@ -18,7 +18,6 @@
 @interface PlaceViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *body;
 @property (weak, nonatomic) IBOutlet UILabel *headline;
-@property (weak, nonatomic) IBOutlet UIButton *showOnMapButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *showOnMapBtn;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollection;
 @property (strong, nonatomic)GalleryViewController *photoVC;
@@ -27,11 +26,12 @@
 @property (strong, nonatomic)UIImageView *backgroundImageView;
 @property (strong, nonatomic)FXBlurView *blurView;
 
-@property (nonatomic)CGFloat scaleLevel;
 @property (strong, nonatomic)NSUserDefaults *userDefaults;
 @end
 
 @implementation PlaceViewController
+
+#define IPAD     UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 
 @synthesize pageImages = _pageImages;
 
@@ -48,8 +48,7 @@
     
     [self.view.subviews setValue:@YES forKey:@"hidden"];
     [self.collectionView registerClass:[ImageCell class] forCellWithReuseIdentifier:@"placeCollectionCell"];
-    
-    
+        
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(localize)
                                                  name:MCLocalizationLanguageDidChangeNotification
@@ -65,6 +64,13 @@
     [self.view.subviews setValue:@YES forKey:@"hidden"];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self usePreferredFonts];
+}
+
 -(void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
@@ -73,6 +79,8 @@
     [self.view sendSubviewToBack:self.blurView];
     
     [self.view.subviews setValue:@NO forKey:@"hidden"];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //[self showTabBar: self.tabBarController];
     
     [self updateLayout];
 }
@@ -96,8 +104,7 @@
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
     
-    self.scaleLevel = [Helper getScaleLevel];
-    [self usePreferredFonts];
+    self.body.contentInset = UIEdgeInsetsMake(-10, -5, 0, 0);
 }
 
 - (void) addBackgroundImageView
@@ -119,10 +126,16 @@
 
 -(void)usePreferredFonts
 {
-    self.body.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:self.scaleLevel];
+    self.body.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:[Helper getScaleLevel]];
+    self.headline.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]]
+       }
+     forState:UIControlStateNormal];
     [self.navigationController.navigationBar setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
-      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:self.scaleLevel],
+      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]],
       NSFontAttributeName, nil]];
 }
 
@@ -184,7 +197,36 @@
 - (void)localize
 {
     _body.text = [self.place loadBodyText];
-    self.title = self.place.title;
+    if (IPAD) {
+        self.title = self.place.title;
+    }else{
+        self.headline.text = self.place.title;
+    }
     //self.showOnMapBtn.title = [MCLocalization stringForKey:@"onMapBtn"];
 }
+
+- (void)showTabBar:(UITabBarController *)tabbarcontroller
+{
+    tabbarcontroller.tabBar.hidden = NO;
+    [UIView animateWithDuration:0.2 animations:^{
+        for (UIView *view in tabbarcontroller.view.subviews) {
+            if ([view isKindOfClass:[UITabBar class]]) {
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y-49.f, view.frame.size.width, view.frame.size.height)];
+            }
+            else {
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, view.frame.size.height-49.f)];
+            }
+        }
+    } completion:^(BOOL finished) {
+        //do smth after animation finishes
+        if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+            // iOS 7
+            [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+        } else {
+            // iOS 6
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+        }
+    }];
+}
+
 @end

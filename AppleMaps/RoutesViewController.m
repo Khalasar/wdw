@@ -13,6 +13,7 @@
 #import "MCLocalization.h"
 #import "FXBlurView.h"
 #import "RouteTableViewCell.h"
+#import "UIFont+ScaledFont.h"
 
 @interface RoutesViewController ()
 @property (strong, nonatomic) UIImageView *backgroundImageView;
@@ -40,7 +41,6 @@
     
     self.routesTableView.delegate = self;
     self.routesTableView.dataSource = self;
-    [self.routesTableView reloadData];
     
     [self localize];
 }
@@ -56,6 +56,8 @@
     //self.routesTableView.layer.borderColor = [[UIColor whiteColor]CGColor];
     [self.routesTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.view.subviews setValue:@NO forKey:@"hidden"];
+    [self usePreferredFonts];
+    [self.routesTableView reloadData];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
@@ -124,6 +126,9 @@
     
     cell.title.text = route.name;
     cell.title.tintColor = [UIColor whiteColor];
+    cell.title.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale: [Helper getScaleLevel]];
+    cell.subtitle.text = route.subtitle;
+    cell.subtitle.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale: [Helper getScaleLevel]];
     //cell.subtitle.text = route.name;
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [[UIColor whiteColor]CGColor];
@@ -156,6 +161,22 @@
             rvc.route = route;
         }
     }
+}
+
+#pragma mark - fonts methods
+
+-(void)preferredFontsChanged:(NSNotification *)notification
+{
+    [self usePreferredFonts];
+    [self.routesTableView reloadData];
+}
+
+-(void)usePreferredFonts
+{
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale: [Helper getScaleLevel]],
+      NSFontAttributeName, nil]];
 }
 
 #pragma mark - localization

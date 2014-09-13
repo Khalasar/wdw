@@ -150,4 +150,34 @@
     return [userDefaults objectForKey:@"scaleLevel"]? [[userDefaults valueForKey:@"scaleLevel"] floatValue] : 1;
 }
 
++ (void)savePlacesArrayObject:(NSArray *)places withKey:(NSString *)key {
+    NSMutableArray *encodedPlaces = [[NSMutableArray alloc] init];
+    for (Place *place in places) {
+        NSData *encodedPlace = [NSKeyedArchiver archivedDataWithRootObject:place];
+        [encodedPlaces addObject:encodedPlace];
+    }
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:encodedPlaces forKey:key];
+    [defaults synchronize];
+    
+}
+
++ (Place *)loadPlaceObjectWithKey:(NSString *)key {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSData *encodedObject = [defaults objectForKey:key];
+    Place *place = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+    return place;
+}
+
++ (void) showAlertIfPlacesNotLoaded
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"warning"]
+                                                    message:[MCLocalization stringForKey:@"noPlacesMSG"]
+                                                   delegate:self
+                                          cancelButtonTitle:@"ok"//[MCLocalization stringForKey:@"okLabel"]
+                                          otherButtonTitles:nil, nil
+                          ];
+    [alert show];
+}
+
 @end

@@ -52,7 +52,7 @@
                                                                                  action:@selector(showHideBackBtn:)];
     [self.view addGestureRecognizer:tapGesture];
     
-    [self performSelector:@selector(showHideBackBtn:) withObject:nil afterDelay:1];
+    [self performSelector:@selector(showHideBackBtn:) withObject:nil afterDelay:2];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -188,7 +188,7 @@
     return [Helper getScaleLevel];
 }
 
--(bool)prefersStatusBarHidden
+-(BOOL)prefersStatusBarHidden
 {
     return YES;
 }

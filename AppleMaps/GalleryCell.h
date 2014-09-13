@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GalleryCell : UICollectionViewCell <UIScrollViewDelegate>
+@interface GalleryCell : UICollectionViewCell <UIScrollViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) NSString *imageName;
 -(void)updateCellWithImage:(UIImage *)image andCaption:(NSString *)caption;

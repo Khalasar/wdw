@@ -11,18 +11,23 @@
 #import "MCLocalization.h"
 #import "FXBlurView.h"
 #import "Helper.h"
+#import "UIFont+ScaledFont.h"
 
 @interface RouteViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *headline;
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) FXBlurView *blurView;
 @property (weak, nonatomic) IBOutlet UIView *contentBackgroundView;
-@property (weak, nonatomic) IBOutlet UILabel *routeName;
+@property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 @property (weak, nonatomic) IBOutlet UILabel *routeCity;
+@property (weak, nonatomic) IBOutlet UILabel *regionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *routeRegion;
+@property (weak, nonatomic) IBOutlet UILabel *countryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *routeCountry;
+@property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *routeType;
 @property (weak, nonatomic) IBOutlet UITextView *routeDescription;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *showOnMapBtn;
 @end
 
 @implementation RouteViewController
@@ -70,6 +75,8 @@
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
+    self.routeDescription.contentInset = UIEdgeInsetsMake(-10, -5, 0, 0);
+    [self usePreferredFonts];
 }
 
 
@@ -97,17 +104,49 @@
     }
 }
 
+#pragma mark - fonts methods
+
+-(void)preferredFontsChanged:(NSNotification *)notification
+{
+    [self usePreferredFonts];
+}
+
+-(void)usePreferredFonts
+{
+    self.headline.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]];
+    self.cityLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
+    self.regionLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
+    self.countryLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
+    self.typeLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
+    self.routeCity.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleCaption1 scale:[Helper getScaleLevel]];
+    self.routeCountry.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleCaption1 scale:[Helper getScaleLevel]];
+    self.routeRegion.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleCaption1 scale:[Helper getScaleLevel]];
+    self.routeType.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleCaption1 scale:[Helper getScaleLevel]];
+    self.routeDescription.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:[Helper getScaleLevel]];
+
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]],
+      NSFontAttributeName, nil]];
+
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil]
+     setTitleTextAttributes:
+     @{NSFontAttributeName:[UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]]
+       }
+     forState:UIControlStateNormal];
+}
+
 #pragma mark - localize functions
 
 - (void)localize
 {
-    self.headline.text = [MCLocalization stringForKey:self.route.name];
-    self.routeName.text = [MCLocalization stringForKey:self.route.name];
-    self.routeCity.text = [MCLocalization stringForKey:self.route.city];
+    self.title = @"headline"; // [MCLocalization stringForKey:self.route.name];
+    self.headline.text = @"headline";//[MCLocalization stringForKey:self.route.name];
+    /*self.routeCity.text = [MCLocalization stringForKey:self.route.city];
     self.routeCountry.text = [MCLocalization stringForKey:self.route.country];
     self.routeRegion.text = [MCLocalization stringForKey:self.route.region];
-    self.routeType.text = [MCLocalization stringForKey:self.route.type];
-    self.routeDescription.text = [MCLocalization stringForKey:self.route.description];
+    self.routeType.text = [MCLocalization stringForKey:self.route.type];*/
+    self.routeDescription.text = @"Dies ist ein Test!";//[MCLocalization stringForKey:self.route.description];
 }
 
 @end

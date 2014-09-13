@@ -19,6 +19,6 @@
         "region": "NRW",
         "city": "WERNE",
         "type": "ROUNDTRIP",
-        "waypoints":["14", "15"]
+        "waypoints":["13", "14", "15"]
     }
 ]

@@ -51,7 +51,6 @@
 		C350AD1919A742820071AD7C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C350AD1819A742820071AD7C /* libz.dylib */; };
 		C3511AA019AF4DF700795E6E /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3511A9F19AF4DF700795E6E /* SettingsViewController.m */; };
 		C357C0A319AB55EF004F2EA2 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C357C0A119AB55EF004F2EA2 /* Main_iPhone.storyboard */; };
-		C362690F19BC789D00DDFAFA /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C362690E19BC789D00DDFAFA /* GalleryCell.xib */; };
 		C362691219BC986800DDFAFA /* RouteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C362691119BC986800DDFAFA /* RouteTableViewCell.m */; };
 		C36B1D99198B95A30001A851 /* PlacesTranslations.strings in Resources */ = {isa = PBXBuildFile; fileRef = C36B1D9B198B95A30001A851 /* PlacesTranslations.strings */; };
 		C37553011979022000B9A1B6 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C37553001979022000B9A1B6 /* MainViewController.m */; };
@@ -146,7 +145,6 @@
 		C3511A9E19AF4DF700795E6E /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		C3511A9F19AF4DF700795E6E /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		C357C0A219AB55EF004F2EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		C362690E19BC789D00DDFAFA /* GalleryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryCell.xib; sourceTree = "<group>"; };
 		C362691019BC986800DDFAFA /* RouteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RouteTableViewCell.h; sourceTree = "<group>"; };
 		C362691119BC986800DDFAFA /* RouteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteTableViewCell.m; sourceTree = "<group>"; };
 		C36B1D9A198B95A30001A851 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/PlacesTranslations.strings; sourceTree = "<group>"; };
@@ -309,7 +307,6 @@
 				C34F119019B9A82200D6E8B0 /* GalleryCell.h */,
 				C34F119119B9A82200D6E8B0 /* GalleryCell.m */,
 				C34F119619B9B01A00D6E8B0 /* GalleryCelliPad.xib */,
-				C362690E19BC789D00DDFAFA /* GalleryCell.xib */,
 			);
 			name = CollectionView;
 			sourceTree = "<group>";
@@ -579,7 +576,6 @@
 				C34F119719B9B01A00D6E8B0 /* GalleryCelliPad.xib in Resources */,
 				C34212A419854E20001D826C /* Route4.plist in Resources */,
 				C3A6FA0619B6155C004530AB /* backgroundImage1.jpg in Resources */,
-				C362690F19BC789D00DDFAFA /* GalleryCell.xib in Resources */,
 				C34212A219854E20001D826C /* Route2.plist in Resources */,
 				C34212A119854E20001D826C /* Route1.plist in Resources */,
 				C36B1D99198B95A30001A851 /* PlacesTranslations.strings in Resources */,

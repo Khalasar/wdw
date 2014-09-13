@@ -16,8 +16,12 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tEy-e3-fwb">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="nXX-0D-bvm" appends="YES" id="bTH-19-lLN"/>
+                        </connections>
                     </imageView>
-                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5d5-dp-m4Q">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5d5-dp-m4Q">
                         <rect key="frame" x="0.0" y="974" width="768" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -30,14 +34,20 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="50" id="Ege-fl-NRQ"/>
+                        </constraints>
                     </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="5d5-dp-m4Q" secondAttribute="bottom" id="STb-Z1-f8F"/>
                 <constraint firstAttribute="bottom" secondItem="tEy-e3-fwb" secondAttribute="bottom" id="Vb6-9R-pZH"/>
+                <constraint firstItem="5d5-dp-m4Q" firstAttribute="leading" secondItem="fa8-da-00z" secondAttribute="leading" id="ffm-JH-iTw"/>
                 <constraint firstItem="tEy-e3-fwb" firstAttribute="top" secondItem="fa8-da-00z" secondAttribute="top" id="m2r-36-GwW"/>
                 <constraint firstAttribute="trailing" secondItem="tEy-e3-fwb" secondAttribute="trailing" id="mba-a0-L7S"/>
+                <constraint firstAttribute="trailing" secondItem="5d5-dp-m4Q" secondAttribute="trailing" id="qrO-xM-pOJ"/>
                 <constraint firstItem="tEy-e3-fwb" firstAttribute="leading" secondItem="fa8-da-00z" secondAttribute="leading" id="yXY-yU-4Ab"/>
             </constraints>
             <size key="customSize" width="621" height="799"/>
@@ -47,5 +57,11 @@
                 <outlet property="imageView" destination="tEy-e3-fwb" id="LLs-gM-Uca"/>
             </connections>
         </collectionViewCell>
+        <swipeGestureRecognizer direction="up" id="nXX-0D-bvm">
+            <connections>
+                <action selector="swipeUp:" destination="fa8-da-00z" id="55B-ZN-uh3"/>
+                <outlet property="delegate" destination="fa8-da-00z" id="fXd-KU-7bq"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
 </document>

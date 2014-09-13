@@ -60,14 +60,20 @@
     [self.view.subviews setValue:@YES forKey:@"hidden"];
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
 -(void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    
-    [self.view.subviews setValue:@NO forKey:@"hidden"];
+
     self.progressView.hidden = YES;
     [self.view sendSubviewToBack:self.backgroundImageView];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self updateLayout];
 }
 
@@ -137,7 +143,6 @@
 #pragma mark - Downloading Methods
 
 - (IBAction)startDownloading:(id)sender {
-    self.progressView.hidden = NO;
     
     NSURL *downloadURL = [NSURL URLWithString:PLACES_URL];
     [self downloadFromURL:downloadURL];
@@ -148,6 +153,7 @@
 
 - (void)downloadFromURL:(NSURL *)url
 {
+    self.progressView.hidden = NO;
     NSURLSessionDownloadTask *download = [[Downloader shared] downloadTaskWithURL:url];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -172,15 +178,18 @@
 -(void)finishDownload:(NSNotification *)notification
 {
     if ([notification.userInfo[@"url"] isEqualToString:PLACES_URL]) {
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            self.progressView.hidden = YES;
-        }];
-    }
+        [self startNextDownload];
+        
 
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }else if([notification.userInfo[@"url"] isEqualToString:TRANSLATIONS_URL]){
+         [Helper loadTranslationFile];
+         [[NSNotificationCenter defaultCenter] removeObserver:self];
+    }
     
-    [self startNextDownload];
-    [Helper loadTranslationFile];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.progressView.hidden = YES;
+    }];
+
 }
 
 // TODO Download only images if updated at newer

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GalleryViewController : UICollectionViewController
+@interface GalleryViewController : UICollectionViewController < UIGestureRecognizerDelegate >
 
 @property(strong, nonatomic) NSArray *pageImages;
 @property(strong, nonatomic) NSArray *imageCaptions;

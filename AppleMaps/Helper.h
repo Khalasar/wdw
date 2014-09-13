@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FXBlurView.h"
+#import "Place.h"
 
 @interface Helper : NSObject
 
@@ -26,4 +27,7 @@ inDocumentsDirectory:(NSArray *)directoryArray;
 + (FXBlurView *) createAndShowBlurView:(UIView *)underlyingView;
 + (void) loadTranslationFile;
 + (CGFloat) getScaleLevel;
++ (void)savePlacesArrayObject:(NSArray *)place withKey:(NSString *)key;
++ (Place *)loadPlaceObjectWithKey:(NSString *)key;
++ (void) showAlertIfPlacesNotLoaded;
 @end

@@ -29,4 +29,5 @@
 - (void) addVisitedPlace:(Place *)place;
 - (NSString *) distanceToNextPlaceFromUserLocation:(CLLocation *)userLocation;
 -(Place *) getNextVisitPlace;
+-(void)readdAnnotations;
 @end

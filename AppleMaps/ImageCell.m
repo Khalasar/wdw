@@ -26,7 +26,7 @@
         if ( IPAD ) {
             self.imageView.frame = CGRectMake(0, 0, 350, 250);
         }else{
-            self.imageView.frame = CGRectMake(0, 0, 150, 150);
+            self.imageView.frame = CGRectMake(0, 0, 150, 100);
         }
         //[self.imageView.layer setBorderColor:[[UIColor colorWithWhite:1 alpha:0.5f] CGColor]];
         //[self.imageView.layer setBorderWidth:2.0];
