@@ -29,7 +29,7 @@
 @property (nonatomic)BOOL routePaused;
 @property (nonatomic)BOOL routeRuns;
 @property (strong, nonatomic)CLLocationManager *locationManager;
-@property (nonatomic)float degrees;
+@property (nonatomic)double degrees;
 @property (nonatomic)CGFloat directionDegrees;
 
 @property (strong, nonatomic) NSString *timeForRoute;
@@ -231,8 +231,8 @@
 - (void)localize
 {
     self.title = [MCLocalization stringForKey:@"mapLabel"];
-    [self.startRouteBtn setTitle: @"Start"];//[MCLocalization stringForKey:@"startBtn"]];
-    [self.pauseRouteBtn setTitle: @"Pause"]; //[MCLocalization stringForKey:@"pauseBtn"]];
+    [self.startRouteBtn setTitle: [MCLocalization stringForKey:@"startBtn"]];
+    [self.pauseRouteBtn setTitle: [MCLocalization stringForKey:@"pauseBtn"]];
     // 1) call a specific place and show on map
     if (self.place) {
         [self addPlaceToMapAndCenterOnThatPlace:self.place];
@@ -344,19 +344,19 @@
     self.locationManager.delegate = self;
     
     // create back button and add method to check for back action
-    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:@"Back"//[MCLocalization stringForKey:@"backBtn"]
+    UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"backBtn"]
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
                                                                action:@selector(goBack:)];
     
     // create start bar button
-    self.startRouteBtn = [[UIBarButtonItem alloc]initWithTitle:@"Start"//[MCLocalization stringForKey:@"startBtn"]
+    self.startRouteBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"startBtn"]
                                                                 style:UIBarButtonItemStyleBordered
                                                                target:self
                                                                action:@selector(startRoute:)];
     
     // create pause bar button
-    self.pauseRouteBtn = [[UIBarButtonItem alloc]initWithTitle:@"Pause"//[MCLocalization stringForKey:@"pauseBtn"]
+    self.pauseRouteBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"pauseBtn"]
                                                          style:UIBarButtonItemStyleBordered
                                                         target:self
                                                         action:@selector(pauseRoute:)];
@@ -367,12 +367,12 @@
     self.routeInformationOverlayView.hidden = NO;
     
     // init alert view to check if user is sure to stop route or go back
-    self.alertView = [[UIAlertView alloc] initWithTitle:@"Warning"//[MCLocalization stringForKey:@"warning"]
-                                                message:@"Warning"//[MCLocalization stringForKey:@"cancelMSG"]
+    self.alertView = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"warning"]
+                                                message:[MCLocalization stringForKey:@"cancelMSG"]
                                                delegate:self
-                                      cancelButtonTitle:@"Ok"//[MCLocalization stringForKey:@"no"]
+                                      cancelButtonTitle:[MCLocalization stringForKey:@"no"]
                                       otherButtonTitles:nil];
-    [self.alertView addButtonWithTitle:@"yes"];//[MCLocalization stringForKey:@"yes"]];
+    [self.alertView addButtonWithTitle:[MCLocalization stringForKey:@"yes"]];
     
     self.route.mapView = self.mapView;
     [self.route createRouteAndAddAnnotationForPlaces];
@@ -430,7 +430,7 @@
     [self startUpdateHeading];
     
     self.mapView.scrollEnabled = NO;
-    self.mapView.zoomEnabled = YES;
+    self.mapView.zoomEnabled = NO;
     self.mapView.rotateEnabled = NO;
     
     self.routeRuns = YES;
@@ -494,10 +494,10 @@
         [self.locationManager startUpdatingHeading];
     }
     else {
-        UIAlertView *noCompassAlert = [[UIAlertView alloc] initWithTitle:@"no compass"//[MCLocalization stringForKey:@"noCompassTitle"]
-                                                                 message:@"Warning"//[MCLocalization stringForKey:@"noCompassError"]
+        UIAlertView *noCompassAlert = [[UIAlertView alloc] initWithTitle:[MCLocalization stringForKey:@"noCompassTitle"]
+                                                                 message:[MCLocalization stringForKey:@"noCompassError"]
                                                                 delegate:nil
-                                                       cancelButtonTitle:@"Warning"//[MCLocalization stringForKey:@"okLabel"]
+                                                       cancelButtonTitle:[MCLocalization stringForKey:@"okLabel"]
                                                        otherButtonTitles:nil];
         [noCompassAlert show];
     }
@@ -507,8 +507,10 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
+    NSLog(@"degree: %f", self.degrees);
     self.directionDegrees = self.degrees - newHeading.magneticHeading;
     [self checkingForUserDirection];
+    //arrowTransform = CGAffineTransformMakeRotation(cosAlpha);
     self.directionImage.transform = CGAffineTransformMakeRotation(self.directionDegrees * M_PI / 180);
 }
 
@@ -536,58 +538,12 @@
 }
 
 -(void) calculateUserAngle:(CLLocationCoordinate2D)user {
-    float locLat = self.route.getNextVisitPlace.coordinate.latitude;
-    float locLon = self.route.getNextVisitPlace.coordinate.longitude;
+    float fLat = user.latitude /180 * M_PI;
+    float fLng = user.longitude /180 * M_PI;
+    float tLat = self.route.getNextVisitPlace.coordinate.latitude /180 * M_PI;
+    float tLng = self.route.getNextVisitPlace.coordinate.longitude /180 * M_PI;
     
-    //NSLog(@"%f ; %f", locLat, locLon);
-    
-    float pLat;
-    float pLon;
-    
-    if(locLat > user.latitude && locLon > user.longitude) {
-        // north east
-        
-        pLat = user.latitude;
-        pLon = locLon;
-        
-        self.degrees = 0;
-    }
-    else if(locLat > user.latitude && locLon < user.longitude) {
-        // south east
-        
-        pLat = locLat;
-        pLon = user.longitude;
-        
-        self.degrees = 45;
-    }
-    else if(locLat < user.latitude && locLon < user.longitude) {
-        // south west
-        
-        pLat = locLat;
-        pLon = user.latitude;
-        
-        self.degrees = 180;
-    }
-    else if(locLat < user.latitude && locLon > user.longitude) {
-        // north west
-        
-        pLat = locLat;
-        pLon = user.longitude;
-        
-        self.degrees = 225;
-    }
-    
-    // Vector QP (from user to point)
-    float vQPlat = pLat - user.latitude;
-    float vQPlon = pLon - user.longitude;
-    
-    // Vector QL (from user to location)
-    float vQLlat = locLat - user.latitude;
-    float vQLlon = locLon - user.longitude;
-    
-    // degrees between QP and QL
-    float cosDegrees = (vQPlat * vQLlat + vQPlon * vQLlon) / sqrt((vQPlat*vQPlat + vQPlon*vQPlon) * (vQLlat*vQLlat + vQLlon*vQLlon));
-    self.degrees = self.degrees + acos(cosDegrees);
+    self.degrees = (atan2(sin(tLng-fLng)*cos(tLat), cos(fLat)*sin(tLat)-sin(fLat)*cos(tLat)*cos(tLng-fLng))) *180 / M_PI;
 }
 
 # pragma mark - Update Location methods
@@ -595,7 +551,7 @@
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *currentLocation = [locations lastObject];
     [self.userLocationsArray addObject:currentLocation];
-    [self drawUserPath];
+    //[self drawUserPath];
     [self updateMapOverlayWithCurrentLocation:currentLocation];
     [self openPlaceInfoIfNextPlaceIsNear:currentLocation];
     
@@ -639,7 +595,7 @@
     }
 }
 
--(void)drawUserPath
+/*-(void)drawUserPath
 {
     NSInteger pointsCount = [self.userLocationsArray count];
     CLLocationCoordinate2D coords[pointsCount];
@@ -649,7 +605,7 @@
     
     MKPolyline *myPolyline = [MKPolyline polylineWithCoordinates:coords count:pointsCount];
     [self.mapView addOverlay:myPolyline];
-}
+}*/
 
 - (IBAction)tapOnOverlay:(UITapGestureRecognizer *)sender {
     NSString *currentLang = [[NSString alloc] initWithString:[self.userDefaults stringForKey:@"currentLang"]];

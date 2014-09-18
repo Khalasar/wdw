@@ -33,6 +33,7 @@
 
 #define PLACES_URL @"http://192.168.178.27:8080/places.json"
 #define TRANSLATIONS_URL @"http://192.168.178.27:8080/translations.json"
+#define ROUTES_URL @"http://192.168.178.27:8080/routes.json"
 #define STANDARD_URL @"http://192.168.178.27:8080/"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -50,7 +51,7 @@
     
     [self addBackgroundImageView];
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    [self addNotifications];
+    //[self addNotifications];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -105,7 +106,6 @@
 -(void)updateBtnLayout
 {
     self.scaleLevel = [Helper getScaleLevel];
-    
     for (UIView *view in self.view.subviews)
     {
         if ([view isMemberOfClass:[UIButton class]])
@@ -148,6 +148,9 @@
     [self downloadFromURL:downloadURL];
     
     downloadURL = [NSURL URLWithString:TRANSLATIONS_URL];
+    [self downloadFromURL:downloadURL];
+    
+    downloadURL = [NSURL URLWithString:ROUTES_URL];
     [self downloadFromURL:downloadURL];
 }
 
@@ -219,6 +222,7 @@
 
 - (void) localize
 {
+    NSLog(@"current lang: %@",[Helper currentLanguage]);
     self.placesBtn.titleLabel.text = [MCLocalization stringForKey:@"placesBtn"];
     self.routesBtn.titleLabel.text = [MCLocalization stringForKey:@"routesBtn"];
     self.downloadBtn.titleLabel.text = [MCLocalization stringForKey:@"downloadBtn"];

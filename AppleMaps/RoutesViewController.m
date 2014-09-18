@@ -34,8 +34,9 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
-    self.routes = [Helper readJSONFile:@"routes"];
+    [super viewDidLoad];
+    
+    [self loadRoutes];
     
     [self addBackgroundImageView];
     
@@ -97,6 +98,17 @@
     self.blurView = [Helper createAndShowBlurView:self.backgroundImageView];
 }
 
+-(void) loadRoutes
+{
+    if ([Helper existFile:@"routes.json" inDocumentsDirectory:@[@"routes"]]) {
+        self.routes = [Helper readJSONFileFromDocumentDirectory:@"routes"
+                                                           file:@"routes.json"];
+    }else{
+        [Helper showAlertIfPlacesNotLoaded];
+        //self.routes = [Helper readJSONFile:@"routes"];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -127,9 +139,8 @@
     cell.title.text = route.name;
     cell.title.tintColor = [UIColor whiteColor];
     cell.title.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale: [Helper getScaleLevel]];
-    cell.subtitle.text = route.subtitle;
     cell.subtitle.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale: [Helper getScaleLevel]];
-    //cell.subtitle.text = route.name;
+    cell.subtitle.text = route.name;
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [[UIColor whiteColor]CGColor];
     cell.layer.cornerRadius = 5.0f;
@@ -183,7 +194,7 @@
 
 - (void) localize
 {
-    self.title = [MCLocalization stringForKey:@"routesTableHeadline"];
+    self.title = [MCLocalization stringForKey:@"routesBtn"];
     self.navigationItem.backBarButtonItem.title = [MCLocalization stringForKey:@"backBtn"];
 }
 

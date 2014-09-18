@@ -27,16 +27,16 @@
     self = [super init];
     if (self) {
         self.route = route;
+        NSLog(@"route: %@", self.route[@"waypoints"][0][@"lat"]);
         //init route properties
         self.subtitle = self.route[@"subtitle"];
-        self.waypointsArray = (NSArray *) self.route[@"waypoints"];
+        self.waypointsArray = (NSArray *) [self.route[@"places"] componentsSeparatedByString:@","];
         self.routeID = self.route[@"id"];
-        self.description = self.route[@"description"];
-        self.country = self.route[@"country"];
+        //self.description = self.route[@"description"];
+        /*self.country = self.route[@"country"];
         self.region = self.route[@"region"];
         self.city = self.route[@"city"];
-        self.type = self.route[@"type"];
-        //self.name = self.route[@"title"];
+        self.type = self.route[@"type"];*/
         [self initPlacesArray];
     }
     return self;

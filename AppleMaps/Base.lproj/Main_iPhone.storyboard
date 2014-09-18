@@ -341,8 +341,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="7Rw-HR-KOm"/>
                     <connections>
+                        <outlet property="downloadBtn" destination="IDw-Om-J3R" id="lIh-rI-43g"/>
                         <outlet property="headerLabel" destination="T9s-yJ-oG8" id="Di4-R3-CGe"/>
+                        <outlet property="placesBtn" destination="9E8-3V-EID" id="mcT-Lv-vIZ"/>
                         <outlet property="progressView" destination="cBP-ZG-HVO" id="Y09-st-paF"/>
+                        <outlet property="routesBtn" destination="BmP-fR-7Ur" id="MZs-62-GxH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -780,7 +783,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             </mapView>
-                            <view hidden="YES" alpha="0.89999999999999991" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QXw-IB-kmQ">
+                            <view hidden="YES" alpha="0.89999999999999991" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXw-IB-kmQ">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>

@@ -202,7 +202,7 @@
     }else{
         self.headline.text = self.place.title;
     }
-    //self.showOnMapBtn.title = [MCLocalization stringForKey:@"onMapBtn"];
+    self.showOnMapBtn.title = [MCLocalization stringForKey:@"onMapBtn"];
 }
 
 - (void)showTabBar:(UITabBarController *)tabbarcontroller

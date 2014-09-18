@@ -129,7 +129,7 @@
 
 - (void)localize
 {
-    self.title = [MCLocalization stringForKey:@"placesTableHeadline"];
+    self.title = [MCLocalization stringForKey:@"placesBtn"];
     [self.tableView reloadData];
     self.navigationItem.backBarButtonItem.title = [MCLocalization stringForKey:@"backBtn"];
 }

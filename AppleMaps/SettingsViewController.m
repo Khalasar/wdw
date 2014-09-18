@@ -199,10 +199,10 @@
 - (void)localize
 {
     self.title = [MCLocalization stringForKey:@"settingsHeadline"];
-    //self.fontSizeLabel.text = [MCLocalization stringForKey:@"fontSizeLabel"];
-    //self.langSettingLabel.text = [MCLocalization stringForKey:@"langSettingsLabel"];
-    //self.audioGuideLabel.text = [MCLocalization stringForKey:@"audioLabel"];
-    //self.guideLabel.text = [MCLocalization stringForKey:@"audioGuideLabel"];
+    self.fontSizeLabel.text = [MCLocalization stringForKey:@"fontSizeLabel"];
+    self.langSettingLabel.text = [MCLocalization stringForKey:@"langSettingsLabel"];
+    self.audioGuideLabel.text = [MCLocalization stringForKey:@"audioLabel"];
+    self.guideLabel.text = [MCLocalization stringForKey:@"audioGuideLabel"];
 }
 
 @end
