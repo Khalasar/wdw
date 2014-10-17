@@ -131,7 +131,10 @@
 {
     self.title = [MCLocalization stringForKey:@"placesBtn"];
     [self.tableView reloadData];
-    self.navigationItem.backBarButtonItem.title = [MCLocalization stringForKey:@"backBtn"];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[MCLocalization stringForKey:@"backBtn"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
 }
 
 #pragma mark - Table view data source

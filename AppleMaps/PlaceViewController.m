@@ -25,8 +25,10 @@
 @property (nonatomic, strong) NSArray *pageImages;
 @property (strong, nonatomic)UIImageView *backgroundImageView;
 @property (strong, nonatomic)FXBlurView *blurView;
-
+@property (nonatomic, strong) AVSpeechSynthesizer *speechSynthesizer;
 @property (strong, nonatomic)NSUserDefaults *userDefaults;
+@property (weak, nonatomic) IBOutlet UIButton *playSoundBtn;
+@property (nonatomic)BOOL audioGuide;
 @end
 
 @implementation PlaceViewController
@@ -45,6 +47,9 @@
     // loadg images for collection view
     self.pageImages = [self.place loadImages];
     [self addBackgroundImageView];
+    //self.tabBarController.delegate = self;
+    
+    self.body.translatesAutoresizingMaskIntoConstraints = NO;
     
     [self.view.subviews setValue:@YES forKey:@"hidden"];
     [self.collectionView registerClass:[ImageCell class] forCellWithReuseIdentifier:@"placeCollectionCell"];
@@ -60,6 +65,11 @@
 {
     [super viewWillDisappear:animated];
     
+    if ([self.navigationController.viewControllers indexOfObject:self] == NSNotFound) {
+        [self.speechSynthesizer stopSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        [self.playSoundBtn setImage:[UIImage imageNamed:@"volume-high-out"] forState:UIControlStateNormal];
+    }
+
     // hide all subviews for a better disappear look
     [self.view.subviews setValue:@YES forKey:@"hidden"];
 }
@@ -69,6 +79,12 @@
     [super viewWillAppear:animated];
     
     [self usePreferredFonts];
+    [self.view.subviews setValue:@NO forKey:@"hidden"];
+    
+    if (self.audioGuide && self.playSound) {
+        [self toggleAudio:self.playSoundBtn];
+        self.playSound = NO;
+    }
 }
 
 -(void)viewWillLayoutSubviews
@@ -78,7 +94,6 @@
     [self.view sendSubviewToBack:self.backgroundImageView];
     [self.view sendSubviewToBack:self.blurView];
     
-    [self.view.subviews setValue:@NO forKey:@"hidden"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     //[self showTabBar: self.tabBarController];
     
@@ -187,7 +202,7 @@
     self.photoVC.pageImages = self.pageImages;
     self.photoVC.tappedImage = indexPath;
     self.photoVC.imageCaptions = [self.place loadCaptions];
-    
+    self.photoVC.firstCall = YES;
     // present
     [self presentViewController:self.photoVC animated:YES completion:nil];
 }
@@ -203,6 +218,10 @@
         self.headline.text = self.place.title;
     }
     self.showOnMapBtn.title = [MCLocalization stringForKey:@"onMapBtn"];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[MCLocalization stringForKey:@"backBtn"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
 }
 
 - (void)showTabBar:(UITabBarController *)tabbarcontroller
@@ -227,6 +246,59 @@
             [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
         }
     }];
+}
+
+#pragma mark - sound methods
+
+- (IBAction)toggleAudio:(UIButton *)sender {
+    
+    if (self.speechSynthesizer.paused) {
+        NSLog(@"paused");
+        [self.speechSynthesizer continueSpeaking];
+        [sender setImage:[UIImage imageNamed:@"volume-high-on"] forState:UIControlStateNormal];
+    }else if (self.speechSynthesizer.speaking) {
+        NSLog(@"speaking");
+        [self.speechSynthesizer pauseSpeakingAtBoundary:AVSpeechBoundaryImmediate];
+        [sender setImage:[UIImage imageNamed:@"volume-high-out"] forState:UIControlStateNormal];
+    }else {
+        NSLog(@"new");
+        NSString *currentLang = [[NSString alloc] initWithString:[self.userDefaults stringForKey:@"currentLang"]];
+        AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString: self.body.text];
+        utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:currentLang];
+        NSLog(@"av lang %@", utterance.voice);
+        //utterance.pitchMultiplier = 0.5f;
+        utterance.rate = AVSpeechUtteranceMinimumSpeechRate;
+        utterance.preUtteranceDelay = 0.2f;
+        utterance.postUtteranceDelay = 0.2f;
+        
+        [self.speechSynthesizer speakUtterance:utterance];
+        
+        [sender setImage:[UIImage imageNamed:@"volume-high-on"] forState:UIControlStateNormal];
+    }
+    
+}
+
+-(AVSpeechSynthesizer *)speechSynthesizer
+{
+    if (!_speechSynthesizer) {
+        _speechSynthesizer = [[AVSpeechSynthesizer alloc] init];
+    }
+    return _speechSynthesizer;
+}
+
+-(BOOL)audioGuide
+{
+    if ([self.userDefaults objectForKey:@"audioGuide"]){
+         return [self.userDefaults boolForKey:@"audioGuide"];
+    }
+    return false;
+}
+
+#pragma mark - tabbar delegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    NSLog(@"tabbar: %@", viewController.class);
 }
 
 @end

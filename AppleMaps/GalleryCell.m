@@ -58,7 +58,7 @@
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageView setImage:image];
     self.captionLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:self.scaleLevel];
-    self.captionLabel.text = caption;// [MCLocalization stringForKey:caption];
+    self.captionLabel.text = [MCLocalization stringForKey:caption];
     
     self.captionBackground.frame = CGRectMake(self.captionBackground.frame.origin.x, self.bounds.size.height - self.originalH, self.captionBackground.bounds.size.width, self.originalH);
     //[self performSelector:@selector(showHideBackBtn:)

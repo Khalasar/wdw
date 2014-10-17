@@ -42,12 +42,21 @@ id<DismissPopoverDelegate> delegate;
     languagesCode = @[@"de-DE", @"en-GB"];
     langCodeText = @[@"de", @"en"];
     self.userDefaults = [NSUserDefaults standardUserDefaults];
+    self.tableView.delegate = self;
+    
 }
 
-- (void)didReceiveMemoryWarning
+-(void) viewWillAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewWillAppear:animated];
+    
+    UIBarButtonItem *doneBtn = [[UIBarButtonItem alloc]initWithTitle: @"Done"
+                                                         style:UIBarButtonItemStylePlain
+                                                        target:self
+                                                        action:@selector(closeTable:)];
+    doneBtn.tintColor = [UIColor blackColor];
+    
+    self.navigationItem.rightBarButtonItem = doneBtn;
 }
 
 #pragma mark - Table view data source
@@ -77,7 +86,6 @@ id<DismissPopoverDelegate> delegate;
     cell.tintColor = [UIColor blackColor];
     cell.textLabel.text = languages[indexPath.row];
     
-    
     return cell;
 }
 
@@ -88,6 +96,11 @@ id<DismissPopoverDelegate> delegate;
     [self.userDefaults setObject:languages[indexPath.row] forKey:@"currentLangLong"];
     [self.userDefaults setObject:langCodeText[indexPath.row] forKey:@"currentLangCode"];
     [self.delegate dismissPopover];
+}
+
+- (void) closeTable:(UIButton *)btn
+{
+   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - localize method

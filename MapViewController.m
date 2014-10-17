@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *distanceField;
 @property (weak, nonatomic) IBOutlet UILabel *nextPlaceField;
 @property (weak, nonatomic) IBOutlet UIImageView *directionImage;
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *overTapRecog;
 
 // Route handling
 @property (strong, nonatomic) UIBarButtonItem *startRouteBtn;
@@ -76,6 +77,24 @@
     [self addNotifications];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // send mapView to back to show buttons on map
+    [self.view sendSubviewToBack:self.mapView];
+    [self usePreferredFonts];
+    
+    if (self.route && ![self.route getNextVisitPlace]) {
+        [self pauseRoute:nil];
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    //[self showHideNavbarAndTabBar:nil];
+}
+
 - (void)addNotifications
 {
     // notification for localization
@@ -93,6 +112,7 @@
 
 - (void) initMapView
 {
+    [self.locationManager requestWhenInUseAuthorization];
     // 1) call a specific place and show on map
     if (self.place) {
         [self addPlaceToMapAndCenterOnThatPlace:self.place];
@@ -137,20 +157,6 @@
     for (Place *p in self.placesArray) {
         [self.mapView addAnnotation:p];
     }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    // send mapView to back to show buttons on map
-    [self.view sendSubviewToBack:self.mapView];
-    [self usePreferredFonts];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    //[self showHideNavbarAndTabBar:nil];
 }
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -343,21 +349,24 @@
     //self.locationManager.distanceFilter = 10;
     self.locationManager.delegate = self;
     
+    self.overTapRecog.enabled = NO;
+    
     // create back button and add method to check for back action
     UIBarButtonItem * backBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"backBtn"]
-                                                                style:UIBarButtonItemStyleBordered
+                                                                style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(goBack:)];
     
+    
     // create start bar button
     self.startRouteBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"startBtn"]
-                                                                style:UIBarButtonItemStyleBordered
+                                                                style:UIBarButtonItemStylePlain
                                                                target:self
                                                                action:@selector(startRoute:)];
     
     // create pause bar button
     self.pauseRouteBtn = [[UIBarButtonItem alloc]initWithTitle:[MCLocalization stringForKey:@"pauseBtn"]
-                                                         style:UIBarButtonItemStyleBordered
+                                                         style:UIBarButtonItemStylePlain
                                                         target:self
                                                         action:@selector(pauseRoute:)];
     
@@ -425,6 +434,7 @@
 
 - (IBAction)startRoute:(UIBarButtonItem *)sender {
     NSLog(@"Start Route");
+    [UIApplication sharedApplication].idleTimerDisabled = YES;
     [self.mapView addGestureRecognizer:self.tapGesture];
     [self.locationManager startUpdatingLocation];
     [self startUpdateHeading];
@@ -432,6 +442,8 @@
     self.mapView.scrollEnabled = NO;
     self.mapView.zoomEnabled = NO;
     self.mapView.rotateEnabled = NO;
+    
+    self.overTapRecog.enabled = YES;
     
     self.routeRuns = YES;
     
@@ -454,14 +466,15 @@
 }
 
 - (IBAction)pauseRoute:(UIBarButtonItem *)sender {
-
     NSLog(@"Pause Route");
+    [UIApplication sharedApplication].idleTimerDisabled = NO;
     [self.locationManager stopUpdatingLocation];
     [self.mapView setUserTrackingMode:MKUserTrackingModeNone];
     [self.locationManager stopUpdatingHeading];
     self.mapView.scrollEnabled = YES;
     self.mapView.zoomEnabled = YES;
     self.mapView.rotateEnabled = YES;
+    self.overTapRecog.enabled = NO;
     
     [self.timer invalidate];
     
@@ -507,9 +520,7 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 {
-    NSLog(@"degree: %f", self.degrees);
     self.directionDegrees = self.degrees - newHeading.magneticHeading;
-    [self checkingForUserDirection];
     //arrowTransform = CGAffineTransformMakeRotation(cosAlpha);
     self.directionImage.transform = CGAffineTransformMakeRotation(self.directionDegrees * M_PI / 180);
 }
@@ -567,8 +578,14 @@
 -(void) updateMapOverlayWithCurrentLocation:(CLLocation *)currentLocation
 {
     // update distance field to next place
-    self.distanceField.text = [self.route distanceToNextPlaceFromUserLocation:currentLocation];
-    self.nextPlaceField.text = [self.route getNextVisitPlace].title;
+    if ([self.route getNextVisitPlace]) {
+        self.nextPlaceField.text = [self.route getNextVisitPlace].title;
+        self.distanceField.text = [self.route distanceToNextPlaceFromUserLocation:currentLocation];
+    }else{
+        // TODO: LOCALIZE
+        self.nextPlaceField.text = @"All places visited!";
+        self.distanceField.text = @"";
+    }
     [self calculateUserAngle:currentLocation.coordinate];
 }
 
@@ -589,9 +606,9 @@
             PlaceViewController *pvc = [[PlaceViewController alloc] init];
             pvc = [self.storyboard instantiateViewControllerWithIdentifier:@"placeVC"];
             pvc.place = nextVisitPlace;
+            pvc.playSound = YES;
             [[self navigationController] pushViewController:pvc animated:YES];
         }
-   
     }
 }
 
@@ -608,7 +625,9 @@
 }*/
 
 - (IBAction)tapOnOverlay:(UITapGestureRecognizer *)sender {
-    NSString *currentLang = [[NSString alloc] initWithString:[self.userDefaults stringForKey:@"currentLang"]];
+    NSLog(@"here");
+    [self checkingForUserDirection];
+    NSString *currentLang = [[NSString alloc] initWithString:[Helper currentLanguageForAudio]];
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc] initWithString: self.directionsText];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:currentLang];
     NSLog(@"av lang %@", utterance.voice);
@@ -649,6 +668,7 @@
     if (!_locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
     }
+
     return _locationManager;
 }
 

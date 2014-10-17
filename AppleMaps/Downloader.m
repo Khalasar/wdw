@@ -30,7 +30,7 @@
 {
     self = [super init];
     if (self) {
-        NSURLSessionConfiguration *backgroundConfig = [NSURLSessionConfiguration backgroundSessionConfiguration:@"MySession"];
+        NSURLSessionConfiguration *backgroundConfig = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"MySession"];
         
         self.session = [NSURLSession sessionWithConfiguration:backgroundConfig
                                                      delegate:self

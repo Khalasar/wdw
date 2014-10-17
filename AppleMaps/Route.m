@@ -14,6 +14,7 @@
 @interface Route ()
 @property(strong, nonatomic)NSDictionary *route;
 @property(strong, nonatomic)NSArray *waypointsArray;
+@property(strong, nonatomic)NSArray *waypoints;
 @property(strong, nonatomic)NSArray *placesArray;
 @property(strong, nonatomic)NSString *routeID;
 
@@ -27,16 +28,12 @@
     self = [super init];
     if (self) {
         self.route = route;
-        NSLog(@"route: %@", self.route[@"waypoints"][0][@"lat"]);
+
         //init route properties
-        self.subtitle = self.route[@"subtitle"];
         self.waypointsArray = (NSArray *) [self.route[@"places"] componentsSeparatedByString:@","];
         self.routeID = self.route[@"id"];
-        //self.description = self.route[@"description"];
-        /*self.country = self.route[@"country"];
-        self.region = self.route[@"region"];
-        self.city = self.route[@"city"];
-        self.type = self.route[@"type"];*/
+        self.waypoints = (NSArray *) self.route[@"waypoints"];
+
         [self initPlacesArray];
     }
     return self;
@@ -69,7 +66,7 @@
 {
     Place *nextPlace = [[Place alloc]init];
     if (self.visitedPlaces.count >= self.placesArray.count) {
-        NSLog(@"All Places visited!");
+        nextPlace = nil;
     }else{
         nextPlace = self.placesArray[[self.visitedPlaces count]];
     }
@@ -148,17 +145,12 @@
 
 - (MKPolyline *) createPolylineForRoute:(NSString *)routeID
 {
-    NSString  *filename = [NSString stringWithFormat:@"Route%@", routeID];
-    NSString *thePath = [[NSBundle mainBundle] pathForResource:filename ofType:@"plist"];
-    NSArray *pointsArray = [NSArray arrayWithContentsOfFile:thePath];
-    
-    NSInteger pointsCount = pointsArray.count;
+    NSInteger pointsCount = self.waypoints.count;
     CLLocationCoordinate2D pointsToUse[pointsCount];
     
     int i = 0;
-    for (NSDictionary *attraction in pointsArray) {
-        CGPoint point = CGPointFromString(attraction[@"location"]);
-        pointsToUse[i] = CLLocationCoordinate2DMake(point.x,point.y);
+    for (NSDictionary *waypoint in self.waypoints) {
+        pointsToUse[i] = CLLocationCoordinate2DMake([waypoint[@"lat"] floatValue], [waypoint[@"lng"] floatValue]);
         i++;
     }
     
@@ -216,7 +208,38 @@
 
 - (NSString *)name
 {
-    return self.route[@"title"];// [MCLocalization stringForKey: self.route[@"title"]];
+    return [MCLocalization stringForKey: self.route[@"title"]];
+}
+
+- (NSString *)subtitle
+{
+    return [MCLocalization stringForKey: self.route[@"subtitle"]];
+}
+
+- (NSString *)description
+{
+    return [MCLocalization stringForKey: self.route[@"description"]];
+}
+
+- (NSString *)city
+{
+    return [MCLocalization stringForKey: self.route[@"city"]];
+}
+
+
+- (NSString *)country
+{
+    return [MCLocalization stringForKey: self.route[@"country"]];
+}
+
+- (NSString *)region
+{
+    return [MCLocalization stringForKey: self.route[@"region"]];
+}
+
+- (NSString *)type
+{
+    return [MCLocalization stringForKey: self.route[@"route_type"]];
 }
 
 @end

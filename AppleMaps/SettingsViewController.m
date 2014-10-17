@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *languageView;
 @property (weak, nonatomic) IBOutlet UIView *audioView;
 @property (weak, nonatomic) IBOutlet UILabel *guideLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *audioSwitch;
 @property (nonatomic)CGFloat scaleLevel;
 @end
 
@@ -47,6 +48,7 @@
 {
     [super viewDidLoad];
     self.userDefaults = [NSUserDefaults standardUserDefaults];
+    self.audioSwitch.on = [Helper audioGuideOn];
     self.fontSizeSlider.value = [Helper getScaleLevel];
     self.tableView.layer.borderWidth = 1;
     self.tableView.layer.borderColor = [[UIColor colorWithWhite:1 alpha:0.5]CGColor];
@@ -109,7 +111,7 @@
 }
 
 - (IBAction)changeAudioGuide:(UISwitch *)sender {
-    [self.userDefaults setBool:YES forKey:@"audioGuide"];
+    [self.userDefaults setBool:sender.isOn forKey:@"audioGuide"];
 }
 
 #pragma mark - TableView DataSource
@@ -138,6 +140,7 @@
     NSString *currentLang = [Helper currentLanguageLong];
     
     cell.detailTextLabel.text = currentLang;
+    cell.textLabel.text = [MCLocalization stringForKey:@"language"];
     cell.backgroundColor = [UIColor clearColor];
     cell.detailTextLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale:self.scaleLevel];
     cell.textLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:self.scaleLevel];

@@ -96,6 +96,14 @@
     return currentLang;
 }
 
++ (NSString *)currentLanguageForAudio
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *currentLang = [userDefaults stringForKey:@"currentLang"]? [userDefaults stringForKey:@"currentLang"] : @"de";
+    return currentLang;
+}
+
 + (NSArray *) getPlacesArray:(NSArray *)array
 {
     NSMutableArray *placesArray = [[NSMutableArray alloc] init];
@@ -178,6 +186,12 @@
                                           otherButtonTitles:nil, nil
                           ];
     [alert show];
+}
+
++ (BOOL) audioGuideOn
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"audioGuide"]? [userDefaults boolForKey:@"audioGuide"] : NO;
 }
 
 @end

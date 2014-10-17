@@ -55,9 +55,13 @@
     [self performSelector:@selector(showHideBackBtn:) withObject:nil afterDelay:2];
 }
 
--(void) viewWillAppear:(BOOL)animated
+-(void)viewDidLayoutSubviews
 {
-    [self.collectionView scrollToItemAtIndexPath:self.tappedImage atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+    [super viewDidLayoutSubviews];
+    if (_firstCall) {
+        [self.collectionView scrollToItemAtIndexPath:_tappedImage atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        _firstCall = NO;
+    }
 }
 
 -(void)showHideBackBtn:(id) sender
@@ -96,6 +100,9 @@
     [backButton setContentEdgeInsets:UIEdgeInsetsMake(5, 10, 5, 10)];
     //[backButton setFrame:cgrectm  CGRectMake(0, 0, 100, 100)];
     [backButton sizeToFit];
+    backButton.titleLabel.numberOfLines = 1;
+    backButton.titleLabel.adjustsFontSizeToFitWidth = YES;
+    backButton.titleLabel.lineBreakMode = NSLineBreakByClipping;
     backButton.center = CGPointMake(self.view.bounds.size.width - 50, 50);
     backButton.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
     backButton.layer.borderWidth = 1.0f;

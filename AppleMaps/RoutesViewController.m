@@ -140,7 +140,7 @@
     cell.title.tintColor = [UIColor whiteColor];
     cell.title.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale: [Helper getScaleLevel]];
     cell.subtitle.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale: [Helper getScaleLevel]];
-    cell.subtitle.text = route.name;
+    cell.subtitle.text = route.subtitle;
     cell.layer.borderWidth = 1.0f;
     cell.layer.borderColor = [[UIColor whiteColor]CGColor];
     cell.layer.cornerRadius = 5.0f;
@@ -195,7 +195,10 @@
 - (void) localize
 {
     self.title = [MCLocalization stringForKey:@"routesBtn"];
-    self.navigationItem.backBarButtonItem.title = [MCLocalization stringForKey:@"backBtn"];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[MCLocalization stringForKey:@"backBtn"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
 }
 
 

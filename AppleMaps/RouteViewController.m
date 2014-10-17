@@ -14,7 +14,6 @@
 #import "UIFont+ScaledFont.h"
 
 @interface RouteViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *headline;
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) FXBlurView *blurView;
 @property (weak, nonatomic) IBOutlet UIView *contentBackgroundView;
@@ -36,8 +35,6 @@
 {
     [super viewDidLoad];
     [self addBackgroundImageView];
-
-    [self localize];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -50,8 +47,10 @@
     self.contentBackgroundView.layer.cornerRadius = 5;
     
     [self.view.subviews setValue:@NO forKey:@"hidden"];
+    [self usePreferredFonts];
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self localize];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -76,7 +75,6 @@
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
     self.routeDescription.contentInset = UIEdgeInsetsMake(-10, -5, 0, 0);
-    [self usePreferredFonts];
 }
 
 
@@ -113,7 +111,6 @@
 
 -(void)usePreferredFonts
 {
-    self.headline.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleHeadline scale:[Helper getScaleLevel]];
     self.cityLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
     self.regionLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
     self.countryLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleSubheadline scale:[Helper getScaleLevel]];
@@ -140,13 +137,19 @@
 
 - (void)localize
 {
-    self.title = @"headline"; // [MCLocalization stringForKey:self.route.name];
-    self.headline.text = @"headline";//[MCLocalization stringForKey:self.route.name];
-    /*self.routeCity.text = [MCLocalization stringForKey:self.route.city];
-    self.routeCountry.text = [MCLocalization stringForKey:self.route.country];
-    self.routeRegion.text = [MCLocalization stringForKey:self.route.region];
-    self.routeType.text = [MCLocalization stringForKey:self.route.type];*/
-    self.routeDescription.text = @"Dies ist ein Test!";//[MCLocalization stringForKey:self.route.description];
+    //self.title = self.route.name;
+    self.routeCity.text = self.route.city;
+    self.routeCountry.text = self.route.country;
+    self.routeRegion.text = self.route.region;
+    self.routeType.text = self.route.type;
+    self.routeDescription.text = self.route.description;
+    self.cityLabel.text = [MCLocalization stringForKey:@"city"];
+    self.regionLabel.text = [MCLocalization stringForKey:@"region"];
+    self.countryLabel.text = [MCLocalization stringForKey:@"country"];
+    self.typeLabel.text = [MCLocalization stringForKey:@"tour_type"];
+    self.showOnMapBtn.title = [MCLocalization stringForKey:@"onMapBtn"];
+
+
 }
 
 @end

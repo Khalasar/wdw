@@ -21,6 +21,7 @@
 + (NSString *) getDocumentsDirectorsPathFor:(NSArray *)directoryArray;
 + (NSString *) currentLanguage;
 + (NSString *) currentLanguageLong;
++ (NSString *) currentLanguageForAudio;
 + (BOOL)   existFile:(NSString *)filename
 inDocumentsDirectory:(NSArray *)directoryArray;
 + (NSArray *) getPlacesArray:(NSArray *)array;
@@ -30,4 +31,5 @@ inDocumentsDirectory:(NSArray *)directoryArray;
 + (void)savePlacesArrayObject:(NSArray *)place withKey:(NSString *)key;
 + (Place *)loadPlaceObjectWithKey:(NSString *)key;
 + (void) showAlertIfPlacesNotLoaded;
++ (BOOL) audioGuideOn;
 @end

@@ -51,7 +51,7 @@
     
     [self addBackgroundImageView];
     self.userDefaults = [NSUserDefaults standardUserDefaults];
-    //[self addNotifications];
+    [self addNotifications];
 }
 
 -(void) viewWillDisappear:(BOOL)animated
@@ -67,6 +67,9 @@
     
     [self.view.subviews setValue:@NO forKey:@"hidden"];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self updateBtnLayout:self.placesBtn];
+    [self updateBtnLayout:self.routesBtn];
+    [self updateBtnLayout:self.downloadBtn];
 }
 
 -(void)viewWillLayoutSubviews
@@ -82,7 +85,9 @@
 
 -(void)preferredFontsChanged:(NSNotification *)notification
 {
-    [self updateBtnLayout];
+    [self updateBtnLayout:self.placesBtn];
+    [self updateBtnLayout:self.routesBtn];
+    [self updateBtnLayout:self.downloadBtn];
 }
 
 #pragma mark - helper(notification, layout)
@@ -103,21 +108,16 @@
                                                object:nil];
 }
 
--(void)updateBtnLayout
+-(void)updateBtnLayout:(UIButton *)btn
 {
+    
     self.scaleLevel = [Helper getScaleLevel];
-    for (UIView *view in self.view.subviews)
-    {
-        if ([view isMemberOfClass:[UIButton class]])
-        {
-            UIButton *btn = (UIButton *)view;
-            btn.layer.borderWidth = 1.0f;
-            btn.layer.borderColor = [[UIColor whiteColor] CGColor];
-            btn.layer.cornerRadius = 5.0f;
-            btn.layer.backgroundColor = [[UIColor colorWithWhite:1 alpha:0.5] CGColor];
-            btn.titleLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale: self.scaleLevel];
-        }
-    }
+
+    btn.layer.borderWidth = 1.0f;
+    btn.layer.borderColor = [[UIColor whiteColor] CGColor];
+    btn.layer.cornerRadius = 5.0f;
+    btn.layer.backgroundColor = [[UIColor colorWithWhite:1 alpha:0.5] CGColor];
+    btn.titleLabel.font = [UIFont myPreferredFontForTextStyle:UIFontTextStyleBody scale: self.scaleLevel];
 }
 
 - (void)updateLayout
@@ -126,7 +126,6 @@
     self.blurView.frame = self.backgroundImageView.bounds;
     UIView *shadowView = [self.view viewWithTag:1];
     shadowView.frame = self.backgroundImageView.bounds;
-    [self updateBtnLayout];
 }
 
 - (void) addBackgroundImageView
@@ -222,10 +221,13 @@
 
 - (void) localize
 {
-    NSLog(@"current lang: %@",[Helper currentLanguage]);
-    self.placesBtn.titleLabel.text = [MCLocalization stringForKey:@"placesBtn"];
-    self.routesBtn.titleLabel.text = [MCLocalization stringForKey:@"routesBtn"];
-    self.downloadBtn.titleLabel.text = [MCLocalization stringForKey:@"downloadBtn"];
+    [self.placesBtn setTitle:[MCLocalization stringForKey:@"placesBtn"] forState:UIControlStateNormal];
+    [self.routesBtn setTitle:[MCLocalization stringForKey:@"routesBtn"] forState:UIControlStateNormal];
+    [self.downloadBtn setTitle:[MCLocalization stringForKey:@"downloadBtn"] forState:UIControlStateNormal];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:[MCLocalization stringForKey:@"backBtn"]
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
 }
 
 @end
